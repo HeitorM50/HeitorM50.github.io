@@ -12,7 +12,8 @@ window.PORTFOLIO = {
 
   /* ---------- identidade ---------- */
   name: "Heitor Ricardo",
-  logo: "HR",
+  logo: "HR",                       // fallback em texto, usado se logoImage estiver vazio
+  logoImage: "images/logo.png",     // símbolo do header e dos cards do hero
   email: "heitorm50@gmail.com",
 
   links: {

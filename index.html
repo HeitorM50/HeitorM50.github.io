@@ -8,7 +8,8 @@
 <meta property="og:description" content="Heitor Ricardo — estudante de Engenharia de Software na UnB. Embarcados, fullstack e dados: telemetria sobre CAN, pipelines e CI/CD.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://heitorm50.github.io/">
-<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="images/logo.png" type="image/png">
+<link rel="apple-touch-icon" href="images/logo.png">
 <script src="content.js"></script>
 <script>window.__resources = {"ic_react": "assets/icons/ic_react.svg", "ic_typescript": "assets/icons/ic_typescript.svg", "ic_nextdotjs": "assets/icons/ic_nextdotjs.svg", "ic_tailwindcss": "assets/icons/ic_tailwindcss.svg", "ic_vite": "assets/icons/ic_vite.svg", "ic_framer": "assets/icons/ic_framer.svg", "ic_nodedotjs": "assets/icons/ic_nodedotjs.svg", "ic_postgresql": "assets/icons/ic_postgresql.svg", "ic_prisma": "assets/icons/ic_prisma.svg", "ic_graphql": "assets/icons/ic_graphql.svg", "ic_redis": "assets/icons/ic_redis.svg", "ic_docker": "assets/icons/ic_docker.svg", "ic_cloudflare": "assets/icons/ic_cloudflare.svg", "ic_git": "assets/icons/ic_git.svg", "ic_vercel": "assets/icons/ic_vercel.svg", "ic_vitest": "assets/icons/ic_vitest.svg", "ic_figma": "assets/icons/ic_figma.svg", "https://unpkg.com/react@18.3.1/umd/react.production.min.js": "assets/vendor/react.production.min.js", "https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js": "assets/vendor/react-dom.production.min.js", "ic_arduino": "assets/icons/ic_arduino.svg", "ic_cplusplus": "assets/icons/ic_cplusplus.svg", "ic_d3dotjs": "assets/icons/ic_d3dotjs.svg", "ic_espressif": "assets/icons/ic_espressif.svg", "ic_express": "assets/icons/ic_express.svg", "ic_githubactions": "assets/icons/ic_githubactions.svg", "ic_godotengine": "assets/icons/ic_godotengine.svg", "ic_googlecloud": "assets/icons/ic_googlecloud.svg", "ic_linux": "assets/icons/ic_linux.svg", "ic_numpy": "assets/icons/ic_numpy.svg", "ic_openjdk": "assets/icons/ic_openjdk.svg", "ic_pytest": "assets/icons/ic_pytest.svg", "ic_python": "assets/icons/ic_python.svg", "ic_render": "assets/icons/ic_render.svg", "ic_rust": "assets/icons/ic_rust.svg", "ic_supabase": "assets/icons/ic_supabase.svg", "ic_svelte": "assets/icons/ic_svelte.svg"};</script>
 
@@ -291,7 +292,7 @@
 
 <header style="position:sticky;top:0;z-index:60;display:flex;align-items:center;gap:20px;padding:14px 40px;backdrop-filter:blur(20px);background:{{ c.navBg }};border-bottom:1px solid {{ c.line }}">
   <div style="display:flex;align-items:center;gap:11px;flex:none">
-    <div style="width:30px;height:30px;border-radius:9px;border:1px dashed {{ c.line2 }};display:grid;place-items:center;font:500 7px/1 'IBM Plex Mono',monospace;color:{{ c.mut }}">{{ v.logo }}</div>
+    <div style="width:30px;height:30px;border-radius:9px;border:{{ v.logoBorder }};display:grid;place-items:center;font:500 7px/1 'IBM Plex Mono',monospace;color:{{ c.mut }};background-image:{{ v.logoImage }};background-size:contain;background-repeat:no-repeat;background-position:center">{{ v.logoText }}</div>
     <span style="font:600 14px/1 'Space Grotesk',sans-serif;letter-spacing:-0.01em;white-space:nowrap">{{ v.name }}</span>
   </div>
   <nav style="display:flex;flex-wrap:wrap;gap:22px;margin-left:auto;font:500 13px/1 'Space Grotesk',sans-serif;color:{{ c.mut }}">
@@ -342,7 +343,7 @@
         <sc-for list="{{ deck }}" as="d" hint-placeholder-count="3">
           <div style="{{ d.style }}">
             <div style="display:flex;align-items:center;gap:11px;padding:14px 18px;border-bottom:1px solid {{ c.line }};background:{{ c.deckBar }}">
-              <div style="width:20px;height:20px;flex:none;border-radius:6px;border:1px dashed {{ c.line2 }};display:grid;place-items:center;font:500 6px/1 'IBM Plex Mono',monospace;color:{{ c.mut }}">{{ v.logo }}</div>
+              <div style="width:20px;height:20px;flex:none;border-radius:6px;border:{{ v.logoBorder }};display:grid;place-items:center;font:500 6px/1 'IBM Plex Mono',monospace;color:{{ c.mut }};background-image:{{ v.logoImage }};background-size:contain;background-repeat:no-repeat;background-position:center">{{ v.logoText }}</div>
               <span style="font:500 15px/1 'Space Grotesk',sans-serif;letter-spacing:-0.01em;white-space:nowrap">{{ d.title }}</span>
               <span style="margin-left:auto;font:500 10px/1 'IBM Plex Mono',monospace;color:{{ c.mut }}">{{ d.tag }}</span>
             </div>
@@ -890,6 +891,9 @@ class Component extends DCLogic {
     const hd = P.headline || {};
     const v = {
       logo: P.logo || 'LOGO',
+      logoImage: P.logoImage ? IMG(P.logoImage) : 'none',
+      logoText: P.logoImage ? '' : (P.logo || 'LOGO'),
+      logoBorder: P.logoImage ? '0' : `1px dashed ${c.line2}`,
       name: P.name || '[Seu Nome]',
       heroBadge: T(P.heroBadge, pt ? 'DEV FRONTEND · FULL-STACK — DISPONÍVEL PARA VAGAS' : 'FRONTEND · FULL-STACK DEV — OPEN TO ROLES'),
       headA: T(hd.line1, pt ? 'Construo interfaces' : 'I build interfaces'),
