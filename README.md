@@ -22,7 +22,7 @@ Qualquer campo deixado vazio (`""`) volta ao placeholder do design.
 ## Estrutura
 
 ```
-index.html          markup + lógica do componente (design do Claude Design)
+index.html          markup + lógica do componente
 content.js          ← todo o conteúdo editável
 cv.pdf              currículo publicado (gerado sem o telefone)
 images/             screenshots dos projetos + retrato
