@@ -266,6 +266,36 @@
     h1{font-size:38px !important}
     .deck-wrap{height:270px !important}
   }
+  /* ---------- alternador de tema: sol e lua desenhados em CSS ---------- */
+  .theme-btn{ transition:border-color .3s, color .3s, background .3s }
+  .theme-btn:hover{ border-color:oklch(0.75 0.16 300 / .55) !important; color:oklch(0.8 0.14 300) !important }
+  .theme-btn:hover .icon-sun{ transform:rotate(75deg) }
+  .theme-btn:hover .icon-moon{ transform:rotate(-24deg) scale(1.06) }
+  .theme-btn:focus-visible{ outline:2px solid oklch(0.75 0.16 300 / .6); outline-offset:2px }
+
+  .icon-sun,.icon-moon{ display:block; transition:transform .45s cubic-bezier(.2,.8,.2,1) }
+
+  /* núcleo + 8 raios via box-shadow, tudo em currentColor */
+  .icon-sun{
+    width:7px; height:7px; border-radius:50%; background:currentColor;
+    box-shadow:
+      0 -8px 0 -2.2px currentColor,      0 8px 0 -2.2px currentColor,
+      -8px 0 0 -2.2px currentColor,      8px 0 0 -2.2px currentColor,
+      5.7px -5.7px 0 -2.7px currentColor, -5.7px 5.7px 0 -2.7px currentColor,
+      5.7px 5.7px 0 -2.7px currentColor,  -5.7px -5.7px 0 -2.7px currentColor;
+  }
+
+  /* crescente: disco cheio com uma mordida circular à direita */
+  .icon-moon{
+    width:15px; height:15px; border-radius:50%; background:currentColor;
+    transform:rotate(-14deg);
+    -webkit-mask:radial-gradient(circle 11px at 118% 16%, transparent 98%, #000 100%);
+            mask:radial-gradient(circle 11px at 118% 16%, transparent 98%, #000 100%);
+  }
+  @media (prefers-reduced-motion:reduce){
+    .icon-sun,.icon-moon{ transition:none }
+    .theme-btn:hover .icon-sun,.theme-btn:hover .icon-moon{ transform:none }
+  }
   .shine-text{
     background-image:linear-gradient(100deg,currentColor 25%,oklch(0.83 0.15 300) 45%,currentColor 65%);
     background-size:220% 100%;
@@ -307,7 +337,7 @@
       <button sc-camel-on-click="{{ setPt }}" style="border:0;cursor:pointer;padding:6px 8px;border-radius:6px;font:inherit;background:{{ c.ptBg }};color:{{ c.ptFg }}">PT</button>
       <button sc-camel-on-click="{{ setEn }}" style="border:0;cursor:pointer;padding:6px 8px;border-radius:6px;font:inherit;background:{{ c.enBg }};color:{{ c.enFg }}">EN</button>
     </div>
-    <button sc-camel-on-click="{{ toggleTheme }}" style="cursor:pointer;width:34px;height:34px;border-radius:9px;border:1px solid {{ c.line }};background:transparent;color:{{ c.fg }};font:500 13px/1 'IBM Plex Mono',monospace">{{ themeIcon }}</button>
+    <button sc-camel-on-click="{{ toggleTheme }}" class="theme-btn" aria-label="Alternar tema" style="cursor:pointer;width:34px;height:34px;border-radius:9px;border:1px solid {{ c.line }};background:transparent;color:{{ c.fg }};display:grid;place-items:center;padding:0"><span class="{{ themeIconClass }}"></span></button>
   </div>
 </header>
 
@@ -960,7 +990,7 @@ class Component extends DCLogic {
       deckCounter: `${String(di + 1).padStart(2, '0')} / ${String(dl).padStart(2, '0')}`,
       L1: pt ? 'inline' : 'none',
       L2: pt ? 'none' : 'inline',
-      themeIcon: dark ? '☀' : '☾',
+      themeIconClass: dark ? 'icon-sun' : 'icon-moon',
       swap: () => this.setState(s => ({ idx: (s.idx + 1) % dl })),
       setPt: () => this.setState({ lang: 'pt' }),
       setEn: () => this.setState({ lang: 'en' }),

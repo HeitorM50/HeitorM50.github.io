@@ -67,7 +67,7 @@ window.PORTFOLIO = {
   aboutStats: [
     { value: "2+",             label: { pt: "ANOS CODANDO",   en: "YEARS CODING" } },
     { value: "3",              label: { pt: "PRODUTOS NO AR", en: "SHIPPED PRODUCTS" } },
-    { value: "Planaltina, DF", label: { pt: "BASE · REMOTO OK", en: "BASED · REMOTE OK" } },
+    { value: "Brasília",      label: { pt: "BASE · REMOTO OK", en: "BASED · REMOTE OK" } },
   ],
 
   /* ---------- projetos em destaque ---------- */
@@ -259,5 +259,5 @@ window.PORTFOLIO = {
     pt: "Procuro estágio em desenvolvimento — backend, fullstack ou embarcados. O caminho mais rápido é o e-mail abaixo; respondo em até um dia.",
     en: "I'm looking for a development internship — backend, fullstack or embedded. The fastest route is the email below; I reply within a day.",
   },
-  footerBuilt: { pt: "FEITO COM HTML · CSS · JS · PLANALTINA, DF", en: "BUILT WITH HTML · CSS · JS · PLANALTINA, BR" },
+  footerBuilt: { pt: "FEITO COM HTML · CSS · JS · BRASÍLIA, DF", en: "BUILT WITH HTML · CSS · JS · BRASÍLIA, BR" },
 };
