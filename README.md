@@ -24,14 +24,21 @@ Qualquer campo deixado vazio (`""`) volta ao placeholder do design.
 ```
 index.html          markup + lógica do componente (design do Claude Design)
 content.js          ← todo o conteúdo editável
-images/             suas imagens
+cv.pdf              currículo publicado (gerado sem o telefone)
+images/             screenshots dos projetos + retrato
 assets/
   dc-runtime.js     runtime que renderiza o template
   vendor/           React 18 (UMD, local — sem CDN)
   fonts/            Space Grotesk + IBM Plex Mono (woff2, local)
-  icons/            ícones da stack (SVG, local)
+  icons/            ícones da stack (34 SVGs, local)
   favicon.svg
 ```
+
+## Sobre o cv.pdf
+
+É gerado a partir de `~/Projects/ai-job-search/cv/main_geral.tex` com a linha do
+telefone comentada, compilado com `xelatex`. Ao atualizar o currículo, recompile
+dessa forma antes de substituir o arquivo — o PDF aqui é público e indexável.
 
 ## Rodar local
 
