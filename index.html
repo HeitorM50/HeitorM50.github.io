@@ -1,141 +1,966 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
-<head>
+<html lang="pt-BR"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Heitor M. — Portfólio</title>
-<meta name="description" content="Portfólio pessoal de Heitor M. — desenvolvedor de software.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --bg:#0b0d10;
-    --bg-soft:#12161b;
-    --fg:#e6eaef;
-    --muted:#8b96a5;
-    --accent:#4ade80;
-    --line:rgba(255,255,255,.08);
-    --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
-    --sans:"Inter",system-ui,-apple-system,Segoe UI,sans-serif;
-  }
-  *{box-sizing:border-box}
-  html,body{height:100%}
-  body{
-    margin:0;
-    background:var(--bg);
-    color:var(--fg);
-    font-family:var(--sans);
-    -webkit-font-smoothing:antialiased;
-    display:flex;
-    flex-direction:column;
-    min-height:100vh;
-  }
-  body::before{
-    content:"";
-    position:fixed;
-    inset:0;
-    background:
-      radial-gradient(900px 500px at 15% -10%, rgba(74,222,128,.10), transparent 60%),
-      radial-gradient(700px 500px at 90% 110%, rgba(96,165,250,.08), transparent 60%);
-    pointer-events:none;
-    z-index:0;
-  }
-  main{
-    position:relative;
-    z-index:1;
-    flex:1;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    padding:clamp(2rem,6vw,5rem) 1.5rem;
-  }
-  .wrap{width:100%;max-width:680px}
-  .tag{
-    display:inline-flex;
-    align-items:center;
-    gap:.5rem;
-    font-family:var(--mono);
-    font-size:.78rem;
-    letter-spacing:.04em;
-    color:var(--muted);
-    border:1px solid var(--line);
-    background:var(--bg-soft);
-    border-radius:999px;
-    padding:.35rem .8rem;
-    margin-bottom:1.8rem;
-  }
-  .dot{
-    width:7px;height:7px;border-radius:50%;
-    background:var(--accent);
-    box-shadow:0 0 0 0 rgba(74,222,128,.6);
-    animation:pulse 2.4s infinite;
-  }
-  @keyframes pulse{
-    0%{box-shadow:0 0 0 0 rgba(74,222,128,.5)}
-    70%{box-shadow:0 0 0 8px rgba(74,222,128,0)}
-    100%{box-shadow:0 0 0 0 rgba(74,222,128,0)}
-  }
-  h1{
-    font-size:clamp(2.4rem,7vw,4rem);
-    line-height:1.05;
-    letter-spacing:-.03em;
-    margin:0 0 1rem;
-    font-weight:700;
-  }
-  h1 span{color:var(--accent)}
-  .lead{
-    font-size:clamp(1rem,2.4vw,1.15rem);
-    line-height:1.65;
-    color:var(--muted);
-    max-width:52ch;
-    margin:0 0 2.4rem;
-  }
-  .links{display:flex;flex-wrap:wrap;gap:.7rem}
-  a.btn{
-    font-family:var(--mono);
-    font-size:.85rem;
-    text-decoration:none;
-    color:var(--fg);
-    border:1px solid var(--line);
-    background:var(--bg-soft);
-    border-radius:10px;
-    padding:.7rem 1.1rem;
-    transition:border-color .18s ease, transform .18s ease, color .18s ease;
-  }
-  a.btn:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px)}
-  a.btn.primary{border-color:rgba(74,222,128,.35)}
-  footer{
-    position:relative;
-    z-index:1;
-    border-top:1px solid var(--line);
-    padding:1.2rem 1.5rem;
-    font-family:var(--mono);
-    font-size:.75rem;
-    color:var(--muted);
-    text-align:center;
-  }
-  @media (prefers-reduced-motion:reduce){
-    *{animation:none!important;transition:none!important}
-  }
-</style>
+<title>Heitor Miranda — Portfólio</title>
+<meta name="description" content="Portfólio de Heitor Miranda — desenvolvedor de software.">
+<meta property="og:title" content="Heitor Miranda — Portfólio">
+<meta property="og:description" content="Portfólio de Heitor Miranda — desenvolvedor de software.">
+<meta property="og:type" content="website">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<script src="content.js"></script>
+<script>window.__resources = {"ic_react": "assets/icons/ic_react.svg", "ic_typescript": "assets/icons/ic_typescript.svg", "ic_nextdotjs": "assets/icons/ic_nextdotjs.svg", "ic_tailwindcss": "assets/icons/ic_tailwindcss.svg", "ic_vite": "assets/icons/ic_vite.svg", "ic_framer": "assets/icons/ic_framer.svg", "ic_nodedotjs": "assets/icons/ic_nodedotjs.svg", "ic_postgresql": "assets/icons/ic_postgresql.svg", "ic_prisma": "assets/icons/ic_prisma.svg", "ic_graphql": "assets/icons/ic_graphql.svg", "ic_redis": "assets/icons/ic_redis.svg", "ic_docker": "assets/icons/ic_docker.svg", "ic_cloudflare": "assets/icons/ic_cloudflare.svg", "ic_git": "assets/icons/ic_git.svg", "ic_vercel": "assets/icons/ic_vercel.svg", "ic_vitest": "assets/icons/ic_vitest.svg", "ic_figma": "assets/icons/ic_figma.svg", "https://unpkg.com/react@18.3.1/umd/react.production.min.js": "assets/vendor/react.production.min.js", "https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js": "assets/vendor/react-dom.production.min.js"};</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="assets/dc-runtime.js"></script>
+
 </head>
 <body>
-<main>
-  <div class="wrap">
-    <div class="tag"><span class="dot"></span>em construção</div>
-    <h1>Heitor M.<br><span>desenvolvedor de software</span></h1>
-    <p class="lead">
-      Este é o começo do meu portfólio. Em breve: projetos, escrita técnica
-      e as coisas que ando construindo. Por enquanto, os links abaixo.
-    </p>
-    <div class="links">
-      <a class="btn primary" href="https://github.com/HeitorM50">GitHub</a>
-      <a class="btn" href="mailto:heitorm50@gmail.com">Email</a>
+<x-dc>
+<helmet data-dc-atomics="">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<style>/* cyrillic-ext */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("assets/fonts/ibm-plex-mono-400-1.woff2") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("assets/fonts/ibm-plex-mono-400-2.woff2") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("assets/fonts/ibm-plex-mono-400-3.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("assets/fonts/ibm-plex-mono-400-4.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("assets/fonts/ibm-plex-mono-400-5.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("assets/fonts/ibm-plex-mono-500-1.woff2") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("assets/fonts/ibm-plex-mono-500-2.woff2") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("assets/fonts/ibm-plex-mono-500-3.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("assets/fonts/ibm-plex-mono-500-4.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("assets/fonts/ibm-plex-mono-500-5.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("assets/fonts/space-grotesk-400-1.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("assets/fonts/space-grotesk-400-2.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("assets/fonts/space-grotesk-400-3.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("assets/fonts/space-grotesk-400-1.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("assets/fonts/space-grotesk-400-2.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("assets/fonts/space-grotesk-400-3.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("assets/fonts/space-grotesk-400-1.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("assets/fonts/space-grotesk-400-2.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("assets/fonts/space-grotesk-400-3.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("assets/fonts/space-grotesk-400-1.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("assets/fonts/space-grotesk-400-2.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("assets/fonts/space-grotesk-400-3.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+</style>
+<style>
+  body{margin:0;background:#08090b;font-family:"Space Grotesk",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  *{box-sizing:border-box}
+  a{color:inherit;text-decoration:none}
+  a:hover{color:oklch(0.8 0.14 300)}
+  @keyframes auroraA{0%{transform:translate3d(-6%,-3%,0) scale(1.1)}50%{transform:translate3d(10%,7%,0) scale(1.35)}100%{transform:translate3d(-6%,-3%,0) scale(1.1)}}
+  @keyframes auroraB{0%{transform:translate3d(8%,5%,0) scale(1.25)}50%{transform:translate3d(-10%,-7%,0) scale(1)}100%{transform:translate3d(8%,5%,0) scale(1.25)}}
+  @keyframes shine{0%{background-position:200% 50%}100%{background-position:-100% 50%}}
+  /* ---------- camada responsiva (adicionada ao design original) ---------- */
+  @media (max-width: 900px){
+    header{padding:12px 18px !important;flex-wrap:wrap;gap:12px !important}
+    header nav{order:3;width:100%;margin-left:0 !important;gap:16px !important;font-size:12px !important}
+    section{padding-left:20px !important;padding-right:20px !important;
+            padding-top:64px !important;padding-bottom:64px !important}
+    footer{padding:24px 20px !important;flex-direction:column;gap:10px;text-align:center}
+    h1{font-size:46px !important;letter-spacing:-0.03em !important}
+    h2{font-size:30px !important}
+    .hero-grid,.about-grid,.feat-row,.exp-body{grid-template-columns:minmax(0,1fr) !important;gap:32px !important}
+    .feat-row{direction:ltr !important}
+    .about-grid > div:first-child{max-width:340px}
+    .deck-wrap{height:340px !important}
+    .exp-tabs{grid-template-columns:none !important;grid-auto-flow:column;grid-auto-columns:minmax(140px,1fr);
+              overflow-x:auto;scrollbar-width:none}
+    .exp-tabs::-webkit-scrollbar{display:none}
+    .exp-body{padding:26px 22px !important}
+  }
+  @media (max-width: 560px){
+    h1{font-size:38px !important}
+    .deck-wrap{height:270px !important}
+  }
+  .shine-text{
+    background-image:linear-gradient(100deg,currentColor 25%,oklch(0.83 0.15 300) 45%,currentColor 65%);
+    background-size:220% 100%;
+    -webkit-background-clip:text;background-clip:text;
+    -webkit-text-fill-color:transparent;
+    animation:shine 5s linear infinite;
+  }
+  @keyframes specular{0%{transform:translateX(-120%) skewX(-18deg)}100%{transform:translateX(220%) skewX(-18deg)}}
+  @keyframes floaty{0%{transform:translateY(0)}50%{transform:translateY(-7px)}100%{transform:translateY(0)}}
+  @keyframes fadeUp{0%{opacity:0;transform:translateY(8px)}100%{opacity:1;transform:translateY(0)}}
+</style>
+</helmet>
+
+<div style="position:relative;min-height:100vh;color:{{ c.fg }};background:{{ c.bg }};transition:color .4s,background .4s;overflow-x:hidden">
+
+<div style="position:fixed;inset:0;z-index:0;pointer-events:none;background:{{ c.wash }};transition:background .6s linear"></div>
+<canvas ref="{{ canvasRef }}" style="position:fixed;inset:0;z-index:1;width:100%;height:100%;pointer-events:none;opacity:{{ c.strandOp }}"></canvas>
+<div style="position:fixed;inset:0;z-index:2;pointer-events:none;filter:blur(120px);opacity:{{ c.auroraOp }}">
+  <div style="position:absolute;left:4%;top:2%;width:44%;height:60%;border-radius:50%;background:{{ c.blob1 }};animation:auroraA 22s ease-in-out infinite;transition:background .6s linear"></div>
+  <div style="position:absolute;right:2%;bottom:4%;width:40%;height:56%;border-radius:50%;background:{{ c.blob2 }};animation:auroraB 28s ease-in-out infinite;transition:background .6s linear"></div>
+</div>
+
+<div style="position:relative;z-index:3">
+
+<header style="position:sticky;top:0;z-index:60;display:flex;align-items:center;gap:20px;padding:14px 40px;backdrop-filter:blur(20px);background:{{ c.navBg }};border-bottom:1px solid {{ c.line }}">
+  <div style="display:flex;align-items:center;gap:11px;flex:none">
+    <div style="width:30px;height:30px;border-radius:9px;border:1px dashed {{ c.line2 }};display:grid;place-items:center;font:500 7px/1 'IBM Plex Mono',monospace;color:{{ c.mut }}">{{ v.logo }}</div>
+    <span style="font:600 14px/1 'Space Grotesk',sans-serif;letter-spacing:-0.01em;white-space:nowrap">{{ v.name }}</span>
+  </div>
+  <nav style="display:flex;flex-wrap:wrap;gap:22px;margin-left:auto;font:500 13px/1 'Space Grotesk',sans-serif;color:{{ c.mut }}">
+    <a href="#sobre"><span style="display:{{ L1 }}">Sobre</span><span style="display:{{ L2 }}">About</span></a>
+    <a href="#projetos"><span style="display:{{ L1 }}">Projetos</span><span style="display:{{ L2 }}">Work</span></a>
+    <a href="#stack">Stack</a>
+    <a href="#exp"><span style="display:{{ L1 }}">Trajetória</span><span style="display:{{ L2 }}">Timeline</span></a>
+    <a href="#contato"><span style="display:{{ L1 }}">Contato</span><span style="display:{{ L2 }}">Contact</span></a>
+  </nav>
+  <div style="display:flex;align-items:center;gap:8px;flex:none">
+    <div style="display:flex;padding:3px;gap:2px;border-radius:9px;border:1px solid {{ c.line }};font:500 11px/1 'IBM Plex Mono',monospace">
+      <button sc-camel-on-click="{{ setPt }}" style="border:0;cursor:pointer;padding:6px 8px;border-radius:6px;font:inherit;background:{{ c.ptBg }};color:{{ c.ptFg }}">PT</button>
+      <button sc-camel-on-click="{{ setEn }}" style="border:0;cursor:pointer;padding:6px 8px;border-radius:6px;font:inherit;background:{{ c.enBg }};color:{{ c.enFg }}">EN</button>
+    </div>
+    <button sc-camel-on-click="{{ toggleTheme }}" style="cursor:pointer;width:34px;height:34px;border-radius:9px;border:1px solid {{ c.line }};background:transparent;color:{{ c.fg }};font:500 13px/1 'IBM Plex Mono',monospace">{{ themeIcon }}</button>
+  </div>
+</header>
+
+<section style="position:relative;padding:96px 40px 130px;min-height:640px">
+  <div class="hero-grid" style="max-width:1240px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,0.95fr);gap:56px;align-items:center">
+    <div>
+      <span style="font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:.16em;color:{{ c.mut }}">
+        <span>{{ v.heroBadge }}</span>
+      </span>
+      <h1 style="margin:22px 0 0;font:600 92px/0.93 'Space Grotesk',sans-serif;letter-spacing:-0.045em"><span>{{ v.headA }}<br>{{ v.headB }} <span class="shine-text">{{ v.headHi }}</span>{{ v.headTail }}</span></h1>
+      <p style="margin:28px 0 0;max-width:440px;font:400 16.5px/1.65 'Space Grotesk',sans-serif;color:{{ c.mut2 }};text-wrap:pretty">
+        <span>{{ v.intro }}</span>
+      </p>
+      <div style="display:flex;gap:36px;margin-top:34px;font:500 10.5px/1.5 'IBM Plex Mono',monospace;color:{{ c.mut }}">
+        <div><div style="font:600 30px/1 'Space Grotesk',sans-serif;color:{{ c.fg }}">{{ v.heroStat1Value }}</div><span>{{ v.heroStat1Label }}</span></div>
+        <div><div style="font:600 30px/1 'Space Grotesk',sans-serif;color:{{ c.fg }}">{{ v.heroStat2Value }}</div><span>{{ v.heroStat2Label }}</span></div>
+        <div><div style="font:600 30px/1 'Space Grotesk',sans-serif;color:{{ c.fg }}">{{ v.heroStat3Value }}</div><span>{{ v.heroStat3Label }}</span></div>
+      </div>
+      <div style="display:flex;gap:13px;margin-top:38px;flex-wrap:wrap">
+        <a href="#projetos" style="position:relative;overflow:hidden;display:inline-flex;align-items:center;padding:15px 28px;border-radius:12px;font:600 14px/1 'Space Grotesk',sans-serif;color:#0a0b0d;background:linear-gradient(180deg,#fff,oklch(0.86 0.03 300));box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 14px 36px -16px rgba(0,0,0,.7)">
+          <span style="position:relative;z-index:2"><span>{{ v.ctaWork }}</span></span>
+          <span style="position:absolute;top:0;bottom:0;width:40%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.85),transparent);animation:specular 4.2s ease-in-out infinite"></span>
+        </a>
+        <a href="#contato" style="display:inline-flex;align-items:center;gap:9px;padding:15px 26px;border-radius:12px;font:600 14px/1 'Space Grotesk',sans-serif;border:1px solid {{ c.line2 }};color:{{ c.fg }};background:{{ c.ph }}">
+          <span>{{ v.ctaCv }}</span>
+          <span style="font:500 10px/1 'IBM Plex Mono',monospace;color:{{ c.mut }}">PDF</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="deck-wrap" style="position:relative;height:530px;overflow:hidden">
+      <div sc-camel-on-click="{{ swap }}" style="position:absolute;inset:0;cursor:pointer;transform-style:preserve-3d">
+        <sc-for list="{{ deck }}" as="d" hint-placeholder-count="3">
+          <div style="{{ d.style }}">
+            <div style="display:flex;align-items:center;gap:11px;padding:14px 18px;border-bottom:1px solid {{ c.line }};background:{{ c.deckBar }}">
+              <div style="width:20px;height:20px;flex:none;border-radius:6px;border:1px dashed {{ c.line2 }};display:grid;place-items:center;font:500 6px/1 'IBM Plex Mono',monospace;color:{{ c.mut }}">{{ v.logo }}</div>
+              <span style="font:500 15px/1 'Space Grotesk',sans-serif;letter-spacing:-0.01em;white-space:nowrap">{{ d.title }}</span>
+              <span style="margin-left:auto;font:500 10px/1 'IBM Plex Mono',monospace;color:{{ c.mut }}">{{ d.tag }}</span>
+            </div>
+            <div style="position:relative;flex:1;overflow:hidden;background:{{ d.art }}">
+              <div style="position:absolute;inset:0;background-image:{{ d.stripes }}"></div>
+              <div style="position:absolute;inset:0;display:grid;place-items:center;font:600 108px/1 'Space Grotesk',sans-serif;letter-spacing:-0.05em;color:{{ c.deckNum }}">{{ d.num }}</div>
+              <div style="position:absolute;left:16px;bottom:14px;font:500 9.5px/1 'IBM Plex Mono',monospace;color:{{ c.mut }}">{{ d.slot }}</div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+      <div style="position:absolute;left:2px;bottom:-30px;display:flex;align-items:center;gap:10px;font:500 10px/1 'IBM Plex Mono',monospace;color:{{ c.mut }}">
+        <span><span>{{ v.deckHint }}</span></span>
+        <span>{{ deckCounter }}</span>
+      </div>
     </div>
   </div>
-</main>
-<footer>© <span id="y">2026</span> Heitor M. — construído com HTML e café.</footer>
-<script>document.getElementById('y').textContent=new Date().getFullYear()</script>
-</body>
-</html>
+</section>
+
+<section id="sobre" style="padding:110px 40px;border-top:1px solid {{ c.line }}">
+  <div class="about-grid" style="max-width:1180px;margin:0 auto;display:grid;grid-template-columns:minmax(0,400px) minmax(0,1fr);gap:72px;align-items:start">
+    <div style="aspect-ratio:4/5;border-radius:18px;border:1px dashed {{ c.line2 }};background:{{ c.ph }};background-image:{{ v.photo }};display:grid;place-items:center;text-align:center;font:500 10px/1.6 'IBM Plex Mono',monospace;color:{{ c.mut }};background-size:cover;background-position:center">{{ v.photoLabel }}</div>
+    <div>
+      <span style="font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:.16em;color:{{ c.mut }}">01 — <span>{{ v.aboutKicker }}</span></span>
+      <h2 style="margin:18px 0 22px;font:600 44px/1.08 'Space Grotesk',sans-serif;letter-spacing:-0.03em;max-width:640px">
+        <span>{{ v.manifesto }}</span>
+      </h2>
+      <p style="margin:0 0 16px;max-width:620px;font:400 16.5px/1.7 'Space Grotesk',sans-serif;color:{{ c.mut2 }};text-wrap:pretty">
+        <span>{{ v.about1 }}</span>
+      </p>
+      <p style="margin:0;max-width:620px;font:400 16.5px/1.7 'Space Grotesk',sans-serif;color:{{ c.mut2 }};text-wrap:pretty">
+        <span>{{ v.about2 }}</span>
+      </p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:18px;margin-top:34px;max-width:620px">
+        <div style="padding:18px;border-radius:14px;border:1px solid {{ c.line }};background:{{ c.card }}"><div style="font:600 26px/1 'Space Grotesk',sans-serif">{{ v.aboutStat1Value }}</div><div style="margin-top:7px;font:500 10px/1.4 'IBM Plex Mono',monospace;color:{{ c.mut }}"><span>{{ v.aboutStat1Label }}</span></div></div>
+        <div style="padding:18px;border-radius:14px;border:1px solid {{ c.line }};background:{{ c.card }}"><div style="font:600 26px/1 'Space Grotesk',sans-serif">{{ v.aboutStat2Value }}</div><div style="margin-top:7px;font:500 10px/1.4 'IBM Plex Mono',monospace;color:{{ c.mut }}"><span>{{ v.aboutStat2Label }}</span></div></div>
+        <div style="padding:18px;border-radius:14px;border:1px solid {{ c.line }};background:{{ c.card }}"><div style="font:600 26px/1 'Space Grotesk',sans-serif">{{ v.aboutStat3Value }}</div><div style="margin-top:7px;font:500 10px/1.4 'IBM Plex Mono',monospace;color:{{ c.mut }}"><span>{{ v.aboutStat3Label }}</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projetos" style="padding:110px 40px;border-top:1px solid {{ c.line }}">
+  <div style="max-width:1180px;margin:0 auto">
+    <span style="font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:.16em;color:{{ c.mut }}">02 — <span style="display:{{ L1 }}">DESTAQUES</span><span style="display:{{ L2 }}">FEATURED</span></span>
+    <h2 style="margin:16px 0 52px;font:600 44px/1.05 'Space Grotesk',sans-serif;letter-spacing:-0.03em"><span style="display:{{ L1 }}">Projetos em destaque</span><span style="display:{{ L2 }}">Featured projects</span></h2>
+    <div style="display:flex;flex-direction:column;gap:34px">
+      <sc-for list="{{ featured }}" as="f" hint-placeholder-count="3">
+        <div class="feat-row" style="{{ f.row }}">
+          <div style="direction:ltr;border-radius:16px;overflow:hidden;border:1px solid {{ c.line2 }};background:{{ c.ph }};aspect-ratio:16/10;background-image:{{ f.bgImage }};background-size:cover;background-position:center;display:grid;place-items:center;font:500 10px/1 'IBM Plex Mono',monospace;color:{{ c.mut }}">{{ f.slot }}</div>
+          <div style="direction:ltr;display:flex;flex-direction:column;gap:16px;justify-content:center">
+            <span style="font:500 11px/1 'IBM Plex Mono',monospace;color:{{ c.mut }}">{{ f.index }}</span>
+            <h3 style="margin:0;font:600 32px/1.12 'Space Grotesk',sans-serif;letter-spacing:-0.025em">{{ f.title }}</h3>
+            <p style="margin:0;max-width:460px;font:400 15.5px/1.7 'Space Grotesk',sans-serif;color:{{ c.mut2 }};text-wrap:pretty">{{ f.desc }}</p>
+            <div style="display:flex;gap:8px;flex-wrap:wrap">
+              <sc-for list="{{ f.tech }}" as="t"><span style="padding:7px 12px;border-radius:99px;border:1px solid {{ c.line2 }};font:500 10.5px/1 'IBM Plex Mono',monospace;color:{{ c.mut }}">{{ t.name }}</span></sc-for>
+            </div>
+            <div style="display:flex;gap:12px;margin-top:4px">
+              <a href="{{ f.liveUrl }}" target="_blank" rel="noopener" style="position:relative;overflow:hidden;display:inline-flex;align-items:center;padding:12px 22px;border-radius:10px;font:600 13px/1 'Space Grotesk',sans-serif;color:#0a0b0d;background:linear-gradient(180deg,#fff,oklch(0.87 0.02 300));box-shadow:inset 0 1px 0 rgba(255,255,255,.9)">
+                <span style="position:relative;z-index:2"><span>{{ v.ctaLive }}</span></span>
+                <span style="position:absolute;top:0;bottom:0;width:40%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.8),transparent);animation:specular 4s ease-in-out infinite"></span>
+              </a>
+              <a href="{{ f.sourceUrl }}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;padding:12px 20px;border-radius:10px;border:1px solid {{ c.line2 }};font:600 13px/1 'Space Grotesk',sans-serif;color:{{ c.fg }}"><span>{{ v.ctaSource }}</span></a>
+            </div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<section style="padding:110px 40px;border-top:1px solid {{ c.line }}">
+  <div style="max-width:1180px;margin:0 auto">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:40px">
+      <div>
+        <span style="font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:.16em;color:{{ c.mut }}">03 — <span style="display:{{ L1 }}">TODOS OS PROJETOS</span><span style="display:{{ L2 }}">ALL PROJECTS</span></span>
+        <h2 style="margin:16px 0 0;font:600 44px/1.05 'Space Grotesk',sans-serif;letter-spacing:-0.03em"><span style="display:{{ L1 }}">Grade de projetos</span><span style="display:{{ L2 }}">Project grid</span></h2>
+      </div>
+      <span style="font:500 10.5px/1.5 'IBM Plex Mono',monospace;color:{{ c.mut }};max-width:280px"><span style="display:{{ L1 }}">PASSE O MOUSE — A COR SEGUE O CURSOR</span><span style="display:{{ L2 }}">HOVER — COLOR FOLLOWS THE CURSOR</span></span>
+    </div>
+    <div sc-camel-on-mouse-move="{{ onGridMove }}" sc-camel-on-mouse-leave="{{ onGridLeave }}" style="position:relative;border-radius:20px">
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:22px">
+        <sc-for list="{{ grid }}" as="p" hint-placeholder-count="6">
+          <a href="{{ p.url }}" target="_blank" rel="noopener" style="{{ p.card }}">
+            <div style="position:absolute;inset:0;border-radius:17px;padding:1px;background:{{ p.ring }};-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none"></div>
+            <div style="position:relative;aspect-ratio:16/10;border-bottom:1px solid {{ c.line }};background:{{ p.glow }};background-image:{{ p.bgImage }};background-size:cover;background-position:center;display:grid;place-items:center;font:500 9.5px/1 'IBM Plex Mono',monospace;color:{{ c.mut }}">{{ p.slot }}</div>
+            <div style="position:relative;padding:18px 18px 20px;display:flex;flex-direction:column;gap:9px">
+              <div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px">
+                <span style="font:600 17px/1.2 'Space Grotesk',sans-serif">{{ p.title }}</span>
+                <span style="font:500 10px/1 'IBM Plex Mono',monospace;color:{{ c.mut }}">{{ p.year }}</span>
+              </div>
+              <span style="font:400 13.5px/1.55 'Space Grotesk',sans-serif;color:{{ c.mut2 }}">{{ p.desc }}</span>
+              <span style="font:500 10px/1 'IBM Plex Mono',monospace;color:{{ c.mut }};margin-top:4px">{{ p.stack }}</span>
+            </div>
+          </a>
+        </sc-for>
+      </div>
+      <div style="{{ chromaVeil }}"></div>
+    </div>
+  </div>
+</section>
+
+<section id="stack" style="padding:110px 40px;border-top:1px solid {{ c.line }}">
+  <div style="max-width:1180px;margin:0 auto">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:30px;flex-wrap:wrap;margin-bottom:44px">
+      <div>
+        <span style="font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:.16em;color:{{ c.mut }}">04 — STACK</span>
+        <h2 style="margin:16px 0 0;font:600 44px/1.05 'Space Grotesk',sans-serif;letter-spacing:-0.03em"><span style="display:{{ L1 }}">Ferramentas do dia a dia</span><span style="display:{{ L2 }}">Everyday tools</span></h2>
+      </div>
+      <p style="margin:0;max-width:330px;font:400 14.5px/1.6 'Space Grotesk',sans-serif;color:{{ c.mut2 }}">
+        <span>{{ v.stackNote }}</span>
+      </p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:22px">
+      <sc-for list="{{ stackGroups }}" as="g" hint-placeholder-count="3">
+        <div style="padding:26px 24px 22px;border-radius:18px;border:1px solid {{ c.line }};background:{{ c.card }};display:flex;flex-direction:column;gap:20px">
+          <div style="display:flex;align-items:center;gap:10px">
+            <span style="width:7px;height:7px;border-radius:50%;background:{{ g.dot }}"></span>
+            <span style="font:500 10.5px/1 'IBM Plex Mono',monospace;letter-spacing:.14em;color:{{ c.mut }}">{{ g.label }}</span>
+            <span style="margin-left:auto;font:500 10.5px/1 'IBM Plex Mono',monospace;color:{{ c.mut }}">{{ g.count }}</span>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:10px">
+            <sc-for list="{{ g.items }}" as="t">
+              <div style="display:flex;align-items:center;gap:9px;padding:9px 13px 9px 10px;border-radius:11px;border:1px solid {{ c.line }};background:{{ c.chip }}" style-hover="border-color:{{ c.line2 }};transform:translateY(-2px)">
+                <span style="{{ t.iconStyle }}"></span>
+                <span style="font:500 13px/1.2 'Space Grotesk',sans-serif;white-space:nowrap">{{ t.name }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<section id="exp" style="padding:110px 40px;border-top:1px solid {{ c.line }}">
+  <div style="max-width:1180px;margin:0 auto">
+    <span style="font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:.16em;color:{{ c.mut }}">05 — <span style="display:{{ L1 }}">TRAJETÓRIA</span><span style="display:{{ L2 }}">TIMELINE</span></span>
+    <h2 style="margin:16px 0 46px;font:600 44px/1.05 'Space Grotesk',sans-serif;letter-spacing:-0.03em"><span style="display:{{ L1 }}">Linha do tempo</span><span style="display:{{ L2 }}">Career timeline</span></h2>
+
+    <div style="position:relative;padding:0 0 30px">
+      <div style="position:absolute;left:0;right:0;top:19px;height:1px;background:{{ c.line2 }}"></div>
+      <div style="{{ railProgress }}"></div>
+      <div class="exp-tabs" style="position:relative;display:grid;grid-template-columns:repeat({{ expCount }},minmax(0,1fr))">
+        <sc-for list="{{ exp }}" as="e" hint-placeholder-count="4">
+          <button sc-camel-on-click="{{ e.select }}" sc-camel-on-mouse-enter="{{ e.select }}" style="{{ e.tab }}">
+            <span style="{{ e.dot }}"></span>
+            <span style="font:500 10.5px/1 'IBM Plex Mono',monospace;color:{{ e.periodColor }}">{{ e.period }}</span>
+            <span style="font:600 14px/1.25 'Space Grotesk',sans-serif;color:{{ e.roleColor }};text-align:left">{{ e.role }}</span>
+          </button>
+        </sc-for>
+      </div>
+    </div>
+
+    <div style="margin-top:14px;border-radius:20px;border:1px solid {{ c.line }};background:{{ c.card }};overflow:hidden">
+      <div key="{{ activeExpKey }}" class="exp-body" style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,320px);gap:44px;padding:38px 36px;animation:fadeUp .4s ease both">
+        <div>
+          <div style="display:flex;align-items:center;gap:16px">
+            <div style="width:46px;height:46px;flex:none;border-radius:12px;border:1px dashed {{ c.line2 }};display:grid;place-items:center;font:500 7px/1 'IBM Plex Mono',monospace;color:{{ c.mut }}">{{ activeExp.logo }}</div>
+            <div>
+              <div style="font:600 24px/1.2 'Space Grotesk',sans-serif;letter-spacing:-0.02em">{{ activeExp.role }}</div>
+              <div style="margin-top:6px;font:500 10.5px/1 'IBM Plex Mono',monospace;color:{{ c.mut }}">{{ activeExp.company }}</div>
+            </div>
+          </div>
+          <p style="margin:22px 0 0;max-width:620px;font:400 16px/1.7 'Space Grotesk',sans-serif;color:{{ c.mut2 }};text-wrap:pretty">{{ activeExp.desc }}</p>
+          <div style="display:flex;flex-direction:column;gap:10px;margin-top:22px">
+            <div style="display:flex;gap:12px;align-items:flex-start"><span style="margin-top:7px;width:5px;height:5px;flex:none;border-radius:50%;background:{{ c.accent }}"></span><span style="font:400 15px/1.6 'Space Grotesk',sans-serif;color:{{ c.mut2 }}">{{ activeExp.b1 }}</span></div>
+            <div style="display:flex;gap:12px;align-items:flex-start"><span style="margin-top:7px;width:5px;height:5px;flex:none;border-radius:50%;background:{{ c.accent }}"></span><span style="font:400 15px/1.6 'Space Grotesk',sans-serif;color:{{ c.mut2 }}">{{ activeExp.b2 }}</span></div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <div style="padding:18px;border-radius:14px;border:1px solid {{ c.line }};background:{{ c.chip }}">
+            <div style="font:500 10px/1 'IBM Plex Mono',monospace;color:{{ c.mut }}"><span style="display:{{ L1 }}">PRINCIPAL RESULTADO</span><span style="display:{{ L2 }}">KEY RESULT</span></div>
+            <div style="margin-top:10px;font:600 30px/1 'Space Grotesk',sans-serif">{{ activeExp.metricValue }}</div>
+            <div style="margin-top:8px;font:400 13px/1.5 'Space Grotesk',sans-serif;color:{{ c.mut2 }}">{{ activeExp.metric }}</div>
+          </div>
+          <div style="padding:18px;border-radius:14px;border:1px solid {{ c.line }};background:{{ c.chip }}">
+            <div style="font:500 10px/1 'IBM Plex Mono',monospace;color:{{ c.mut }}"><span style="display:{{ L1 }}">STACK NO PERÍODO</span><span style="display:{{ L2 }}">STACK AT THE TIME</span></div>
+            <div style="display:flex;flex-wrap:wrap;gap:7px;margin-top:12px">
+              <sc-for list="{{ activeExp.stack }}" as="t"><span style="padding:6px 11px;border-radius:99px;border:1px solid {{ c.line2 }};font:500 10px/1 'IBM Plex Mono',monospace;color:{{ c.mut }}">{{ t.name }}</span></sc-for></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contato" style="position:relative;padding:130px 40px;border-top:1px solid {{ c.line }}">
+  <div style="position:relative;max-width:760px;margin:0 auto;text-align:center;display:flex;flex-direction:column;align-items:center;gap:22px">
+    <span style="font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:.16em;color:{{ c.mut }}">06 — <span style="display:{{ L1 }}">CONTATO</span><span style="display:{{ L2 }}">CONTACT</span></span>
+    <h2 style="margin:0;font:600 58px/1.03 'Space Grotesk',sans-serif;letter-spacing:-0.035em;background:linear-gradient(100deg,{{ c.fg }} 25%,oklch(0.85 0.13 300) 45%,{{ c.fg }} 65%);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 6s linear infinite">
+      <span>{{ v.contactHeadline }}</span>
+    </h2>
+    <p style="margin:0;max-width:520px;font:400 17px/1.65 'Space Grotesk',sans-serif;color:{{ c.mut2 }}">
+      <span>{{ v.contactLine }}</span>
+    </p>
+    <a href="{{ v.mailto }}" style="position:relative;overflow:hidden;display:inline-flex;align-items:center;gap:10px;margin-top:8px;padding:18px 34px;border-radius:99px;font:600 15px/1 'Space Grotesk',sans-serif;color:#0a0b0d;background:linear-gradient(180deg,#fff,oklch(0.85 0.04 300));box-shadow:inset 0 1px 0 rgba(255,255,255,.95),0 18px 44px -18px rgba(0,0,0,.7)">
+      <span style="position:relative;z-index:2">{{ v.email }}</span>
+      <span style="position:absolute;top:0;bottom:0;width:34%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.85),transparent);animation:specular 3.4s ease-in-out infinite"></span>
+    </a>
+    <div style="display:flex;gap:10px;margin-top:6px;flex-wrap:wrap;justify-content:center">
+      <a href="{{ v.githubUrl }}" target="_blank" rel="noopener" style="padding:11px 18px;border-radius:99px;border:1px solid {{ c.line2 }};font:500 11px/1 'IBM Plex Mono',monospace;color:{{ c.mut }}">GITHUB</a>
+      <a href="{{ v.linkedinUrl }}" target="_blank" rel="noopener" style="padding:11px 18px;border-radius:99px;border:1px solid {{ c.line2 }};font:500 11px/1 'IBM Plex Mono',monospace;color:{{ c.mut }}">LINKEDIN</a>
+      <a href="{{ v.cvUrl }}" target="_blank" rel="noopener" style="padding:11px 18px;border-radius:99px;border:1px solid {{ c.line2 }};font:500 11px/1 'IBM Plex Mono',monospace;color:{{ c.mut }}">CV · PDF</a>
+    </div>
+  </div>
+</section>
+
+<footer style="padding:30px 40px;border-top:1px solid {{ c.line }};display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;font:500 10.5px/1 'IBM Plex Mono',monospace;color:{{ c.mut }}">
+  <span>{{ v.copyright }}</span>
+  <span><span>{{ v.footerBuilt }}</span></span>
+</footer>
+
+</div></div>
+</x-dc>
+<script type="text/x-dc" data-dc-script="" data-props="{&quot;theme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;dark&quot;,&quot;light&quot;],&quot;default&quot;:&quot;dark&quot;,&quot;tsType&quot;:&quot;'dark'|'light'&quot;,&quot;section&quot;:&quot;Visual&quot;},&quot;projectCount&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:6,&quot;min&quot;:3,&quot;max&quot;:12,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Conteúdo&quot;}}">
+class Component extends DCLogic {
+  state = { theme: null, lang: 'pt', idx: 0, sp: 0, expIdx: 0, mx: -999, my: -999, hover: false };
+  canvas = null;
+
+  get theme() { return this.state.theme ?? (this.props.theme ?? 'dark'); }
+
+  componentDidMount() {
+    this.sp = 0;
+    this.onScroll = () => {
+      const p = Math.round(this.scrollProgress() * 100) / 100;
+      this.sp = p;
+      if (p !== this.state.sp) this.setState({ sp: p });
+    };
+    document.addEventListener('scroll', this.onScroll, { capture: true, passive: true });
+    window.addEventListener('scroll', this.onScroll, { passive: true });
+    window.addEventListener('resize', this.onScroll, { passive: true });
+    this.spTimer = setInterval(this.onScroll, 250);
+    this.onScroll();
+    this.startStrands();
+  }
+  componentDidUpdate() { this.startStrands(); }
+  componentWillUnmount() {
+    cancelAnimationFrame(this.raf);
+    clearInterval(this.spTimer);
+    document.removeEventListener('scroll', this.onScroll, { capture: true });
+    window.removeEventListener('scroll', this.onScroll);
+    window.removeEventListener('resize', this.onScroll);
+  }
+
+  scrollProgress() {
+    const cands = [];
+    let el = this.canvas ? this.canvas.parentElement : null;
+    while (el) { cands.push(el); el = el.parentElement; }
+    const de = document.scrollingElement || document.documentElement;
+    cands.push(de, document.body);
+    for (const n of cands) {
+      if (!n || typeof n.scrollTop !== 'number') continue;
+      const max = n.scrollHeight - n.clientHeight;
+      if (max > 80 && n.scrollTop > 0) return Math.min(1, n.scrollTop / max);
+    }
+    if (window.scrollY > 0) {
+      const max = Math.max(1, de.scrollHeight - window.innerHeight);
+      return Math.min(1, window.scrollY / max);
+    }
+    return 0;
+  }
+
+  startStrands() {
+    const cv = this.canvas;
+    if (!cv || cv === this._wired) return;
+    this._wired = cv;
+    if (this.raf) cancelAnimationFrame(this.raf);
+    const ctx = cv.getContext('2d');
+    const beams = [
+      { off: -0.055, amp: 0.20, w: 2.4, blur: 60, ph: 0.0, sp: 0.24, stops: [[185, 0.86], [300, 0.9], [55, 0.86]] },
+      { off: 0.0,    amp: 0.14, w: 3.4, blur: 90, ph: 1.4, sp: 0.18, stops: [[330, 0.9], [98, 0.02], [235, 0.9]] },
+      { off: 0.052,  amp: 0.24, w: 1.8, blur: 46, ph: 2.6, sp: 0.3,  stops: [[265, 0.85], [212, 0.9], [318, 0.85]] },
+      { off: 0.11,   amp: 0.09, w: 1.2, blur: 30, ph: 4.1, sp: 0.4,  stops: [[205, 0.8], [285, 0.8], [205, 0.8]] },
+    ];
+    const tick = (t) => {
+      this.raf = requestAnimationFrame(tick);
+      try {
+        const r = Math.min(2, window.devicePixelRatio || 1);
+        const w = cv.clientWidth, h = cv.clientHeight;
+        if (!w || !h) return;
+        if (cv.width !== Math.round(w * r)) { cv.width = Math.round(w * r); cv.height = Math.round(h * r); }
+        ctx.setTransform(r, 0, 0, r, 0, 0);
+        ctx.clearRect(0, 0, w, h);
+        const dark = this.theme === 'dark';
+        const p = this.sp || 0;
+        const hueShift = p * 260;
+        const cx = w * (0.5 + Math.sin(p * Math.PI * 1.6) * 0.2);
+        const scroll = p * 8;
+        ctx.globalCompositeOperation = 'lighter';
+        beams.forEach((b, bi) => {
+          const grad = ctx.createLinearGradient(0, 0, 0, h);
+          const L = dark ? 0.82 : 0.62, C = dark ? 0.2 : 0.17;
+          grad.addColorStop(0, 'oklch(' + L + ' ' + C + ' ' + (b.stops[0][0] + hueShift) + ' / 0)');
+          b.stops.forEach((st, k) => {
+            const at = 0.14 + (k / (b.stops.length - 1)) * 0.72;
+            grad.addColorStop(at, 'oklch(' + L + ' ' + C + ' ' + (st[0] + hueShift) + ' / ' + st[1] * (dark ? 1 : 0.75) + ')');
+          });
+          grad.addColorStop(1, 'oklch(' + L + ' ' + C + ' ' + (b.stops[2][0] + hueShift) + ' / 0)');
+
+          const draw = (lw, alpha, blur) => {
+            ctx.beginPath();
+            for (let y = -20; y <= h + 20; y += 6) {
+              const q = y / h;
+              const env = Math.sin(Math.max(0, Math.min(1, q)) * Math.PI);
+              const x = cx + w * b.off
+                + Math.sin(q * 2.6 + scroll * b.sp * 4 + t * 0.00022 * b.sp * 6 + b.ph) * w * b.amp * env
+                + Math.sin(q * 6.2 + b.ph * 2 + scroll * b.sp * 1.6 + t * 0.00016) * w * b.amp * 0.24 * env;
+              y === -20 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+            }
+            ctx.strokeStyle = grad;
+            ctx.globalAlpha = alpha;
+            ctx.lineWidth = lw;
+            ctx.lineCap = 'round';
+            ctx.shadowColor = 'oklch(' + (dark ? 0.8 : 0.6) + ' 0.19 ' + (b.stops[1][0] + hueShift) + ')';
+            ctx.shadowBlur = blur;
+            ctx.stroke();
+          };
+          const k = dark ? 1 : 0.7;
+          draw(b.w * 26, 0.05 * k, b.blur * 1.6);
+          draw(b.w * 9, 0.1 * k, b.blur);
+          draw(b.w * 3, 0.2 * k, b.blur * 0.6);
+          draw(b.w, 0.55 * k, b.blur * 0.4);
+        });
+        ctx.globalAlpha = 1;
+        ctx.shadowBlur = 0;
+        ctx.globalCompositeOperation = 'source-over';
+      } catch (err) { /* keep the loop alive */ }
+    };
+    this.raf = requestAnimationFrame(tick);
+  }
+
+  deckCard(pos, c) {
+    const map = [
+      { transform: 'translate3d(0,0,0) skewY(5.5deg)', zIndex: 3, opacity: 1 },
+      { transform: 'translate3d(60px,-78px,0) skewY(5.5deg)', zIndex: 2, opacity: 0.9 },
+      { transform: 'translate3d(120px,-156px,0) skewY(5.5deg)', zIndex: 1, opacity: 0.8 },
+    ];
+    return Object.assign({
+      position: 'absolute', left: 0, top: '158px', width: '128%', height: '330px',
+      display: 'flex', flexDirection: 'column', overflow: 'hidden',
+      transformOrigin: '0% 0%',
+      transition: 'transform .6s cubic-bezier(.2,.8,.2,1), opacity .6s',
+      borderRadius: '14px 14px 0 0', border: `1px solid ${c.line2}`,
+      borderBottom: 'none', background: c.solid,
+      boxShadow: '0 -6px 40px -12px rgba(0,0,0,.9)',
+    }, map[pos]);
+  }
+
+  renderVals() {
+    const dark = this.theme === 'dark';
+    const pt = this.state.lang === 'pt';
+    const i = this.state.idx;
+    const sp = this.state.sp;
+    const hue = 285 + sp * 120;
+
+    const c = dark ? {
+      bg: '#07080a', fg: 'oklch(0.97 0.005 300)', mut: 'oklch(0.63 0.015 300)', mut2: 'oklch(0.77 0.012 300)',
+      line: 'oklch(1 0 0 / .08)', line2: 'oklch(1 0 0 / .17)', card: 'oklch(0.18 0.012 300 / .55)',
+      chip: 'oklch(1 0 0 / .04)', ph: 'oklch(1 0 0 / .035)', stripe: 'oklch(1 0 0 / .06)',
+      solid: '#111318', deckBar: 'oklch(0.22 0.015 300 / .8)', deckNum: `oklch(0.72 0.19 ${hue} / .55)`,
+      navBg: 'oklch(0.05 0.005 300 / .7)', auroraOp: 0, strandOp: 0.75,
+      accent: `oklch(0.75 0.16 ${hue})`,
+      wash: '#07080a',
+      blob1: `oklch(0.55 0.19 ${hue})`, blob2: `oklch(0.6 0.15 ${hue + 70})`,
+    } : {
+      bg: 'oklch(0.985 0.003 300)', fg: 'oklch(0.19 0.01 300)', mut: 'oklch(0.55 0.015 300)', mut2: 'oklch(0.42 0.012 300)',
+      line: 'oklch(0.2 0.01 300 / .1)', line2: 'oklch(0.2 0.01 300 / .18)', card: 'oklch(1 0 0 / .72)',
+      chip: 'oklch(0.2 0.01 300 / .03)', ph: 'oklch(0.2 0.01 300 / .03)', stripe: 'oklch(0.2 0.01 300 / .07)',
+      solid: '#ffffff', deckBar: 'oklch(0.97 0.004 300)', deckNum: `oklch(0.62 0.16 ${hue} / .35)`,
+      navBg: 'oklch(0.985 0.003 300 / .8)', auroraOp: 0, strandOp: 0.6,
+      accent: `oklch(0.6 0.16 ${hue})`,
+      wash: 'oklch(0.985 0.003 300)',
+      blob1: `oklch(0.85 0.11 ${hue})`, blob2: `oklch(0.88 0.09 ${hue + 70})`,
+    };
+    const on = { bg: dark ? 'oklch(1 0 0 / .12)' : 'oklch(0.2 0.01 300 / .1)' };
+    c.ptBg = pt ? on.bg : 'transparent'; c.ptFg = pt ? c.fg : c.mut;
+    c.enBg = pt ? 'transparent' : on.bg; c.enFg = pt ? c.mut : c.fg;
+
+    const P = (typeof window !== 'undefined' && window.PORTFOLIO) || {};
+    const T = (x, fb) => {
+      if (x === undefined || x === null || x === '') return fb !== undefined ? fb : '';
+      if (typeof x === 'object' && !Array.isArray(x) && ('pt' in x || 'en' in x))
+        return (pt ? x.pt : x.en) || x.pt || x.en || '';
+      return x;
+    };
+    const IMG = (src) => src ? 'url("' + src + '")' : '';
+    const STRIPES = (px) => 'repeating-linear-gradient(45deg,' + c.stripe + ' 0 ' + px + 'px,transparent ' + px + 'px ' + (px * 2) + 'px)';
+    const R = (typeof window !== 'undefined' && window.__resources) || {};
+    const ic = (slug) => R['ic_' + slug] || 'https://cdn.simpleicons.org/' + slug + '/c9c6d4';
+    const list = (a, fb) => (Array.isArray(a) && a.length) ? a : fb;
+
+    /* ---------- deck (cards do hero) ---------- */
+    const deckSrc = list(P.deck, [
+      { title: { pt: '[Projeto 01]', en: '[Project 01]' }, tag: 'REACT · TS' },
+      { title: { pt: '[Projeto 02]', en: '[Project 02]' }, tag: 'NEXT · POSTGRES' },
+      { title: { pt: '[Projeto 03]', en: '[Project 03]' }, tag: 'NODE · AWS' },
+    ]).slice(0, 3);
+    const dl = deckSrc.length || 1;
+    const di = ((this.state.idx % dl) + dl) % dl;
+    const deck = deckSrc.map((d, k) => ({
+      title: T(d.title, '[Projeto ' + String(k + 1).padStart(2, '0') + ']'),
+      tag: d.tag || '',
+      num: d.image ? '' : String(k + 1),
+      slot: d.image ? '' : 'IMAGEM ' + String(k + 1).padStart(2, '0') + ' · 1200×760',
+      stripes: d.image ? 'none' : STRIPES(9),
+      art: d.image
+        ? 'url("' + d.image + '") center/cover no-repeat'
+        : `linear-gradient(140deg, oklch(0.3 0.14 ${hue + k * 40} / .9), oklch(0.16 0.06 ${hue + 60 + k * 30} / .9))`,
+      style: this.deckCard((k - di + dl) % dl, c),
+    }));
+
+    /* ---------- projetos em destaque ---------- */
+    const featSrc = list(P.featured, [{}, {}, {}]);
+    const featured = featSrc.map((f, k0) => {
+      const k = k0 + 1;
+      return {
+        index: String(k).padStart(2, '0') + ' / ' + String(featSrc.length).padStart(2, '0'),
+        title: T(f.title, pt ? `[Projeto em destaque ${k}]` : `[Featured project ${k}]`),
+        desc: T(f.desc, pt
+          ? '[O problema, o que você fez e o resultado em número. Ex: reduzi o tempo de carregamento em 40%.]'
+          : '[The problem, what you did and the result in numbers. E.g. cut load time by 40%.]'),
+        slot: f.image ? '' : `MOCKUP ${String(k).padStart(2, '0')} · 1400×880`,
+        bgImage: f.image ? IMG(f.image) : STRIPES(9),
+        tech: list(f.tech, ['[TECH]', '[TECH]', '[TECH]']).map(t => ({ name: t })),
+        liveUrl: f.liveUrl || '#',
+        sourceUrl: f.sourceUrl || '#',
+        row: {
+          display: 'grid', gridTemplateColumns: 'minmax(0,1fr) minmax(0,1fr)',
+          gap: 44, alignItems: 'center', direction: k % 2 === 0 ? 'rtl' : 'ltr',
+        },
+      };
+    });
+
+    /* ---------- grade de projetos ---------- */
+    const gridSrc = list(P.grid, Array.from({ length: this.props.projectCount ?? 6 }, () => ({})));
+    const grid = gridSrc.map((g, k) => {
+      const h2 = 275 + (k % 4) * 40;
+      return {
+        slot: g.image ? '' : 'IMAGEM ' + String(k + 1).padStart(2, '0') + ' · 1200×760',
+        bgImage: g.image ? IMG(g.image) : STRIPES(8),
+        title: T(g.title, `[Projeto ${String(k + 1).padStart(2, '0')}]`),
+        year: g.year || '[ANO]',
+        stack: Array.isArray(g.stack) ? g.stack.join(' · ') : (g.stack || '[STACK] · [STACK]'),
+        url: g.url || '#',
+        desc: T(g.desc, pt ? '[Uma linha: o que é e qual problema resolve.]' : '[One line: what it is and the problem it solves.]'),
+        ring: `linear-gradient(150deg, oklch(0.75 0.17 ${h2}), oklch(0.7 0.15 ${h2 + 55} / .15) 55%, transparent)`,
+        glow: `radial-gradient(120% 130% at 50% 0%, oklch(0.5 0.16 ${h2} / ${dark ? .5 : .28}) 0%, transparent 70%)`,
+        card: {
+          position: 'relative', display: 'flex', flexDirection: 'column', overflow: 'hidden',
+          borderRadius: 18, background: c.card, border: `1px solid ${c.line}`,
+        },
+      };
+    });
+
+    /* ---------- stack ---------- */
+    const stackSrc = list(P.stack, [
+      { label: 'FRONTEND', items: [
+        { name: 'React', icon: 'react' }, { name: 'TypeScript', icon: 'typescript' },
+        { name: 'Next.js', icon: 'nextdotjs' }, { name: 'Tailwind CSS', icon: 'tailwindcss' },
+        { name: 'Vite', icon: 'vite' }, { name: 'Framer Motion', icon: 'framer' },
+      ] },
+      { label: 'BACKEND & DATA', items: [
+        { name: 'Node.js', icon: 'nodedotjs' }, { name: 'PostgreSQL', icon: 'postgresql' },
+        { name: 'Prisma', icon: 'prisma' }, { name: 'GraphQL', icon: 'graphql' }, { name: 'Redis', icon: 'redis' },
+      ] },
+      { label: { pt: 'INFRA & FERRAMENTAS', en: 'INFRA & TOOLING' }, items: [
+        { name: 'Docker', icon: 'docker' }, { name: 'Cloudflare', icon: 'cloudflare' },
+        { name: 'Git', icon: 'git' }, { name: 'Vercel', icon: 'vercel' },
+        { name: 'Vitest', icon: 'vitest' }, { name: 'Figma', icon: 'figma' },
+      ] },
+    ]);
+    const stackGroups = stackSrc.map((g, gi) => {
+      const items = list(g.items, []);
+      return {
+        label: T(g.label),
+        dot: `oklch(0.75 0.17 ${hue + gi * 60})`,
+        count: String(items.length).padStart(2, '0'),
+        items: items.map(t => ({
+          name: t.name,
+          iconStyle: {
+            width: 18, height: 18, flex: 'none', display: 'block',
+            backgroundImage: `url(${t.icon ? ic(t.icon) : ''})`, backgroundSize: 'contain',
+            backgroundRepeat: 'no-repeat', backgroundPosition: 'center',
+            opacity: 0.92, borderRadius: 4,
+            border: `1px dashed ${dark ? 'oklch(1 0 0 / .12)' : 'oklch(0.2 0.01 300 / .14)'}`,
+          },
+        })),
+      };
+    });
+
+    /* ---------- trajetoria ---------- */
+    const expSrc = list(P.experience, [
+      { period: { pt: '[2024 — ATUAL]', en: '[2024 — NOW]' }, role: { pt: '[Cargo atual]', en: '[Current role]' } },
+      { period: '[2022 — 2024]', role: { pt: '[Cargo anterior]', en: '[Previous role]' } },
+      { period: '[2020 — 2022]', role: { pt: '[Primeiro cargo]', en: '[First role]' } },
+      { period: '[2018 — 2020]', role: { pt: '[Formação / freelas]', en: '[Studies / freelance]' } },
+    ]);
+    const ei = Math.min(this.state.expIdx, expSrc.length - 1);
+    const exp = expSrc.map((e, k) => {
+      const active = k === ei;
+      return {
+        period: T(e.period), role: T(e.role),
+        select: () => this.setState({ expIdx: k }),
+        periodColor: active ? c.accent : c.mut,
+        roleColor: active ? c.fg : c.mut,
+        tab: {
+          display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 10,
+          padding: '0 18px 0 0', border: 0, background: 'transparent', cursor: 'pointer',
+          textAlign: 'left', color: 'inherit', transition: 'opacity .3s', opacity: active ? 1 : 0.72,
+        },
+        dot: {
+          width: active ? 15 : 9, height: active ? 15 : 9, borderRadius: '50%',
+          background: active ? c.accent : c.line2,
+          border: `1px solid ${active ? c.accent : c.line2}`,
+          boxShadow: active ? `0 0 0 5px ${c.accent.replace(')', ' / .18)')}` : 'none',
+          marginTop: active ? 12 : 15, marginLeft: active ? -1 : 2,
+          transition: 'all .3s',
+        },
+      };
+    });
+    const ax = expSrc[ei] || {};
+    const activeExp = {
+      role: T(ax.role, '[Cargo]'),
+      logo: ax.logo || 'LOGO',
+      company: T(ax.company, '[EMPRESA · CIDADE / REMOTO]'),
+      desc: T(ax.desc, pt
+        ? '[Resumo do que você fez ali: escopo, time, tecnologias e o impacto no produto.]'
+        : '[Summary of what you did there: scope, team, technologies and product impact.]'),
+      b1: T(ax.b1, pt ? '[Entrega ou responsabilidade principal — com número quando possível.]' : '[Key delivery or responsibility — with a number when possible.]'),
+      b2: T(ax.b2, pt ? '[Segunda conquista relevante para a vaga que você quer.]' : '[Second achievement relevant to the role you want.]'),
+      metricValue: ax.metricValue || '[+XX%]',
+      metric: T(ax.metric, pt ? '[Explique a métrica em uma linha.]' : '[Explain the metric in one line.]'),
+      stack: list(ax.stack, ['[TECH]', '[TECH]', '[TECH]', '[TECH]']).map(t => ({ name: t })),
+    };
+
+    /* ---------- textos avulsos ---------- */
+    const email = P.email || '[seu.email@dominio.com]';
+    const hs = list(P.heroStats, [{}, {}, {}]);
+    const as_ = list(P.aboutStats, [{}, {}, {}]);
+    const hd = P.headline || {};
+    const v = {
+      logo: P.logo || 'LOGO',
+      name: P.name || '[Seu Nome]',
+      heroBadge: T(P.heroBadge, pt ? 'DEV FRONTEND · FULL-STACK — DISPONÍVEL PARA VAGAS' : 'FRONTEND · FULL-STACK DEV — OPEN TO ROLES'),
+      headA: T(hd.line1, pt ? 'Construo interfaces' : 'I build interfaces'),
+      headB: T(hd.line2, pt ? 'que' : 'that'),
+      headHi: T(hd.highlight, pt ? 'carregam rápido' : 'load fast'),
+      headTail: hd.tail !== undefined ? hd.tail : '.',
+      intro: T(P.intro, pt
+        ? '[2–3 frases sobre sua especialidade, stack principal e o tipo de time que procura.]'
+        : "[2–3 sentences on your specialty, main stack and the kind of team you're looking for.]"),
+      heroStat1Value: hs[0].value || '[X]', heroStat1Label: T(hs[0].label, pt ? 'ANOS DE EXP.' : 'YEARS EXP.'),
+      heroStat2Value: hs[1].value || '[X]', heroStat2Label: T(hs[1].label, pt ? 'PROJETOS' : 'PROJECTS'),
+      heroStat3Value: hs[2].value || '[X]', heroStat3Label: T(hs[2].label, pt ? 'EMPRESAS' : 'COMPANIES'),
+      ctaWork: T(P.ctaWork, pt ? 'Ver projetos' : 'See my work'),
+      ctaCv: T(P.ctaCv, pt ? 'Baixar CV' : 'Download CV'),
+      ctaLive: T(P.ctaLive, pt ? 'Ver ao vivo' : 'Live demo'),
+      ctaSource: T(P.ctaSource, pt ? 'Código' : 'Source'),
+      deckHint: T(P.deckHint, pt ? 'CLIQUE PARA TROCAR' : 'CLICK TO SWAP'),
+      photo: P.photo ? IMG(P.photo) : STRIPES(9),
+      photoLabel: P.photo ? '' : 'RETRATO / FOTO · 1000×1250',
+      aboutKicker: T(P.aboutKicker, pt ? 'SOBRE MIM' : 'ABOUT ME'),
+      manifesto: T(P.manifesto, pt ? '[Uma frase-manifesto sobre como você trabalha.]' : '[A one-line manifesto about how you work.]'),
+      about1: T(P.about1, pt ? '[Parágrafo 1 — sua trajetória.]' : '[Paragraph 1 — your background.]'),
+      about2: T(P.about2, pt ? '[Parágrafo 2 — o que busca agora.]' : '[Paragraph 2 — what you want next.]'),
+      aboutStat1Value: as_[0].value || '[X]+', aboutStat1Label: T(as_[0].label, pt ? 'ANOS CODANDO' : 'YEARS CODING'),
+      aboutStat2Value: as_[1].value || '[X]', aboutStat2Label: T(as_[1].label, pt ? 'PRODUTOS NO AR' : 'SHIPPED PRODUCTS'),
+      aboutStat3Value: T(as_[2].value, '[Cidade]'), aboutStat3Label: T(as_[2].label, pt ? 'BASE · REMOTO OK' : 'BASED · REMOTE OK'),
+      stackNote: T(P.stackNote, pt ? '[Ajuste as listas para a sua stack real.]' : "[Tune the lists to your real stack.]"),
+      contactHeadline: T(P.contactHeadline, pt ? 'Aberto a novas vagas' : 'Open to new roles'),
+      contactLine: T(P.contactLine, pt ? '[Uma frase sobre o tipo de posição que procura.]' : '[One line on the role you are after.]'),
+      email, mailto: 'mailto:' + email,
+      githubUrl: (P.links && P.links.github) || '#',
+      linkedinUrl: (P.links && P.links.linkedin) || '#',
+      cvUrl: (P.links && P.links.cv) || '#',
+      copyright: '© ' + new Date().getFullYear() + ' ' + (P.name || '[Seu Nome]'),
+      footerBuilt: T(P.footerBuilt, pt ? 'FEITO COM HTML · CSS · JS' : 'BUILT WITH HTML · CSS · JS'),
+    };
+
+    const spot = 260;
+    return {
+      c, v, deck, featured, grid, stackGroups, exp, activeExp,
+      expCount: expSrc.length,
+      activeExpKey: `exp-${ei}`,
+      railProgress: {
+        position: 'absolute', left: 0, top: '19px', height: '1px',
+        width: `${((ei + 1) / expSrc.length) * 100}%`,
+        background: `linear-gradient(90deg, transparent, ${c.accent})`,
+        transition: 'width .45s cubic-bezier(.2,.8,.2,1)',
+      },
+      chromaVeil: {
+        position: 'absolute', inset: '-2px', borderRadius: 20, pointerEvents: 'none',
+        backdropFilter: dark ? 'grayscale(1) brightness(.62) saturate(.4)' : 'grayscale(1) brightness(1.04)',
+        WebkitBackdropFilter: dark ? 'grayscale(1) brightness(.62) saturate(.4)' : 'grayscale(1) brightness(1.04)',
+        transition: 'opacity .35s',
+        opacity: this.state.hover ? 1 : 0.92,
+        WebkitMaskImage: `radial-gradient(circle ${spot}px at ${this.state.mx}px ${this.state.my}px, transparent 0%, transparent 32%, #000 78%)`,
+        maskImage: `radial-gradient(circle ${spot}px at ${this.state.mx}px ${this.state.my}px, transparent 0%, transparent 32%, #000 78%)`,
+      },
+      onGridMove: (e) => {
+        const r = e.currentTarget.getBoundingClientRect();
+        const mx = Math.round(e.clientX - r.left), my = Math.round(e.clientY - r.top);
+        if (mx !== this.state.mx || my !== this.state.my) this.setState({ mx, my, hover: true });
+      },
+      onGridLeave: () => this.setState({ mx: -999, my: -999, hover: false }),
+      deckCounter: `${String(di + 1).padStart(2, '0')} / ${String(dl).padStart(2, '0')}`,
+      L1: pt ? 'inline' : 'none',
+      L2: pt ? 'none' : 'inline',
+      themeIcon: dark ? '☀' : '☾',
+      swap: () => this.setState(s => ({ idx: (s.idx + 1) % dl })),
+      setPt: () => this.setState({ lang: 'pt' }),
+      setEn: () => this.setState({ lang: 'en' }),
+      toggleTheme: () => this.setState({ theme: dark ? 'light' : 'dark' }),
+      canvasRef: (el) => { this.canvas = el; if (el) this.startStrands(); },
+    };
+  }
+}
+</script>
+
+
+</body></html>
