@@ -1,2 +1,6 @@
 # fontes de design — não fazem parte do site publicado
 *.zip
+
+# instruções e configuração locais de ferramenta — não vão para o site público
+CLAUDE.md
+.claude/
