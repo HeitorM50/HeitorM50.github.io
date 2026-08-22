@@ -47,11 +47,11 @@ window.PORTFOLIO = {
   deck: [
     { title: "Crianex Hub", tag: "SVELTE · SUPABASE", image: "images/crianex.jpg" },
     { title: "CoOps",       tag: "REACT · D3 · PYTHON", image: "images/coops.jpg" },
-    { title: "ExtracaoRDA", tag: "PYTHON · PYQT", image: "" },
+    { title: "ExtracaoRDA", tag: "PYTHON · PYQT", image: "images/extracao-rda.png" },
   ],
 
   /* ---------- sobre ---------- */
-  photo: "",   // retrato 4:5 — ex: "images/retrato.jpg"
+  photo: "images/retrato.jpg",   // retrato 4:5
   manifesto: {
     pt: "Gosto de problema que atravessa camadas: do sensor no chassi ao gráfico na tela.",
     en: "I like problems that cut across layers: from the sensor on the chassis to the chart on screen.",
@@ -97,10 +97,10 @@ window.PORTFOLIO = {
     {
       title: "ExtracaoRDA",
       desc: {
-        pt: "Aplicação desktop feita no MCTI que lê os PDFs dos Relatórios Demonstrativos Anuais do PADIS e os estrutura em planilhas Excel, eliminando a transcrição manual da equipe. Tem uma camada de validação que cruza os valores extraídos com outras fontes e aponta inconsistências para o analista. Empacotada com PyInstaller, com CI no GitHub Actions e suíte de testes em pytest.",
-        en: "Desktop application built at MCTI that reads the PDFs of PADIS Annual Reports and structures them into Excel spreadsheets, removing the team's manual transcription. A validation layer cross-checks extracted values against other sources and flags inconsistencies for the analyst. Packaged with PyInstaller, CI on GitHub Actions and a pytest suite.",
+        pt: "Iniciativa individual durante meu estágio no MCTI, à parte do escopo do time: aplicação desktop que lê os PDFs dos Relatórios Demonstrativos Anuais do PADIS e os estrutura em planilhas Excel, eliminando a transcrição manual dos analistas. Tem uma camada de validação que cruza os valores extraídos com outras fontes e aponta inconsistências para revisão. Empacotada com PyInstaller, com CI no GitHub Actions e suíte de testes em pytest.",
+        en: "A solo initiative during my internship at MCTI, outside the team's scope: a desktop application that reads the PDFs of PADIS Annual Reports and structures them into Excel spreadsheets, removing the analysts' manual transcription. A validation layer cross-checks extracted values against other sources and flags inconsistencies for review. Packaged with PyInstaller, CI on GitHub Actions and a pytest suite.",
       },
-      image: "",
+      image: "images/extracao-rda.png",
       tech: ["Python", "PyQt", "PyInstaller", "pytest"],
       liveUrl: "",
       sourceUrl: "",   // repositório privado — sem botão "Código"
@@ -110,21 +110,21 @@ window.PORTFOLIO = {
   /* ---------- grade de projetos ---------- */
   grid: [
     {
+      title: "PIBIC · Dinâmica Veicular", year: "2026",
+      stack: ["C++", "Godot", "Chrono"],
+      image: "images/pibic.jpg", url: "https://interactivedynamics.github.io/heitor-docs/",
+      desc: {
+        pt: "Iniciação científica em dinâmica veicular: modelo multicorpo em C++ validado contra o Project Chrono, com sandbox em Godot para ganhar intuição. Documentação viva em Docusaurus.",
+        en: "Undergraduate research in vehicle dynamics: a C++ multibody model validated against Project Chrono, with a Godot sandbox to build intuition. Living documentation in Docusaurus.",
+      },
+    },
+    {
       title: "dev-second-brain", year: "2026",
       stack: ["TypeScript", "RAG", "MCP"],
       image: "", url: "https://github.com/HeitorM50/dev-second-brain",
       desc: {
         pt: "Segundo cérebro que guarda o contexto de projetos e responde sobre decisões passadas. Busca e embeddings rodam 100% na máquina, sem chave de API.",
         en: "A second brain that keeps project context and answers questions about past decisions. Search and embeddings run entirely on your machine, no API key.",
-      },
-    },
-    {
-      title: "AlugaFacil", year: "2026",
-      stack: ["Next.js", "TypeScript", "Node.js"],
-      image: "", url: "",
-      desc: {
-        pt: "Plataforma de aluguel fullstack: API em Node/Express e frontend em Next.js com TypeScript. Repositório privado.",
-        en: "Fullstack rental platform: Node/Express API and a Next.js frontend in TypeScript. Private repository.",
       },
     },
     {
@@ -137,9 +137,18 @@ window.PORTFOLIO = {
       },
     },
     {
+      title: "Rusty Explorer", year: "2026",
+      stack: ["Rust", "Ordenação", "Busca"],
+      image: "images/rusty-explorer.png", url: "https://github.com/eda2-2026/G18_Ordenacao_EDA2-2026.1",
+      desc: {
+        pt: "Explorador de arquivos em Rust usado como bancada para comparar algoritmos de ordenação e busca em cenários reais, com benchmarks e um relatório sobre qual algoritmo escolher em cada situação. Em dupla (EDA2).",
+        en: "A file explorer in Rust used as a testbed to compare sorting and search algorithms in real scenarios, with benchmarks and a report on which algorithm to pick in each situation. Pair project (EDA2).",
+      },
+    },
+    {
       title: "Quadtree Compressor", year: "2026",
       stack: ["Python", "NumPy", "Pillow"],
-      image: "", url: "https://github.com/eda2-2026/G18_Busca_EDA2-2026.1",
+      image: "images/quadtree.png", url: "https://github.com/eda2-2026/G18_Busca_EDA2-2026.1",
       desc: {
         pt: "Compressor de imagens em escala de cinza baseado em Quadtree, com busca espacial O(profundidade) e serialização binária própria: ~98% de compressão mantendo PSNR acima de 30 dB. Em dupla (EDA2).",
         en: "Grayscale image compressor based on a Quadtree, with O(depth) spatial search and a custom binary format: ~98% compression while keeping PSNR above 30 dB. Pair project (EDA2).",
@@ -148,19 +157,19 @@ window.PORTFOLIO = {
     {
       title: "CryptoArbitrageGraph", year: "2026",
       stack: ["Python", "Bellman-Ford"],
-      image: "", url: "https://github.com/eda2-2026/G18_Grafos_EDA2-2026.1",
+      image: "images/crypto-arbitrage.png", url: "https://github.com/eda2-2026/G18_Grafos_EDA2-2026.1",
       desc: {
         pt: "Detecção de arbitragem triangular em cripto modelando moedas como grafo ponderado e aplicando Bellman-Ford, com dados da API CoinGecko e grafo interativo. Em equipe (EDA2).",
         en: "Triangular arbitrage detection in crypto, modelling currencies as a weighted graph and applying Bellman-Ford, with CoinGecko API data and an interactive graph. Team project (EDA2).",
       },
     },
     {
-      title: "PIBIC · Dinâmica Veicular", year: "2026",
-      stack: ["C++", "Godot", "Chrono"],
-      image: "images/pibic.jpg", url: "https://interactivedynamics.github.io/heitor-docs/",
+      title: "AlugaFacil", year: "2026",
+      stack: ["Next.js", "TypeScript", "Node.js"],
+      image: "", url: "",
       desc: {
-        pt: "Iniciação científica em dinâmica veicular: modelo multicorpo em C++ validado contra o Project Chrono, com sandbox em Godot para ganhar intuição. Documentação viva em Docusaurus.",
-        en: "Undergraduate research in vehicle dynamics: a C++ multibody model validated against Project Chrono, with a Godot sandbox to build intuition. Living documentation in Docusaurus.",
+        pt: "Gerenciador de frota para locadora de carros: cadastro de veículos, controle de disponibilidade e ciclo de aluguel. API em Node/Express e frontend em Next.js com TypeScript. Repositório privado.",
+        en: "Fleet manager for a car rental company: vehicle registry, availability control and the rental cycle. Node/Express API and a Next.js frontend in TypeScript. Private repository.",
       },
     },
   ],
@@ -235,21 +244,21 @@ window.PORTFOLIO = {
     },
     {
       period: "2025 — 2026",
-      role:   { pt: "Product Owner Jr.", en: "Junior Product Owner" },
+      role:   { pt: "Estágio no MCTI — Product Owner Jr.", en: "Internship at MCTI — Junior Product Owner" },
       logo: "MCTI",
-      company: "Ministério da Ciência, Tecnologia e Inovação (MCTI) · Brasília, DF",
+      company: "Ministério da Ciência, Tecnologia e Inovação · Brasília, DF",
       desc: {
-        pt: "Desenvolvi em Python uma automação que lê PDFs via regex e estrutura as informações em planilha Excel, eliminando a transcrição manual feita pela equipe de analistas.",
-        en: "I built a Python automation that reads PDFs via regex and structures the information into Excel spreadsheets, removing the manual transcription done by the analyst team.",
+        pt: "Estágio no MCTI atuando como Product Owner Jr. do Sigplanni, plataforma que atende ao programa PADIS. O papel vinha da participação no Scrum semanal do produto: validar regras de negócio junto ao Product Owner e levar os erros mapeados do sistema para a pauta das cerimônias.",
+        en: "Internship at MCTI as Junior Product Owner for Sigplanni, the platform serving the PADIS programme. The role came from taking part in the product's weekly Scrum: validating business rules alongside the Product Owner and bringing mapped system errors into the ceremonies' agenda.",
       },
-      b1: { pt: "Adicionei uma camada de validação automática que cruza os valores extraídos com outras fontes para detectar inconsistências, reduzindo o tempo de conferência.",
-            en: "I added an automatic validation layer that cross-checks extracted values against other sources to detect inconsistencies, cutting review time." },
-      b2: { pt: "Acompanhei as cerimônias de Scrum junto ao Product Owner, validando regras de negócio e mapeando erros do sistema para pauta das reuniões.",
-            en: "I took part in Scrum ceremonies alongside the Product Owner, validating business rules and mapping system errors into meeting agendas." },
+      b1: { pt: "Acompanhamento semanal do Scrum do Sigplanni — refinamento de regras de negócio, reporte de erros e priorização junto ao Product Owner.",
+            en: "Weekly Scrum on Sigplanni — refining business rules, reporting bugs and prioritising alongside the Product Owner." },
+      b2: { pt: "Em paralelo e por iniciativa própria, desenvolvi sozinho o ExtracaoRDA — automação em Python que lê PDFs de RDA e os estrutura em Excel. Projeto individual, totalmente fora do escopo do Sigplanni e do time.",
+            en: "In parallel and on my own initiative, I single-handedly built ExtracaoRDA — a Python automation that reads RDA PDFs and structures them into Excel. A solo project, entirely outside Sigplanni's and the team's scope." },
       metricValue: "0 manual",
-      metric: { pt: "A transcrição manual dos relatórios deixou de existir no fluxo da equipe.",
-                en: "Manual transcription of the reports no longer exists in the team's workflow." },
-      stack: ["Python", "regex", "Excel", "Scrum"],
+      metric: { pt: "Resultado do ExtracaoRDA: a transcrição manual dos relatórios saiu do fluxo dos analistas.",
+                en: "Result of ExtracaoRDA: manual transcription of the reports left the analysts' workflow." },
+      stack: ["Scrum", "Python", "regex", "Excel"],
     },
   ],
 
