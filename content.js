@@ -24,50 +24,47 @@ window.PORTFOLIO = {
 
   /* ---------- hero ---------- */
   heroBadge: {
-    pt: "ENG. DE SOFTWARE @ UnB · EMBARCADOS + FULLSTACK — ABERTO A ESTÁGIO",
-    en: "SOFTWARE ENGINEERING @ UnB · EMBEDDED + FULLSTACK — OPEN TO INTERNSHIPS",
+    pt: "ABERTO A ESTÁGIO · BACKEND, DADOS E SISTEMAS EMBARCADOS",
+    en: "OPEN TO INTERNSHIPS · BACKEND, DATA AND EMBEDDED SYSTEMS",
   },
   headline: {
-    line1:     { pt: "Do sensor",  en: "From sensor" },
-    line2:     { pt: "à",          en: "to" },
-    highlight: { pt: "interface",  en: "interface" },
+    line1:     { pt: "Estudante de",              en: "Software" },
+    line2:     { pt: "Engenharia de Software na", en: "Engineering student at" },
+    highlight: { pt: "UnB",                       en: "UnB" },
     tail: ".",
   },
   intro: {
-    pt: "Construo software de ponta a ponta — do backend à tela — e transito entre software e hardware com naturalidade. Python, TypeScript, C++ e Rust; telemetria embarcada sobre CAN; pipelines de dados e CI/CD que sustentam a entrega.",
-    en: "I build software end to end — from backend to screen — and move between software and hardware comfortably. Python, TypeScript, C++ and Rust; embedded telemetry over CAN; data pipelines and CI/CD that keep delivery standing.",
+    pt: "Trabalho com Python, TypeScript, C++ e Rust, entre backend, dados e sistemas embarcados. Nos últimos dois anos entreguei uma plataforma para cliente real, um sistema de telemetria em CAN para a equipe de Baja SAE e automações internas em um órgão público.",
+    en: "I work with Python, TypeScript, C++ and Rust, across backend, data and embedded systems. Over the past two years I delivered a platform for a real client, a CAN telemetry system for the Baja SAE team and internal automation at a government agency.",
   },
   heroStats: [
-    { value: "2+", label: { pt: "ANOS CONSTRUINDO", en: "YEARS BUILDING" } },
-    { value: "9",  label: { pt: "PROJETOS",         en: "PROJECTS" } },
-    { value: "4",  label: { pt: "LIDERADOS",        en: "TEAM LED" } },
+    { value: "2+", label: { pt: "ANOS CODANDO", en: "YEARS CODING" } },
+    { value: "10", label: { pt: "PROJETOS",     en: "PROJECTS" } },
+    { value: "4",  label: { pt: "LIDERADOS",    en: "TEAM LED" } },
   ],
 
   /* ---------- cards empilhados do hero ---------- */
   deck: [
-    { title: "Crianex Hub", tag: "SVELTE · SUPABASE", image: "images/crianex.jpg" },
-    { title: "CoOps",       tag: "REACT · D3 · PYTHON", image: "images/coops.jpg" },
-    { title: "ExtracaoRDA", tag: "PYTHON · PYQT", image: "images/extracao-rda.png" },
+    { title: "Crianex Hub", tag: "SVELTE · SUPABASE",    image: "images/crianex.jpg" },
+    { title: "CoOps",       tag: "REACT · D3 · PYTHON",  image: "images/coops.jpg" },
+    { title: "ExtracaoRDA", tag: "PYTHON · PYQT",        image: "images/extracao-rda.png" },
   ],
 
   /* ---------- sobre ---------- */
   photo: "images/retrato.jpg",   // retrato 4:5
-  manifesto: {
-    pt: "Gosto de problema que atravessa camadas: do sensor no chassi ao gráfico na tela.",
-    en: "I like problems that cut across layers: from the sensor on the chassis to the chart on screen.",
-  },
+  manifesto: "",                 // vazio: o título grande da seção não é exibido
   about1: {
-    pt: "Estudo Engenharia de Software na UnB (conclusão prevista em mar/2029) e Análise e Desenvolvimento de Sistemas no GRAN. Comecei pelo hardware, na equipe de Baja SAE, e fui puxando o fio até o outro lado: hoje escrevo tanto o firmware que lê um sensor quanto a interface que mostra o dado.",
-    en: "I study Software Engineering at UnB (graduating Mar/2029) and Systems Analysis and Development at GRAN. I started on the hardware side, in the Baja SAE team, and followed the thread to the other end: today I write both the firmware that reads a sensor and the interface that shows the data.",
+    pt: "Curso Engenharia de Software na UnB, com conclusão prevista para março de 2029, e Análise e Desenvolvimento de Sistemas no GRAN. Entrei na equipe de Baja SAE em 2024 e hoje lidero o subsistema de eletrônica, com quatro integrantes.",
+    en: "I'm studying Software Engineering at UnB, graduating in March 2029, and Systems Analysis and Development at GRAN. I joined the Baja SAE team in 2024 and now lead the electronics subsystem, with four members.",
   },
   about2: {
-    pt: "Procuro estágio onde eu possa levar um problema do início ao fim e medir o resultado. O que mais me diverte é a parte chata: reduzir um pipeline de horas para segundos, cobrir o código com teste e deixar o deploy automático. Fora do código, lidero 4 pessoas na eletrônica do UnBaja.",
-    en: "I'm looking for an internship where I can take a problem end to end and measure the result. What I enjoy most is the boring part: cutting a pipeline from hours to seconds, covering code with tests and automating the deploy. Outside code, I lead 4 people in UnBaja's electronics team.",
+    pt: "Já trabalhei em web, dados e sistemas embarcados: uma plataforma de métricas de colaboração no GitHub, um hub administrativo em produção para um cliente real e o sistema de telemetria do Baja, com quatro nós ECU em barramento CAN. Procuro estágio em desenvolvimento, em Brasília ou remoto.",
+    en: "I've worked on web, data and embedded systems: a GitHub collaboration metrics platform, an admin hub in production for a real client and the Baja telemetry system, with four ECU nodes on a CAN bus. I'm looking for a development internship, in Brasília or remote.",
   },
   aboutStats: [
-    { value: "2+",             label: { pt: "ANOS CODANDO",   en: "YEARS CODING" } },
-    { value: "3",              label: { pt: "PRODUTOS NO AR", en: "SHIPPED PRODUCTS" } },
-    { value: "Brasília",      label: { pt: "BASE · REMOTO OK", en: "BASED · REMOTE OK" } },
+    { value: "2+",       label: { pt: "ANOS CODANDO",     en: "YEARS CODING" } },
+    { value: "3",        label: { pt: "PRODUTOS NO AR",   en: "SHIPPED PRODUCTS" } },
+    { value: "Brasília", label: { pt: "BASE · REMOTO OK", en: "BASED · REMOTE OK" } },
   ],
 
   /* ---------- projetos em destaque ---------- */
@@ -75,8 +72,8 @@ window.PORTFOLIO = {
     {
       title: "Crianex Hub",
       desc: {
-        pt: "Plataforma administrativa e vitrine bilíngue construída para um cliente real (software house Crianex) e publicada em produção. Levantamento de requisitos direto com o cliente, sob FDD + Kanban. Projeto em equipe — 66 commits meus, 3º maior contribuidor.",
-        en: "Admin platform and bilingual showcase built for a real client (Crianex software house) and shipped to production. Requirements gathered directly with the client, under FDD + Kanban. Team project — 66 commits of mine, 3rd largest contributor.",
+        pt: "Plataforma administrativa e vitrine bilíngue para a software house Crianex, em produção. Levantei requisitos junto ao cliente e o time trabalhou sob FDD e Kanban. Projeto em equipe, com 66 commits meus.",
+        en: "Admin platform and bilingual showcase for the Crianex software house, in production. I gathered requirements with the client and the team worked under FDD and Kanban. Team project, 66 commits mine.",
       },
       image: "images/crianex.jpg",
       tech: ["Svelte/SvelteKit", "PostgreSQL", "Supabase", "Render"],
@@ -86,8 +83,8 @@ window.PORTFOLIO = {
     {
       title: "CoOps",
       desc: {
-        pt: "Plataforma que mede colaboração em times de desenvolvimento no GitHub, com dashboards em D3.js e uma camada de IA que explica os dados em linguagem natural. O pipeline em camadas (bronze/silver/gold) caiu de ~4h para ~30s. Testes em pytest e seis pipelines de CI/CD. Projeto em equipe sob Scrum — 47 commits meus.",
-        en: "Platform that measures collaboration in GitHub development teams, with D3.js dashboards and an AI layer that explains the data in plain language. The layered pipeline (bronze/silver/gold) went from ~4h to ~30s. pytest suites and six CI/CD pipelines. Team project under Scrum — 47 commits of mine.",
+        pt: "Plataforma que mede colaboração de times de desenvolvimento no GitHub. Tem dashboards em D3.js e uma camada de IA que resume os dados em texto. O pipeline em camadas caiu de cerca de 4 horas para 30 segundos. Testes em pytest e seis pipelines de CI/CD. Projeto em equipe sob Scrum, com 47 commits meus.",
+        en: "Platform that measures collaboration in GitHub development teams. It has D3.js dashboards and an AI layer that summarises the data in plain text. The layered pipeline dropped from about 4 hours to 30 seconds. pytest suites and six CI/CD pipelines. Team project under Scrum, 47 commits mine.",
       },
       image: "images/coops.jpg",
       tech: ["Python", "React", "TypeScript", "D3.js", "GitHub Actions"],
@@ -97,8 +94,8 @@ window.PORTFOLIO = {
     {
       title: "ExtracaoRDA",
       desc: {
-        pt: "Iniciativa individual durante meu estágio no MCTI, à parte do escopo do time: aplicação desktop que lê os PDFs dos Relatórios Demonstrativos Anuais do PADIS e os estrutura em planilhas Excel, eliminando a transcrição manual dos analistas. Tem uma camada de validação que cruza os valores extraídos com outras fontes e aponta inconsistências para revisão. Empacotada com PyInstaller, com CI no GitHub Actions e suíte de testes em pytest.",
-        en: "A solo initiative during my internship at MCTI, outside the team's scope: a desktop application that reads the PDFs of PADIS Annual Reports and structures them into Excel spreadsheets, removing the analysts' manual transcription. A validation layer cross-checks extracted values against other sources and flags inconsistencies for review. Packaged with PyInstaller, CI on GitHub Actions and a pytest suite.",
+        pt: "Aplicação desktop que lê os PDFs dos Relatórios Demonstrativos Anuais do PADIS e gera planilhas Excel, no lugar da transcrição manual feita pelos analistas. Uma camada de validação cruza os valores extraídos com outras fontes e marca as inconsistências. Desenvolvi sozinho durante o estágio no MCTI, fora do escopo do time. Empacotada com PyInstaller, com CI no GitHub Actions e testes em pytest.",
+        en: "Desktop application that reads the PDFs of PADIS Annual Reports and generates Excel spreadsheets, replacing the analysts' manual transcription. A validation layer cross-checks the extracted values against other sources and flags inconsistencies. I built it alone during my internship at MCTI, outside the team's scope. Packaged with PyInstaller, with CI on GitHub Actions and pytest tests.",
       },
       image: "images/extracao-rda.png",
       tech: ["Python", "PyQt", "PyInstaller", "pytest"],
@@ -114,17 +111,17 @@ window.PORTFOLIO = {
       stack: ["C++", "Godot", "Chrono"],
       image: "images/pibic.jpg", url: "https://interactivedynamics.github.io/heitor-docs/",
       desc: {
-        pt: "Iniciação científica em dinâmica veicular: modelo multicorpo em C++ validado contra o Project Chrono, com sandbox em Godot para ganhar intuição. Documentação viva em Docusaurus.",
-        en: "Undergraduate research in vehicle dynamics: a C++ multibody model validated against Project Chrono, with a Godot sandbox to build intuition. Living documentation in Docusaurus.",
+        pt: "Iniciação científica em dinâmica veicular. Modelo multicorpo em C++ validado contra o Project Chrono, com um sandbox em Godot. A documentação é pública e atualizada por sprint.",
+        en: "Undergraduate research in vehicle dynamics. C++ multibody model validated against Project Chrono, with a Godot sandbox. The documentation is public and updated each sprint.",
       },
     },
     {
       title: "dev-second-brain", year: "2026",
       stack: ["TypeScript", "RAG", "MCP"],
-      image: "images/dev-second-brain.svg", url: "https://github.com/HeitorM50/dev-second-brain",
+      image: "images/dev-second-brain.png", url: "https://github.com/HeitorM50/dev-second-brain",
       desc: {
-        pt: "Servidor MCP, sem interface própria: você conversa normalmente com o assistente e ele consulta suas notas para responder sobre decisões passadas de projeto. Busca e embeddings rodam 100% na máquina, sem chave de API.",
-        en: "An MCP server with no UI of its own: you just talk to the assistant and it queries your notes to answer questions about past project decisions. Search and embeddings run entirely on your machine, no API key.",
+        pt: "Servidor MCP, sem interface própria. Você conversa com o assistente e ele consulta suas notas para responder sobre decisões passadas de projeto. Busca e embeddings rodam na máquina, sem chave de API.",
+        en: "MCP server, no UI of its own. You talk to the assistant and it queries your notes to answer questions about past project decisions. Search and embeddings run locally, no API key.",
       },
     },
     {
@@ -132,8 +129,8 @@ window.PORTFOLIO = {
       stack: ["Rust", "Criterion"],
       image: "images/rbtree-bench.png", url: "https://github.com/eda2-2026/G18_Arvore_EDA2-2026.1",
       desc: {
-        pt: "Banco chave-valor em Rust sobre árvore Rubro-Negra, com range queries em O(log n + k) e REPL no estilo Redis. Benchmarks contra BTreeMap e HashMap. Em dupla (EDA2).",
-        en: "Key-value store in Rust over a Red-Black tree, with O(log n + k) range queries and a Redis-style REPL. Benchmarked against BTreeMap and HashMap. Pair project (EDA2).",
+        pt: "Banco chave-valor em Rust sobre árvore Rubro-Negra, com range queries em O(log n + k) e um REPL no estilo Redis. Benchmarks com Criterion contra BTreeMap e HashMap. Em dupla, na disciplina de EDA2.",
+        en: "Key-value store in Rust over a Red-Black tree, with O(log n + k) range queries and a Redis-style REPL. Criterion benchmarks against BTreeMap and HashMap. Pair project, EDA2 course.",
       },
     },
     {
@@ -141,8 +138,8 @@ window.PORTFOLIO = {
       stack: ["Rust", "Ordenação", "Busca"],
       image: "images/rusty-explorer.png", url: "https://github.com/eda2-2026/G18_Ordenacao_EDA2-2026.1",
       desc: {
-        pt: "Explorador de arquivos em Rust usado como bancada para comparar algoritmos de ordenação e busca em cenários reais, com benchmarks e um relatório sobre qual algoritmo escolher em cada situação. Em dupla (EDA2).",
-        en: "A file explorer in Rust used as a testbed to compare sorting and search algorithms in real scenarios, with benchmarks and a report on which algorithm to pick in each situation. Pair project (EDA2).",
+        pt: "Explorador de arquivos em Rust usado para comparar algoritmos de ordenação e busca em cenários reais, com benchmarks e um relatório sobre qual algoritmo usar em cada caso. Em dupla, na disciplina de EDA2.",
+        en: "File explorer in Rust used to compare sorting and search algorithms in real scenarios, with benchmarks and a report on which algorithm to use in each case. Pair project, EDA2 course.",
       },
     },
     {
@@ -150,8 +147,8 @@ window.PORTFOLIO = {
       stack: ["Python", "NumPy", "Pillow"],
       image: "images/quadtree.png", url: "https://github.com/eda2-2026/G18_Busca_EDA2-2026.1",
       desc: {
-        pt: "Compressor de imagens em escala de cinza baseado em Quadtree, com busca espacial O(profundidade) e serialização binária própria: ~98% de compressão mantendo PSNR acima de 30 dB. Em dupla (EDA2).",
-        en: "Grayscale image compressor based on a Quadtree, with O(depth) spatial search and a custom binary format: ~98% compression while keeping PSNR above 30 dB. Pair project (EDA2).",
+        pt: "Compressor de imagens em escala de cinza baseado em Quadtree, com busca espacial O(profundidade) e formato binário próprio. Chega a cerca de 98% de compressão mantendo PSNR acima de 30 dB. Em dupla, na disciplina de EDA2.",
+        en: "Grayscale image compressor based on a Quadtree, with O(depth) spatial search and a custom binary format. Reaches about 98% compression while keeping PSNR above 30 dB. Pair project, EDA2 course.",
       },
     },
     {
@@ -159,8 +156,8 @@ window.PORTFOLIO = {
       stack: ["Python", "Bellman-Ford"],
       image: "images/crypto-arbitrage.png", url: "https://github.com/eda2-2026/G18_Grafos_EDA2-2026.1",
       desc: {
-        pt: "Detecção de arbitragem triangular em cripto modelando moedas como grafo ponderado e aplicando Bellman-Ford, com dados da API CoinGecko e grafo interativo. Em equipe (EDA2).",
-        en: "Triangular arbitrage detection in crypto, modelling currencies as a weighted graph and applying Bellman-Ford, with CoinGecko API data and an interactive graph. Team project (EDA2).",
+        pt: "Detecta arbitragem triangular em cripto modelando as moedas como grafo ponderado e aplicando Bellman-Ford. Consome a API da CoinGecko e mostra o grafo de forma interativa. Em equipe, na disciplina de EDA2.",
+        en: "Detects triangular arbitrage in crypto by modelling currencies as a weighted graph and applying Bellman-Ford. It consumes the CoinGecko API and shows the graph interactively. Team project, EDA2 course.",
       },
     },
     {
@@ -168,16 +165,16 @@ window.PORTFOLIO = {
       stack: ["Next.js", "TypeScript", "Node.js"],
       image: "", url: "",
       desc: {
-        pt: "Gerenciador de frota para locadora de carros: cadastro de veículos, controle de disponibilidade e ciclo de aluguel. API em Node/Express e frontend em Next.js com TypeScript. Repositório privado.",
-        en: "Fleet manager for a car rental company: vehicle registry, availability control and the rental cycle. Node/Express API and a Next.js frontend in TypeScript. Private repository.",
+        pt: "Gerenciador de frota para locadora de carros: cadastro de veículos, controle de disponibilidade e ciclo de aluguel. API em Node com Express e frontend em Next.js com TypeScript. Repositório privado.",
+        en: "Fleet manager for a car rental company: vehicle registry, availability control and the rental cycle. Node and Express API, Next.js frontend in TypeScript. Private repository.",
       },
     },
   ],
 
   /* ---------- stack ---------- */
   stackNote: {
-    pt: "O que uso de verdade no dia a dia — e o que eu defenderia numa entrevista técnica.",
-    en: "What I actually use day to day — and what I'd defend in a technical interview.",
+    pt: "Ferramentas que uso nos projetos listados aqui.",
+    en: "Tools I use in the projects listed here.",
   },
   stack: [
     { label: { pt: "LINGUAGENS", en: "LANGUAGES" }, items: [
@@ -212,16 +209,16 @@ window.PORTFOLIO = {
       logo: "BAJA",
       company: "UnBaja — Equipe Baja SAE UnB · Brasília, DF",
       desc: {
-        pt: "Idealizei e desenvolvi do zero o sistema de telemetria embarcado do Baja SAE Nacional 2026: arquitetura de 4 nós ECU (2 Arduinos + 1 ESP32) comunicando por barramento CAN, com exibição em tempo real ao piloto num display TFT.",
-        en: "I designed and built from scratch the embedded telemetry system for Baja SAE Nacional 2026: a 4-node ECU architecture (2 Arduinos + 1 ESP32) communicating over a CAN bus, with real-time display to the driver on a TFT screen.",
+        pt: "Desenvolvi o sistema de telemetria embarcado do Baja SAE Nacional 2026. São quatro nós ECU, dois Arduinos e um ESP32, comunicando por barramento CAN, com os dados exibidos ao piloto em tempo real num display TFT.",
+        en: "I built the embedded telemetry system for Baja SAE Nacional 2026. It has four ECU nodes, two Arduinos and one ESP32, communicating over a CAN bus, with data shown to the driver in real time on a TFT display.",
       },
-      b1: { pt: "Responsável pela cadeia inteira: leitura de sensores, protocolo entre nós, tratamento dos dados e interface visual de bordo.",
-            en: "Owner of the whole chain: sensor reading, inter-node protocol, data processing and the on-board visual interface." },
-      b2: { pt: "Lidero 4 integrantes do subsistema de eletrônica — distribuição de tarefas, planejamento técnico e prestação de contas à universidade.",
-            en: "I lead 4 members of the electronics subsystem — task distribution, technical planning and accountability to the university." },
+      b1: { pt: "Cuidei da cadeia inteira: leitura dos sensores, protocolo entre os nós, tratamento dos dados e a interface de bordo.",
+            en: "I handled the whole chain: sensor reading, the protocol between nodes, data processing and the on-board interface." },
+      b2: { pt: "Lidero quatro integrantes do subsistema de eletrônica, com distribuição de tarefas, planejamento técnico e prestação de contas à universidade.",
+            en: "I lead four members of the electronics subsystem, handling task distribution, technical planning and accountability to the university." },
       metricValue: "4 ECUs",
-      metric: { pt: "Nós independentes conversando em tempo real por barramento CAN.",
-                en: "Independent nodes talking in real time over a CAN bus." },
+      metric: { pt: "Nós independentes trocando dados em tempo real por barramento CAN.",
+                en: "Independent nodes exchanging data in real time over a CAN bus." },
       stack: ["ESP32", "Arduino", "CAN", "C++"],
     },
     {
@@ -230,16 +227,16 @@ window.PORTFOLIO = {
       logo: "UnB",
       company: "Universidade de Brasília (UnB) · Brasília, DF",
       desc: {
-        pt: "Pesquisa em dinâmica veicular: modelo multicorpo em C++ validado contra o Project Chrono, com sandbox na engine Godot para ganhar intuição sobre powertrain, torque e suspensão. Documentação pública e viva, com artigo científico previsto como entrega.",
-        en: "Research in vehicle dynamics: a C++ multibody model validated against Project Chrono, with a Godot sandbox to build intuition on powertrain, torque and suspension. Public living documentation, with a scientific paper planned as a deliverable.",
+        pt: "Pesquisa em dinâmica veicular. Modelo multicorpo em C++ validado contra o Project Chrono, com um sandbox na engine Godot para estudar powertrain, torque e suspensão. A entrega prevista inclui um artigo científico.",
+        en: "Research in vehicle dynamics. C++ multibody model validated against Project Chrono, with a sandbox in the Godot engine to study powertrain, torque and suspension. Deliverables include a scientific paper.",
       },
       b1: { pt: "Modelagem da movimentação do veículo em terreno irregular, em C++ sobre a engine Godot.",
             en: "Modelling vehicle movement over irregular terrain, in C++ on the Godot engine." },
-      b2: { pt: "Documentação técnica publicada em Docusaurus, atualizada por sprint semanal.",
-            en: "Technical documentation published in Docusaurus, updated every weekly sprint." },
+      b2: { pt: "Documentação técnica publicada em Docusaurus e atualizada a cada sprint semanal.",
+            en: "Technical documentation published in Docusaurus and updated each weekly sprint." },
       metricValue: "7 frentes",
-      metric: { pt: "Frentes de trabalho mapeadas, 5 já publicadas na documentação.",
-                en: "Work fronts mapped, 5 already published in the documentation." },
+      metric: { pt: "Frentes de trabalho mapeadas, cinco já publicadas na documentação.",
+                en: "Work fronts mapped, five already published in the documentation." },
       stack: ["C++", "Godot", "Chrono", "Docusaurus"],
     },
     {
@@ -248,13 +245,13 @@ window.PORTFOLIO = {
       logo: "MCTI",
       company: "Ministério da Ciência, Tecnologia e Inovação · Brasília, DF",
       desc: {
-        pt: "Estágio no MCTI atuando como Product Owner Jr. do NOVO SIGPLANI, plataforma que atende ao programa PADIS. O papel vinha da participação no Scrum semanal do produto: validar regras de negócio junto ao Product Owner e levar os erros mapeados do sistema para a pauta das cerimônias.",
-        en: "Internship at MCTI as Junior Product Owner for NOVO SIGPLANI, the platform serving the PADIS programme. The role came from taking part in the product's weekly Scrum: validating business rules alongside the Product Owner and bringing mapped system errors into the ceremonies' agenda.",
+        pt: "Estágio no MCTI como Product Owner Jr. do NOVO SIGPLANI, plataforma que atende ao programa PADIS. O papel vinha da participação no Scrum semanal do produto: validar regras de negócio junto ao Product Owner e levar os erros do sistema para a pauta.",
+        en: "Internship at MCTI as Junior Product Owner for NOVO SIGPLANI, the platform serving the PADIS programme. The role came from taking part in the product's weekly Scrum: validating business rules with the Product Owner and bringing system bugs to the agenda.",
       },
-      b1: { pt: "Acompanhamento semanal do Scrum do NOVO SIGPLANI — refinamento de regras de negócio, reporte de erros e priorização junto ao Product Owner.",
-            en: "Weekly Scrum on NOVO SIGPLANI — refining business rules, reporting bugs and prioritising alongside the Product Owner." },
-      b2: { pt: "Em paralelo e por iniciativa própria, desenvolvi sozinho o ExtracaoRDA — automação em Python que lê PDFs de RDA e os estrutura em Excel. Projeto individual, totalmente fora do escopo do NOVO SIGPLANI e do time.",
-            en: "In parallel and on my own initiative, I single-handedly built ExtracaoRDA — a Python automation that reads RDA PDFs and structures them into Excel. A solo project, entirely outside NOVO SIGPLANI's and the team's scope." },
+      b1: { pt: "Scrum semanal do NOVO SIGPLANI: refinamento de regras de negócio, reporte de erros e priorização junto ao Product Owner.",
+            en: "Weekly Scrum on NOVO SIGPLANI: refining business rules, reporting bugs and prioritising with the Product Owner." },
+      b2: { pt: "Por iniciativa própria, desenvolvi sozinho o ExtracaoRDA, automação em Python que lê PDFs de RDA e gera planilhas Excel. Projeto individual, fora do escopo do NOVO SIGPLANI e do time.",
+            en: "On my own initiative, I single-handedly built ExtracaoRDA, a Python automation that reads RDA PDFs and generates Excel spreadsheets. A solo project, outside NOVO SIGPLANI's and the team's scope." },
       metricValue: "0 manual",
       metric: { pt: "Resultado do ExtracaoRDA: a transcrição manual dos relatórios saiu do fluxo dos analistas.",
                 en: "Result of ExtracaoRDA: manual transcription of the reports left the analysts' workflow." },
@@ -265,8 +262,8 @@ window.PORTFOLIO = {
   /* ---------- contato ---------- */
   contactHeadline: { pt: "Aberto a estágio", en: "Open to internships" },
   contactLine: {
-    pt: "Procuro estágio em desenvolvimento — backend, fullstack ou embarcados. O caminho mais rápido é o e-mail abaixo; respondo em até um dia.",
-    en: "I'm looking for a development internship — backend, fullstack or embedded. The fastest route is the email below; I reply within a day.",
+    pt: "Procuro estágio em desenvolvimento, com foco em backend, dados ou sistemas embarcados. Em Brasília ou remoto.",
+    en: "I'm looking for a development internship focused on backend, data or embedded systems. In Brasília or remote.",
   },
   footerBuilt: { pt: "FEITO COM HTML · CSS · JS · BRASÍLIA, DF", en: "BUILT WITH HTML · CSS · JS · BRASÍLIA, BR" },
 };

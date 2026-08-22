@@ -296,6 +296,10 @@
     .icon-sun,.icon-moon{ transition:none }
     .theme-btn:hover .icon-sun,.theme-btn:hover .icon-moon{ transform:none }
   }
+  /* headline: o design fixa 92px inline, o que só cabe em títulos curtos.
+     clamp deixa o tamanho seguir a largura e acomoda textos mais longos. */
+  h1{ font-size:clamp(38px, 4.4vw, 62px) !important; line-height:1.03 !important }
+
   .shine-text{
     background-image:linear-gradient(100deg,currentColor 25%,oklch(0.83 0.15 300) 45%,currentColor 65%);
     background-size:220% 100%;
@@ -398,10 +402,10 @@
     <div style="aspect-ratio:4/5;border-radius:18px;border:1px dashed {{ c.line2 }};background:{{ c.ph }};background-image:{{ v.photo }};display:grid;place-items:center;text-align:center;font:500 10px/1.6 'IBM Plex Mono',monospace;color:{{ c.mut }};background-size:cover;background-position:center">{{ v.photoLabel }}</div>
     <div>
       <span style="font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:.16em;color:{{ c.mut }}">01 — <span>{{ v.aboutKicker }}</span></span>
-      <h2 style="margin:18px 0 22px;font:600 44px/1.08 'Space Grotesk',sans-serif;letter-spacing:-0.03em;max-width:640px">
+      <h2 style="display:{{ v.manifestoDisplay }};margin:18px 0 22px;font:600 44px/1.08 'Space Grotesk',sans-serif;letter-spacing:-0.03em;max-width:640px">
         <span>{{ v.manifesto }}</span>
       </h2>
-      <p style="margin:0 0 16px;max-width:620px;font:400 16.5px/1.7 'Space Grotesk',sans-serif;color:{{ c.mut2 }};text-wrap:pretty">
+      <p style="margin:{{ v.aboutGap }} 0 16px;max-width:620px;font:400 16.5px/1.7 'Space Grotesk',sans-serif;color:{{ c.mut2 }};text-wrap:pretty">
         <span>{{ v.about1 }}</span>
       </p>
       <p style="margin:0;max-width:620px;font:400 16.5px/1.7 'Space Grotesk',sans-serif;color:{{ c.mut2 }};text-wrap:pretty">
@@ -945,6 +949,8 @@ class Component extends DCLogic {
       photoLabel: P.photo ? '' : 'RETRATO / FOTO · 1000×1250',
       aboutKicker: T(P.aboutKicker, pt ? 'SOBRE MIM' : 'ABOUT ME'),
       manifesto: T(P.manifesto, pt ? '[Uma frase-manifesto sobre como você trabalha.]' : '[A one-line manifesto about how you work.]'),
+      manifestoDisplay: P.manifesto ? 'block' : 'none',
+      aboutGap: P.manifesto ? '0' : '22px',   // sem o título, o kicker precisa do respiro
       about1: T(P.about1, pt ? '[Parágrafo 1 — sua trajetória.]' : '[Paragraph 1 — your background.]'),
       about2: T(P.about2, pt ? '[Parágrafo 2 — o que busca agora.]' : '[Paragraph 2 — what you want next.]'),
       aboutStat1Value: as_[0].value || '[X]+', aboutStat1Label: T(as_[0].label, pt ? 'ANOS CODANDO' : 'YEARS CODING'),
