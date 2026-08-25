@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy Policy — Omarchy Calendar</title>
+<style>
+  :root { color-scheme: light dark; }
+  body { max-width: 42rem; margin: 3rem auto; padding: 0 1.25rem;
+         font: 16px/1.65 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; }
+  h1 { font-size: 1.6rem; margin-bottom: .25rem; }
+  h2 { font-size: 1.05rem; margin-top: 2.25rem; }
+  .updated { opacity: .65; font-size: .9rem; margin-top: 0; }
+  code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .9em; }
+  ul { padding-left: 1.2rem; }
+  footer { margin-top: 3rem; font-size: .9rem; opacity: .7; }
+</style>
+</head>
+<body>
+
+<h1>Privacy Policy — Omarchy Calendar</h1>
+<p class="updated">Last updated: 25 August 2026</p>
+
+<p>
+  Omarchy Calendar is an open-source desktop widget for the Omarchy Linux
+  desktop. It shows your upcoming Google Calendar events in the status bar and
+  notifies you before they start.
+</p>
+
+<h2>Who runs this application</h2>
+<p>
+  There is no service and no server. The application runs entirely on the
+  computer of the person who installs it, using an OAuth client that person
+  creates in their own Google Cloud project. The author does not operate any
+  infrastructure that this application talks to, and has no access to any
+  user's data.
+</p>
+
+<h2>What data is accessed</h2>
+<p>
+  With the <code>calendar.readonly</code> scope, and only after you explicitly
+  authorize it, the application reads upcoming events from your primary Google
+  Calendar: title, start and end time, location, description, conference link,
+  and reminder settings.
+</p>
+<p>
+  The scope is read-only. The application cannot create, modify, or delete
+  anything in your calendar.
+</p>
+
+<h2>Where data is stored</h2>
+<p>
+  All data stays on your own machine, in files readable only by your user
+  account (permission mode <code>0600</code>):
+</p>
+<ul>
+  <li><code>~/.local/state/omarchy/io.github.heitorm50.gcal/credentials.json</code> — your OAuth client ID, client secret, and refresh token.</li>
+  <li><code>~/.local/state/omarchy/io.github.heitorm50.gcal/events.json</code> — a cache of your upcoming events, so the widget works offline.</li>
+  <li><code>$XDG_RUNTIME_DIR/omarchy-gcal/</code> — a short-lived access token and a record of reminders already shown, cleared when you log out.</li>
+</ul>
+
+<h2>Where data is sent</h2>
+<p>
+  Nowhere except Google. The application makes requests to
+  <code>oauth2.googleapis.com</code> to refresh its access token and to
+  <code>www.googleapis.com</code> to read your calendar. It contains no
+  analytics, no telemetry, no crash reporting, and no third-party services of
+  any kind. Your calendar data is never transmitted to the author or to anyone
+  else.
+</p>
+
+<h2>Data retention and deletion</h2>
+<p>
+  The event cache is overwritten on every sync and holds only the next few days.
+  To remove everything the application has stored, delete its state directory:
+</p>
+<p><code>rm -rf ~/.local/state/omarchy/io.github.heitorm50.gcal</code></p>
+<p>
+  To revoke the application's access to your Google account, remove it at
+  <a href="https://myaccount.google.com/permissions">myaccount.google.com/permissions</a>.
+  Because the OAuth client belongs to you, you can also delete the entire
+  project from your Google Cloud console.
+</p>
+
+<h2>Children</h2>
+<p>
+  This application is a developer tool and is not directed at children.
+</p>
+
+<h2>Changes</h2>
+<p>
+  Any change to this policy will be published on this page, with the date above
+  updated.
+</p>
+
+<h2>Contact</h2>
+<p>
+  Questions about this policy: <a href="mailto:heitorm50@gmail.com">heitorm50@gmail.com</a>
+</p>
+
+<footer>
+  <a href="./">Omarchy Calendar</a>
+</footer>
+
+</body>
+</html>
