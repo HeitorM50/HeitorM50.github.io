@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Política de Privacidade — unb-prazos</title>
+<style>
+  :root { color-scheme: light dark; }
+  body { max-width: 42rem; margin: 3rem auto; padding: 0 1.25rem;
+         font: 16px/1.65 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; }
+  h1 { font-size: 1.6rem; margin-bottom: .25rem; }
+  h2 { font-size: 1.05rem; margin-top: 2.25rem; }
+  .tag, .updated { opacity: .7; margin-top: 0; font-size: .95rem; }
+  code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .9em; }
+  pre { background: rgba(127,127,127,.12); padding: .85rem 1rem; border-radius: 6px;
+        overflow-x: auto; }
+  ul { padding-left: 1.2rem; }
+  footer { margin-top: 3rem; font-size: .9rem; opacity: .7; }
+</style>
+</head>
+<body>
+
+<h1>Política de Privacidade — unb-prazos</h1>
+<p class="updated">Última atualização: 28 de agosto de 2026</p>
+
+<p>
+  O unb-prazos reúne prazos de disciplinas da UnB e os espelha no Google Calendar
+  de quem o instala.
+</p>
+
+<h2>Quem opera a aplicação</h2>
+<p>
+  Ninguém, no sentido usual: não há serviço e não há servidor. A aplicação roda
+  inteiramente no computador de quem a instala, usando um cliente OAuth que essa
+  mesma pessoa cria no próprio projeto do Google Cloud. O autor não mantém nenhuma
+  infraestrutura com que a aplicação converse e não tem acesso a dado de usuário
+  nenhum.
+</p>
+
+<h2>Que dados são acessados</h2>
+<p>
+  Com o escopo <code>https://www.googleapis.com/auth/calendar.app.created</code>, e
+  só depois de autorização explícita, a aplicação cria um calendário secundário
+  chamado <strong>UnB — Prazos</strong> e gerencia os eventos dele.
+</p>
+<p>
+  Esse escopo alcança apenas calendários que a própria aplicação criou. Ela
+  <strong>não consegue ler, alterar nem apagar</strong> o calendário principal nem
+  qualquer outro calendário já existente na conta.
+</p>
+<p>
+  Da plataforma acadêmica, a aplicação lê o que a URL de exportação de calendário
+  fornecida pelo usuário devolver: título, data e horário das atividades, e o texto
+  do enunciado. Nenhuma senha institucional é pedida, transmitida ou armazenada.
+</p>
+
+<h2>Onde os dados ficam</h2>
+<p>
+  Num banco PostgreSQL que roda em contêiner na própria máquina do usuário. Ficam
+  ali os prazos coletados, as URLs de fonte cadastradas e as credenciais do Google
+  (client ID, client secret e refresh token).
+</p>
+<p>
+  As credenciais e as URLs de fonte são gravadas cifradas, com uma chave que existe
+  só na instalação local. Nada é enviado a serviço de terceiro, e a aplicação não
+  contém analytics, telemetria nem relatório de erro remoto.
+</p>
+
+<h2>Para onde os dados vão</h2>
+<p>
+  Para dois destinos, ambos escolhidos pelo usuário:
+</p>
+<ul>
+  <li><code>oauth2.googleapis.com</code> e <code>www.googleapis.com</code> — para
+      renovar o token de acesso e escrever no calendário criado pela aplicação.</li>
+  <li>O endereço da plataforma acadêmica cadastrada como fonte, por exemplo
+      <code>aprender3.unb.br</code>, para ler o calendário de atividades.</li>
+</ul>
+
+<h2>Retenção e exclusão</h2>
+<p>
+  Os dados permanecem enquanto a instalação existir. Para apagar tudo, basta
+  destruir o volume do banco:
+</p>
+<pre><code>docker compose down -v</code></pre>
+<p>
+  Para revogar o acesso da aplicação à conta Google, remova-a em
+  <a href="https://myaccount.google.com/permissions">myaccount.google.com/permissions</a>.
+  Como o cliente OAuth pertence ao próprio usuário, também é possível excluir o
+  projeto inteiro no Google Cloud. Apagar o calendário <strong>UnB — Prazos</strong>
+  no Google remove todos os eventos criados pela aplicação.
+</p>
+
+<h2>Crianças</h2>
+<p>
+  A aplicação é dirigida a estudantes de ensino superior e não se destina a crianças.
+</p>
+
+<h2>Alterações</h2>
+<p>
+  Qualquer mudança nesta política será publicada nesta página, com a data acima
+  atualizada.
+</p>
+
+<h2>Contato</h2>
+<p>
+  Dúvidas sobre esta política: <a href="mailto:heitorm50@gmail.com">heitorm50@gmail.com</a>
+</p>
+
+<footer><a href="./">unb-prazos</a> · Não é um serviço oficial da Universidade de Brasília.</footer>
+
+</body>
+</html>

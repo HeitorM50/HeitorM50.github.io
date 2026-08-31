@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>unb-prazos</title>
+<style>
+  :root { color-scheme: light dark; }
+  body { max-width: 42rem; margin: 3rem auto; padding: 0 1.25rem;
+         font: 16px/1.65 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; }
+  h1 { font-size: 1.6rem; margin-bottom: .25rem; }
+  h2 { font-size: 1.05rem; margin-top: 2.25rem; }
+  .tag, .updated { opacity: .7; margin-top: 0; font-size: .95rem; }
+  code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .9em; }
+  pre { background: rgba(127,127,127,.12); padding: .85rem 1rem; border-radius: 6px;
+        overflow-x: auto; }
+  ul { padding-left: 1.2rem; }
+  footer { margin-top: 3rem; font-size: .9rem; opacity: .7; }
+</style>
+</head>
+<body>
+
+<h1>unb-prazos</h1>
+<p class="tag">Junta os prazos das disciplinas da UnB num lugar só e os coloca no Google Calendar.</p>
+
+<p>
+  Na UnB cada professor escolhe seu canal: uns usam o Aprender 3, outros o SIGAA,
+  outros um site próprio, outros só o plano de ensino em PDF. O aluno com seis
+  disciplinas fica com a informação espalhada por seis lugares e perde a entrega
+  que fechava às 23h59.
+</p>
+<p>
+  O <strong>unb-prazos</strong> lê essas fontes, junta tudo num calendário único e
+  avisa com antecedência — sete dias, três dias, um dia, três horas e trinta minutos
+  antes de cada prazo.
+</p>
+
+<h2>Como funciona</h2>
+<ul>
+  <li>Roda inteiro na máquina de quem instala. Não existe servidor, não existe conta.</li>
+  <li>A senha institucional da UnB nunca é pedida nem armazenada. O Aprender 3 entra
+      por uma URL de exportação de calendário que o próprio aluno gera lá.</li>
+  <li>Cada pessoa cria o próprio cliente OAuth no Google Cloud. Nenhum tráfego de
+      calendário passa pelo projeto de outra pessoa.</li>
+  <li>O app cria um calendário separado, chamado <strong>UnB — Prazos</strong>, e mexe
+      só nele. Os calendários que já existem na conta ficam fora do alcance.</li>
+</ul>
+
+<h2>Situação</h2>
+<p>
+  Projeto pessoal em desenvolvimento, hoje em uso por uma pessoa só. O código-fonte
+  ainda não é público.
+</p>
+
+<h2>Links</h2>
+<ul>
+  <li><a href="./privacidade.html">Política de Privacidade</a></li>
+  <li><a href="./termos.html">Termos de Serviço</a></li>
+  <li><a href="../">Portfólio</a></li>
+</ul>
+
+<footer>Não é um serviço oficial da Universidade de Brasília.</footer>
+
+</body>
+</html>
