@@ -913,7 +913,7 @@ class Component extends DCLogic {
         : '[Summary of what you did there: scope, team, technologies and product impact.]'),
       b1: T(ax.b1, pt ? '[Entrega ou responsabilidade principal — com número quando possível.]' : '[Key delivery or responsibility — with a number when possible.]'),
       b2: T(ax.b2, pt ? '[Segunda conquista relevante para a vaga que você quer.]' : '[Second achievement relevant to the role you want.]'),
-      metricValue: ax.metricValue || '[+XX%]',
+      metricValue: T(ax.metricValue, '[+XX%]'),
       metric: T(ax.metric, pt ? '[Explique a métrica em uma linha.]' : '[Explain the metric in one line.]'),
       stack: list(ax.stack, ['[TECH]', '[TECH]', '[TECH]', '[TECH]']).map(t => ({ name: t })),
     };

@@ -39,7 +39,7 @@ window.PORTFOLIO = {
   },
   heroStats: [
     { value: "2+", label: { pt: "ANOS CODANDO", en: "YEARS CODING" } },
-    { value: "10", label: { pt: "PROJETOS",     en: "PROJECTS" } },
+    { value: "11", label: { pt: "PROJETOS",     en: "PROJECTS" } },
     { value: "4",  label: { pt: "LIDERADOS",    en: "TEAM LED" } },
   ],
 
@@ -58,17 +58,28 @@ window.PORTFOLIO = {
     en: "I'm studying Software Engineering at UnB, graduating in March 2029, and Systems Analysis and Development at GRAN. I joined the Baja SAE team in 2024 and now lead the electronics subsystem, with four members.",
   },
   about2: {
-    pt: "Já trabalhei em web, dados e sistemas embarcados: uma plataforma de métricas de colaboração no GitHub, um hub administrativo em produção para um cliente real e o sistema de telemetria do Baja, com quatro nós ECU em barramento CAN. Procuro estágio em desenvolvimento, em Brasília ou remoto.",
-    en: "I've worked on web, data and embedded systems: a GitHub collaboration metrics platform, an admin hub in production for a real client and the Baja telemetry system, with four ECU nodes on a CAN bus. I'm looking for a development internship, in Brasília or remote.",
+    pt: "Já trabalhei em web, dados e sistemas embarcados: uma plataforma de métricas de colaboração no GitHub, um hub administrativo em produção para um cliente real e o sistema de telemetria do Baja, com quatro nós ECU em barramento CAN. Em agosto de 2026 participei do hackathon do IBM TechXchange, num time de cinco. Procuro estágio em desenvolvimento, em Brasília ou remoto.",
+    en: "I've worked on web, data and embedded systems: a GitHub collaboration metrics platform, an admin hub in production for a real client and the Baja telemetry system, with four ECU nodes on a CAN bus. In August 2026 I took part in the IBM TechXchange hackathon, in a team of five. I'm looking for a development internship, in Brasília or remote.",
   },
   aboutStats: [
     { value: "2+",       label: { pt: "ANOS CODANDO",     en: "YEARS CODING" } },
-    { value: "3",        label: { pt: "PRODUTOS NO AR",   en: "SHIPPED PRODUCTS" } },
+    { value: "4",        label: { pt: "PRODUTOS NO AR",   en: "SHIPPED PRODUCTS" } },
     { value: "Brasília", label: { pt: "BASE · REMOTO OK", en: "BASED · REMOTE OK" } },
   ],
 
   /* ---------- projetos em destaque ---------- */
   featured: [
+    {
+      title: "Hindsight",
+      desc: {
+        pt: "Projeto do hackathon do IBM TechXchange 2026. Lê o export de uma sessão do IBM Bob e mostra onde a configuração do agente gasta contexto à toa: regras de projeto ausentes, ferramentas carregadas e nunca usadas, Skills pagas sem uso. Depois gera a configuração corrigida e compara as duas rodadas. No experimento A/B, mesma tarefa e mesmo commit, o overhead fixo caiu 25,9% e o custo de API 19,7%. Rodei o experimento e a tela de comparação, fiz o esqueleto React e o deploy estático com CI. Projeto em equipe de cinco, com 56 commits meus.",
+        en: "Built for the IBM TechXchange 2026 hackathon. It reads an IBM Bob session export and shows where the agent configuration burns context for nothing: absent project rules, tools loaded and never called, paid Skills with no declared use. It then generates the corrected configuration and compares the two rounds. In the A/B experiment, same task and same commit, fixed overhead dropped 25.9% and API cost 19.7%. I ran the experiment and the comparison screen, built the React skeleton and the static deploy with CI. Team of five, 56 commits mine.",
+      },
+      image: "images/hindsight.png",
+      tech: ["TypeScript", "React", "Vite", "Vitest", "GitHub Actions"],
+      liveUrl: "https://heitorm50.github.io/OsBiruBob/",
+      sourceUrl: "https://github.com/HeitorM50/OsBiruBob",
+    },
     {
       title: "Crianex Hub",
       desc: {
@@ -184,13 +195,15 @@ window.PORTFOLIO = {
     ] },
     { label: { pt: "WEB & DADOS", en: "WEB & DATA" }, items: [
       { name: "React", icon: "react" }, { name: "Svelte", icon: "svelte" },
+      { name: "Vite", icon: "vite" },
       { name: "Node.js", icon: "nodedotjs" }, { name: "Express", icon: "express" },
       { name: "D3.js", icon: "d3dotjs" }, { name: "PostgreSQL", icon: "postgresql" },
       { name: "Supabase", icon: "supabase" },
     ] },
     { label: { pt: "INFRA & TESTES", en: "INFRA & TESTING" }, items: [
       { name: "Docker", icon: "docker" }, { name: "GitHub Actions", icon: "githubactions" },
-      { name: "pytest", icon: "pytest" }, { name: "Git", icon: "git" },
+      { name: "pytest", icon: "pytest" }, { name: "Vitest", icon: "vitest" },
+      { name: "Git", icon: "git" },
       { name: "Linux", icon: "linux" }, { name: "Google Cloud", icon: "googlecloud" },
       { name: "Render", icon: "render" },
     ] },
@@ -238,6 +251,24 @@ window.PORTFOLIO = {
       metric: { pt: "Frentes de trabalho mapeadas, cinco já publicadas na documentação.",
                 en: "Work fronts mapped, five already published in the documentation." },
       stack: ["C++", "Godot", "Chrono", "Docusaurus"],
+    },
+    {
+      period: { pt: "AGO 2026", en: "AUG 2026" },
+      role:   { pt: "Hackathon IBM TechXchange 2026", en: "IBM TechXchange 2026 Hackathon" },
+      logo: "IBM",
+      company: "IBM TechXchange 2026 · Pre-conference Dev Day Hackathon",
+      desc: {
+        pt: "Num time de cinco, construí o Hindsight: uma ferramenta que lê o export de uma sessão do IBM Bob e mostra onde a configuração do agente desperdiça contexto e dinheiro. O Bob era ao mesmo tempo a ferramenta que usamos para escrever o código, a fonte dos dados e o objeto de estudo.",
+        en: "In a team of five, I built Hindsight: a tool that reads an IBM Bob session export and shows where the agent configuration wastes context and money. Bob was at once the tool we wrote the code with, the source of the data and the object of study.",
+      },
+      b1: { pt: "Executei o experimento A/B que sustenta o produto: mesma tarefa, mesmo commit e mesmo prompt, mudando só a configuração do agente. A hipótese registrada antes do teste saiu parcialmente errada e o relatório diz isso, junto com as regressões de tempo e de turnos.",
+            en: "I ran the A/B experiment behind the product: same task, same commit, same prompt, changing only the agent configuration. The hypothesis registered before the test turned out partly wrong, and the report says so, along with the regressions in time and turn count." },
+      b2: { pt: "Também entreguei o esqueleto React com Vite, três dos detectores de desperdício e o deploy estático com CI no GitHub Actions. 56 commits e 20 pull requests meus.",
+            en: "I also delivered the React skeleton with Vite, three of the waste detectors and the static deploy with CI on GitHub Actions. 56 commits and 20 pull requests mine." },
+      metricValue: { pt: "−25,9%", en: "−25.9%" },
+      metric: { pt: "Queda no overhead fixo de contexto entre as duas rodadas, com 19,7% a menos de custo de API.",
+                en: "Drop in fixed context overhead between the two rounds, with 19.7% lower API cost." },
+      stack: ["TypeScript", "React", "Vite", "Vitest"],
     },
     {
       period: "2025 — 2026",
