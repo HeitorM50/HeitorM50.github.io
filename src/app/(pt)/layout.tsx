@@ -18,8 +18,8 @@ export const metadata: Metadata = {
   icons: { icon: '/favicon.svg', apple: '/media/logo.webp' }
 }
 
-const themeScript = `(function(){try{var t=localStorage.getItem('portfolio-theme');if(!t)t=matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';document.documentElement.dataset.theme=t}catch(e){document.documentElement.dataset.theme='dark'}})()`
+const themeScript = `(function(){var r=document.documentElement;try{var t=localStorage.getItem('portfolio-theme');if(!t)t=matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';r.dataset.theme=t}catch(e){r.dataset.theme='dark'}addEventListener('DOMContentLoaded',function(){document.querySelectorAll('[data-theme-toggle]').forEach(function(b){b.addEventListener('click',function(){var n=r.dataset.theme==='dark'?'light':'dark';r.dataset.theme=n;try{localStorage.setItem('portfolio-theme',n)}catch(e){}})})})})()`
 
 export default function PortugueseLayout({ children }: { children: ReactNode }) {
-  return <html lang="pt-BR" data-theme="dark" suppressHydrationWarning><head><script dangerouslySetInnerHTML={{ __html: themeScript }} /></head><body>{children}</body></html>
+  return <html lang="pt-BR" data-theme="dark" suppressHydrationWarning><head><script data-static-runtime dangerouslySetInnerHTML={{ __html: themeScript }} /></head><body>{children}</body></html>
 }
