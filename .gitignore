@@ -4,3 +4,13 @@
 # instruções e configuração locais de ferramenta — não vão para o site público
 CLAUDE.md
 .claude/
+
+# dependências e artefatos do site
+node_modules/
+.next/
+out/
+coverage/
+test-results/
+playwright-report/
+.lighthouseci/
+*.tsbuildinfo

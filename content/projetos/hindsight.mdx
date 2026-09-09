@@ -1,0 +1,19 @@
+## Contexto
+
+O Hindsight nasceu no hackathon do IBM TechXchange 2026, em uma equipe de cinco pessoas. O projeto lê o export de uma sessão do IBM Bob e mostra onde a configuração do agente consome contexto sem produzir valor: regras de projeto ausentes, ferramentas carregadas e nunca usadas e Skills pagas sem uso declarado.
+
+## O problema
+
+Configurações de agentes acumulam instruções e ferramentas, mas o custo desse contexto costuma ficar invisível. A proposta foi transformar o export da sessão em um diagnóstico compreensível e, depois, comparar a configuração original com uma versão corrigida.
+
+## Minha contribuição
+
+Implementei o esqueleto React com Vite, três detectores de desperdício, a tela de comparação e o deploy estático com GitHub Actions. Também executei o experimento A/B que sustenta o produto: mesma tarefa, mesmo commit e mesmo prompt, mudando apenas a configuração do agente.
+
+Trabalhei no projeto com 56 commits e 20 pull requests próprios.
+
+## Resultado
+
+O experimento registrou **25,9% menos overhead fixo de contexto** e **19,7% menos custo de API**. A hipótese inicial não acertou todos os efeitos: tempo e número de turnos regrediram, e o relatório registra isso explicitamente.
+
+> O valor do experimento está tanto na economia medida quanto na comparação reproduzível entre as duas configurações.

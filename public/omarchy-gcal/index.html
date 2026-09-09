@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Google Calendar for Omarchy</title>
+<style>
+  :root { color-scheme: light dark; }
+  body { max-width: 42rem; margin: 3rem auto; padding: 0 1.25rem;
+         font: 16px/1.65 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; }
+  h1 { font-size: 1.7rem; margin-bottom: .25rem; }
+  .tag { opacity: .7; margin-top: 0; }
+  h2 { font-size: 1.05rem; margin-top: 2.25rem; }
+  pre { background: rgba(127,127,127,.12); padding: .85rem 1rem; border-radius: 6px;
+        overflow-x: auto; }
+  code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .9em; }
+  ul { padding-left: 1.2rem; }
+  footer { margin-top: 3rem; font-size: .9rem; opacity: .7; }
+</style>
+</head>
+<body>
+
+<h1>Google Calendar for Omarchy</h1>
+<p class="tag">A Google Calendar widget for the Omarchy bar.</p>
+
+<p>
+  A calendar icon that sits in the Omarchy status bar. Click it for your next
+  few days of events; get a native desktop notification before each one starts,
+  using the reminders you already set in Google Calendar. Clicking a
+  notification joins the meeting.
+</p>
+
+<h2>Install</h2>
+<pre><code>omarchy plugin add https://github.com/HeitorM50/omarchy-gcal --enable</code></pre>
+<p>Then connect your Google account:</p>
+<pre><code>~/.config/omarchy/plugins/io.github.heitorm50.gcal/bin/gcal-auth</code></pre>
+<p>
+  You create your own Google OAuth client during setup — this plugin ships no
+  client ID and no relay server, so your calendar traffic never passes through
+  anyone else's project.
+</p>
+
+<h2>How it works</h2>
+<ul>
+  <li>Read-only access to your primary calendar (<code>calendar.readonly</code>).</li>
+  <li>You create your own OAuth client — no shared app, no third-party proxy.</li>
+  <li>No OAuth token ever enters the desktop shell process, and none is ever passed on a command line.</li>
+  <li>Reminders are scheduled as transient systemd user timers, not a polling loop.</li>
+  <li>Each event carries its Google Calendar colour as a small dot.</li>
+  <li>Works offline: the last synced agenda stays on screen.</li>
+</ul>
+
+<h2>Links</h2>
+<ul>
+  <li><a href="https://github.com/HeitorM50/omarchy-gcal">Source code</a></li>
+  <li><a href="./privacy.html">Privacy policy</a></li>
+</ul>
+
+<footer>MIT licensed.</footer>
+
+</body>
+</html>

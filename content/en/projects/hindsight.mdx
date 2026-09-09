@@ -1,0 +1,19 @@
+## Context
+
+Hindsight was built for the IBM TechXchange 2026 hackathon by a five-person team. It reads an IBM Bob session export and identifies where the agent configuration spends context without producing value: missing project rules, tools that were loaded but never called, and paid Skills with no declared use.
+
+## The problem
+
+Agent configurations accumulate instructions and tools, but the cost of that context is usually invisible. We set out to turn a session export into an understandable diagnosis and compare the original configuration with a corrected version.
+
+## My contribution
+
+I built the React and Vite foundation, three waste detectors, the comparison screen and the static GitHub Actions deployment. I also ran the A/B experiment behind the product: same task, same commit and same prompt, changing only the agent configuration.
+
+My work on the project accounts for 56 commits and 20 pull requests.
+
+## Result
+
+The experiment recorded **25.9% less fixed context overhead** and **19.7% lower API cost**. The original hypothesis did not predict every effect: time and turn count regressed, and the report states that explicitly.
+
+> The experiment’s value lies both in the measured savings and in the reproducible comparison between configurations.
