@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import type { ReactNode } from 'react'
+import type { CSSProperties, ReactNode } from 'react'
 import { cn } from '@/lib/utils'
 
 export interface TagItem {
@@ -14,8 +14,7 @@ export interface HeroScrollVideoRevealProps {
   headingText?: ReactNode
   tags?: TagItem[]
   subText?: string
-  videoSrc?: string
-  videoPoster?: string
+  auroraColors?: [string, string]
   bottomText?: ReactNode
   className?: string
 }
@@ -36,13 +35,19 @@ export function HeroScrollVideoReveal({
   headingText = <>I build across software, data and hardware.</>,
   tags = defaultTags,
   subText,
-  videoSrc = '/media/scroll-reveal.mp4',
-  videoPoster = '/media/hindsight.webp',
+  auroraColors = ['#2dd4a8', '#8b5cf6'],
   bottomText = <>From prototype to delivery.</>,
   className,
 }: HeroScrollVideoRevealProps) {
   return (
-    <section className={cn('scroll-reveal', className)} data-scroll-video-reveal>
+    <section
+      className={cn('scroll-reveal', className)}
+      data-scroll-video-reveal
+      style={{
+        '--aurora-primary': auroraColors[0],
+        '--aurora-secondary': auroraColors[1],
+      } as CSSProperties}
+    >
       <div className="scroll-reveal__intro">
         <p>{topText}</p>
       </div>
@@ -66,9 +71,11 @@ export function HeroScrollVideoReveal({
       <div className="scroll-reveal__track" data-scroll-video-track>
         <div className="scroll-reveal__pin">
           <div className="scroll-reveal__video" data-scroll-video-box>
-            <video muted loop playsInline preload="none" data-poster={videoPoster} aria-hidden="true">
-              <source data-src={videoSrc} type="video/mp4" />
-            </video>
+            <div className="scroll-reveal__aurora" aria-hidden="true">
+              <span className="scroll-reveal__aurora-layer scroll-reveal__aurora-layer--primary" data-aurora-layer="primary" />
+              <span className="scroll-reveal__aurora-layer scroll-reveal__aurora-layer--secondary" data-aurora-layer="secondary" />
+              <span className="scroll-reveal__aurora-layer scroll-reveal__aurora-layer--glow" data-aurora-layer="glow" />
+            </div>
             <div className="scroll-reveal__shade" />
             <div className="scroll-reveal__mark" data-scroll-video-mark>
               <img src="/media/logo.webp" alt="" />

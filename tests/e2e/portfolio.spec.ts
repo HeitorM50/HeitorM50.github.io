@@ -62,10 +62,12 @@ test('flow field renders and keeps reacting while the page scrolls', async ({ pa
   expect(after).not.toBe(before)
 })
 
-test('header leaves the viewport and the pinned video opens on scroll', async ({ page }) => {
+test('header leaves the viewport and the pinned aurora opens on scroll', async ({ page }) => {
   await page.goto('/')
   const header = page.locator('.site-header')
+  const reveal = page.locator('[data-scroll-video-reveal]')
   await expect(header).toHaveCSS('position', 'relative')
+  await expect(reveal).toHaveCSS('background-color', 'rgba(0, 0, 0, 0)')
   await page.evaluate(() => window.scrollTo(0, 700))
   await expect.poll(() => header.evaluate((element) => element.getBoundingClientRect().bottom)).toBeLessThan(0)
 
@@ -82,5 +84,6 @@ test('header leaves the viewport and the pinned video opens on scroll', async ({
   const expandedClip = await page.locator('[data-scroll-video-box]').evaluate((element) => getComputedStyle(element).clipPath)
 
   expect(expandedClip).not.toBe(initialClip)
-  await expect.poll(() => page.locator('[data-scroll-video-track] video').evaluate((video) => !(video as HTMLVideoElement).paused)).toBe(true)
+  await expect(page.locator('[data-aurora-layer]')).toHaveCount(3)
+  await expect(page.locator('[data-scroll-video-track] video')).toHaveCount(0)
 })
