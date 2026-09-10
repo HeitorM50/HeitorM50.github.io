@@ -3,6 +3,7 @@ import Link from 'next/link'
 import type { CSSProperties } from 'react'
 import { Header } from './Header'
 import { Picture } from './Picture'
+import NeuralBackground from '@/components/ui/flow-field-background'
 import { caseHref, experiences, projects, site, stackGroups, type Locale, type Project } from '@/data/portfolio'
 
 const homeCopy = {
@@ -72,7 +73,7 @@ export function HomePage({ locale }: { locale: Locale }) {
   }
 
   return <div className="legacy-page">
-    <div className="atmosphere" aria-hidden="true"><span /><span /><span /></div>
+    <NeuralBackground className="fixed inset-0 -z-10" />
     <Header locale={locale} alternateHref={locale === 'pt' ? '/en/' : '/'} />
     <main>
       <section className="hero legacy-section" aria-labelledby="hero-title">

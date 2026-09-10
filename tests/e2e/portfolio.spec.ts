@@ -46,3 +46,18 @@ test('restored deck and timeline interactions work', async ({ page }) => {
   await expect(ibmTab).toHaveAttribute('aria-selected', 'true')
   await expect(page.locator('[data-exp-panel="2"]')).toBeVisible()
 })
+
+test('flow field renders and keeps reacting while the page scrolls', async ({ page }) => {
+  await page.goto('/')
+  const canvas = page.locator('[data-flow-field-background] canvas')
+  await expect(canvas).toBeVisible()
+  await expect.poll(() => canvas.evaluate((element) => (element as HTMLCanvasElement).width)).toBeGreaterThan(0)
+
+  const before = await canvas.evaluate((element) => (element as HTMLCanvasElement).toDataURL())
+  await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight * 0.45))
+  await page.waitForTimeout(350)
+  const after = await canvas.evaluate((element) => (element as HTMLCanvasElement).toDataURL())
+
+  expect(await page.evaluate(() => window.scrollY)).toBeGreaterThan(0)
+  expect(after).not.toBe(before)
+})
