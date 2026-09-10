@@ -24,9 +24,13 @@ export type Project = {
 export type Experience = {
   period: LocalizedText
   role: LocalizedText
+  logo: string
   company: string
   summary: LocalizedText
+  detail: LocalizedText
   highlight: LocalizedText
+  metricValue: LocalizedText
+  metric: LocalizedText
   stack: string[]
 }
 
@@ -233,34 +237,46 @@ export const projects: Project[] = [
 export const experiences: Experience[] = [
   {
     period: { pt: '2024 — ATUAL', en: '2024 — NOW' },
-    role: { pt: 'Líder de Eletrônica', en: 'Electronics Lead' },
-    company: 'UnBaja — Equipe Baja SAE UnB',
-    summary: { pt: 'Sistema de telemetria com quatro nós ECU em barramento CAN e dados exibidos ao piloto em tempo real.', en: 'A telemetry system with four ECU nodes on a CAN bus and real-time data shown to the driver.' },
-    highlight: { pt: 'Liderança técnica de quatro integrantes.', en: 'Technical leadership of four team members.' },
+    role: { pt: 'Líder de Eletrônica (Sistemas Embarcados)', en: 'Electronics Lead (Embedded Systems)' },
+    logo: 'BAJA', company: 'UnBaja — Equipe Baja SAE UnB · Brasília, DF',
+    summary: { pt: 'Desenvolvi o sistema de telemetria embarcado do Baja SAE Nacional 2026. São quatro nós ECU, dois Arduinos e um ESP32, comunicando por barramento CAN, com os dados exibidos ao piloto em tempo real num display TFT.', en: 'I built the embedded telemetry system for Baja SAE Nacional 2026. It has four ECU nodes, two Arduinos and one ESP32, communicating over a CAN bus, with data shown to the driver in real time on a TFT display.' },
+    detail: { pt: 'Cuidei da cadeia inteira: leitura dos sensores, protocolo entre os nós, tratamento dos dados e a interface de bordo.', en: 'I handled the whole chain: sensor reading, the protocol between nodes, data processing and the on-board interface.' },
+    highlight: { pt: 'Lidero quatro integrantes do subsistema de eletrônica, com distribuição de tarefas, planejamento técnico e prestação de contas à universidade.', en: 'I lead four members of the electronics subsystem, handling task distribution, technical planning and accountability to the university.' },
+    metricValue: { pt: '4 ECUs', en: '4 ECUs' },
+    metric: { pt: 'Nós independentes trocando dados em tempo real por barramento CAN.', en: 'Independent nodes exchanging data in real time over a CAN bus.' },
     stack: ['ESP32', 'Arduino', 'CAN', 'C++']
   },
   {
     period: { pt: '2026 — ATUAL', en: '2026 — NOW' },
     role: { pt: 'Pesquisador — Iniciação Científica', en: 'Undergraduate Researcher' },
-    company: 'Universidade de Brasília',
-    summary: { pt: 'Pesquisa em dinâmica veicular com modelo multicorpo em C++ e sandbox no Godot.', en: 'Vehicle dynamics research with a C++ multibody model and a Godot sandbox.' },
-    highlight: { pt: 'Sete frentes de trabalho mapeadas.', en: 'Seven workstreams mapped.' },
+    logo: 'UnB', company: 'Universidade de Brasília (UnB) · Brasília, DF',
+    summary: { pt: 'Pesquisa em dinâmica veicular. Modelo multicorpo em C++ validado contra o Project Chrono, com um sandbox na engine Godot para estudar powertrain, torque e suspensão. A entrega prevista inclui um artigo científico.', en: 'Research in vehicle dynamics. C++ multibody model validated against Project Chrono, with a sandbox in the Godot engine to study powertrain, torque and suspension. Deliverables include a scientific paper.' },
+    detail: { pt: 'Modelagem da movimentação do veículo em terreno irregular, em C++ sobre a engine Godot.', en: 'Modelling vehicle movement over irregular terrain, in C++ on the Godot engine.' },
+    highlight: { pt: 'Documentação técnica publicada em Docusaurus e atualizada a cada sprint semanal.', en: 'Technical documentation published in Docusaurus and updated each weekly sprint.' },
+    metricValue: { pt: '7 frentes', en: '7 workstreams' },
+    metric: { pt: 'Frentes de trabalho mapeadas, cinco já publicadas na documentação.', en: 'Workstreams mapped, five already published in the documentation.' },
     stack: ['C++', 'Godot', 'Chrono', 'Docusaurus']
   },
   {
     period: { pt: 'AGO 2026', en: 'AUG 2026' },
-    role: { pt: 'Hackathon IBM TechXchange', en: 'IBM TechXchange Hackathon' },
-    company: 'IBM TechXchange 2026',
-    summary: { pt: 'Construção do Hindsight em uma equipe de cinco pessoas.', en: 'Built Hindsight in a five-person team.' },
-    highlight: { pt: '25,9% menos overhead fixo no experimento A/B.', en: '25.9% less fixed overhead in the A/B experiment.' },
+    role: { pt: 'Hackathon IBM TechXchange 2026', en: 'IBM TechXchange 2026 Hackathon' },
+    logo: 'IBM', company: 'IBM TechXchange 2026 · Pre-conference Dev Day Hackathon',
+    summary: { pt: 'Num time de cinco, construí o Hindsight: uma ferramenta que lê o export de uma sessão do IBM Bob e mostra onde a configuração do agente desperdiça contexto e dinheiro.', en: 'In a team of five, I built Hindsight: a tool that reads an IBM Bob session export and shows where the agent configuration wastes context and money.' },
+    detail: { pt: 'Executei o experimento A/B: mesma tarefa, mesmo commit e mesmo prompt, mudando apenas a configuração do agente.', en: 'I ran the A/B experiment: same task, same commit and same prompt, changing only the agent configuration.' },
+    highlight: { pt: 'Também entreguei o esqueleto React com Vite, três detectores de desperdício e o deploy estático com CI.', en: 'I also delivered the React skeleton with Vite, three waste detectors and the static CI deployment.' },
+    metricValue: { pt: '−25,9%', en: '−25.9%' },
+    metric: { pt: 'Queda no overhead fixo, com 19,7% a menos de custo de API.', en: 'Drop in fixed overhead, with 19.7% lower API cost.' },
     stack: ['TypeScript', 'React', 'Vite', 'Vitest']
   },
   {
     period: { pt: '2025 — 2026', en: '2025 — 2026' },
-    role: { pt: 'Estágio — Product Owner Jr.', en: 'Internship — Junior Product Owner' },
-    company: 'Ministério da Ciência, Tecnologia e Inovação',
-    summary: { pt: 'Refinamento de regras de negócio, reporte de erros e priorização no NOVO SIGPLANI.', en: 'Business-rule refinement, bug reporting and prioritisation for NOVO SIGPLANI.' },
-    highlight: { pt: 'Criação independente do ExtracaoRDA.', en: 'Independent creation of ExtracaoRDA.' },
+    role: { pt: 'Estágio no MCTI — Product Owner Jr.', en: 'Internship at MCTI — Junior Product Owner' },
+    logo: 'MCTI', company: 'Ministério da Ciência, Tecnologia e Inovação · Brasília, DF',
+    summary: { pt: 'Estágio no MCTI como Product Owner Jr. do NOVO SIGPLANI, plataforma que atende ao programa PADIS. O papel vinha da participação no Scrum semanal do produto.', en: "Internship at MCTI as Junior Product Owner for NOVO SIGPLANI, the platform serving the PADIS programme. The role came from taking part in the product's weekly Scrum." },
+    detail: { pt: 'Refinamento de regras de negócio, reporte de erros e priorização junto ao Product Owner.', en: 'Business-rule refinement, bug reporting and prioritisation with the Product Owner.' },
+    highlight: { pt: 'Por iniciativa própria, desenvolvi sozinho o ExtracaoRDA, automação em Python que lê PDFs de RDA e gera planilhas Excel.', en: 'On my own initiative, I single-handedly built ExtracaoRDA, a Python automation that reads RDA PDFs and generates Excel spreadsheets.' },
+    metricValue: { pt: '0 manual', en: '0 manual' },
+    metric: { pt: 'A transcrição manual dos relatórios saiu do fluxo dos analistas.', en: "Manual transcription of the reports left the analysts' workflow." },
     stack: ['Scrum', 'Python', 'regex', 'Excel']
   }
 ]

@@ -1,4 +1,4 @@
-import { copyFileSync, existsSync, readFileSync, readdirSync, statSync, writeFileSync } from 'node:fs'
+import { copyFileSync, cpSync, existsSync, readFileSync, readdirSync, statSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 
 const out = join(process.cwd(), 'out')
@@ -7,6 +7,7 @@ const pages404 = join(out, '404.html')
 
 if (!existsSync(nested404)) throw new Error('Next.js did not generate the expected 404 page')
 copyFileSync(nested404, pages404)
+cpSync(join(process.cwd(), 'assets', 'icons'), join(out, 'assets', 'icons'), { recursive: true })
 
 function htmlFiles(directory) {
   return readdirSync(directory).flatMap((entry) => {

@@ -3,8 +3,8 @@ import { expect, test } from '@playwright/test'
 test('home exposes the recruiter journey', async ({ page }) => {
   await page.goto('/')
   await expect(page.locator('html')).toHaveAttribute('lang', 'pt-BR')
-  await expect(page.getByRole('heading', { level: 1 })).toContainText('Construo sistemas')
-  await expect(page.getByRole('link', { name: /Ler estudo de caso: Hindsight/i })).toBeVisible()
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('Estudante de')
+  await expect(page.getByRole('link', { name: /Hindsight/i }).first()).toBeVisible()
   await expect(page.getByRole('link', { name: /Baixar CV/i })).toHaveAttribute('href', '/cv.pdf')
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth)
   expect(overflow).toBe(0)
@@ -13,7 +13,7 @@ test('home exposes the recruiter journey', async ({ page }) => {
 test('English route and language switch are indexable pages', async ({ page }) => {
   await page.goto('/en/')
   await expect(page.locator('html')).toHaveAttribute('lang', 'en')
-  await expect(page.getByRole('heading', { level: 1 })).toContainText('I build systems')
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('Software')
   await expect(page.getByRole('link', { name: 'Ver versão em português' })).toHaveAttribute('href', '/')
 })
 
@@ -33,4 +33,16 @@ test('theme choice is persisted', async ({ page }) => {
   expect(updated).not.toBe(initial)
   await page.reload()
   await expect(page.locator('html')).toHaveAttribute('data-theme', updated || 'light')
+})
+
+test('restored deck and timeline interactions work', async ({ page }) => {
+  await page.goto('/')
+  await expect(page.locator('[data-deck-counter]')).toHaveText('01 / 03')
+  await page.locator('[data-deck]').click()
+  await expect(page.locator('[data-deck-counter]')).toHaveText('02 / 03')
+
+  const ibmTab = page.getByRole('tab', { name: /IBM TechXchange/i })
+  await ibmTab.click()
+  await expect(ibmTab).toHaveAttribute('aria-selected', 'true')
+  await expect(page.locator('[data-exp-panel="2"]')).toBeVisible()
 })
