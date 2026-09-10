@@ -8,7 +8,7 @@
   --pc-rotate-y: 0deg;
   --pc-background-x: 50%;
   --pc-background-y: 50%;
-  perspective: 500px;
+  perspective: 420px;
   transform: translate3d(0,0,.1px);
   transform-style: preserve-3d;
   isolation: isolate;
@@ -34,14 +34,15 @@
   box-shadow:
     inset 0 1px 0 rgba(255,255,255,.34),
     inset 0 -1px 0 rgba(197,166,255,.12),
-    calc((var(--pc-pointer-from-left) * 1rem) - .5rem)
-    calc((var(--pc-pointer-from-top) * 1.5rem) - .75rem)
-    2.4rem -.7rem rgba(0,0,0,.72);
+    calc((var(--pc-pointer-from-left) * 1.6rem) - .8rem)
+    calc((var(--pc-pointer-from-top) * 2.1rem) - 1.05rem)
+    2.7rem -.65rem rgba(0,0,0,.76);
   transform: rotateX(var(--pc-rotate-x)) rotateY(var(--pc-rotate-y));
+  transform-origin: 50% 50%;
   transform-style: preserve-3d;
   backface-visibility: hidden;
   will-change: transform;
-  transition: transform .55s cubic-bezier(.2,.8,.2,1), box-shadow .3s ease;
+  transition: transform .42s cubic-bezier(.2,.8,.2,1), box-shadow .22s ease;
 }
 .pc-card-wrapper[data-profile-active='true'] .pc-card { transition: none; }
 .pc-inside, .pc-tone, .pc-shine, .pc-glare { position: absolute; inset: 0; border-radius: inherit; pointer-events: none; }
@@ -52,8 +53,8 @@
   height: 106%;
   max-width: none;
   filter: saturate(.84) contrast(1.07) brightness(.88);
-  transform: scale(1.02) translate3d(calc((var(--pc-pointer-from-left) - .5) * .85rem), calc((var(--pc-pointer-from-top) - .5) * .55rem), 0);
-  transition: transform .06s linear, filter .35s ease;
+  transform: scale(1.035) translate3d(calc((var(--pc-pointer-from-left) - .5) * 1.25rem), calc((var(--pc-pointer-from-top) - .5) * .8rem), 1.25rem);
+  transition: transform .035s linear, filter .25s ease;
 }
 .pc-tone {
   z-index: 2;
@@ -91,7 +92,7 @@
   box-shadow: inset 0 1px 0 rgba(255,255,255,.18);
   backdrop-filter: blur(1rem) saturate(1.25);
   text-shadow: 0 1px 1rem rgba(0,0,0,.7);
-  transform: translate3d(calc((var(--pc-pointer-from-left) - .5) * -1rem), calc((var(--pc-pointer-from-top) - .5) * -.8rem), 3rem);
+  transform: translate3d(calc((var(--pc-pointer-from-left) - .5) * -1.35rem), calc((var(--pc-pointer-from-top) - .5) * -1rem), 4rem);
 }
 .pc-details__index { margin-bottom: .35rem; color: rgba(255,255,255,.6); font: 500 .58rem/1.3 'IBM Plex Mono', monospace; letter-spacing: .14em; }
 .pc-details strong { font-size: clamp(1.25rem,2.4vw,1.65rem); line-height: 1.05; letter-spacing: -.025em; }
