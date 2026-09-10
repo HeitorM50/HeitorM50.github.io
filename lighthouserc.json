@@ -4,7 +4,7 @@
       "startServerCommand": "node scripts/serve-static.mjs",
       "startServerReadyPattern": "Static portfolio at",
       "url": ["http://127.0.0.1:4173/", "http://127.0.0.1:4173/en/", "http://127.0.0.1:4173/projetos/hindsight/"],
-      "numberOfRuns": 1
+      "numberOfRuns": 3
     },
     "assert": {
       "assertions": {
