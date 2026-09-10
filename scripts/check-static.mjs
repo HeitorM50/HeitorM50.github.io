@@ -6,9 +6,11 @@ const required = [
   'index.html', 'en/index.html', 'projetos/hindsight/index.html',
   'en/projects/hindsight/index.html', 'unb-prazos/index.html',
   'omarchy-gcal/index.html', 'cv.pdf', '404.html', 'robots.txt', 'sitemap.xml',
-  'vendor/gsap.min.js', 'vendor/ScrollTrigger.min.js', 'vendor/SplitText.min.js'
+  'media/logo-metal-mask.svg', 'media/logo-metal-depth.png', 'media/logo-metallic.svg',
+  'media/logo-metallic.png', 'vendor/metallic-paint.js', 'vendor/gsap.min.js',
+  'vendor/ScrollTrigger.min.js', 'vendor/SplitText.min.js'
 ]
-const forbidden = ['media/scroll-reveal.mp4']
+const forbidden = ['media/scroll-reveal.mp4', 'media/logo.webp', 'media/logo.avif']
 
 const htmlFiles = []
 function walk(directory) {

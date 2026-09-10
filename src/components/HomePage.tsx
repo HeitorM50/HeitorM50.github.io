@@ -5,6 +5,7 @@ import { Header } from './Header'
 import { Picture } from './Picture'
 import NeuralBackground from '@/components/ui/flow-field-background'
 import HeroScrollVideoReveal from '@/components/ui/hero-scroll-video-pin-reveal'
+import { MetallicLogo } from '@/components/ui/metallic-paint'
 import { caseHref, experiences, projects, site, stackGroups, type Locale, type Project } from '@/data/portfolio'
 
 const homeCopy = {
@@ -92,7 +93,7 @@ export function HomePage({ locale }: { locale: Locale }) {
           <div className="deck-wrap">
             <div className="project-deck" data-deck role="button" tabIndex={0} aria-label={text.deckHint}>
               {deck.map((project, index) => <article className="deck-card" data-deck-card data-position={index} key={project.slug}>
-                <div className="deck-bar"><img src="/media/logo.webp" alt="" /><strong>{project.title}</strong><span>{project.stack.slice(0, 3).join(' · ')}</span></div>
+                <div className="deck-bar"><MetallicLogo className="deck-logo" /><strong>{project.title}</strong><span>{project.stack.slice(0, 3).join(' · ')}</span></div>
                 <div className="deck-art">{project.cover && <Picture name={project.cover} alt={`${project.title} — screenshot`} width={project.coverWidth ?? 1400} height={project.coverHeight ?? 875} eager={index === 0} />}</div>
               </article>)}
             </div>

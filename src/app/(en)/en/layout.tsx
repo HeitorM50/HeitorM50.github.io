@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     url: '/en/', images: [{ url: '/media/hindsight.webp', width: 1400, height: 875, alt: 'Hindsight project' }]
   },
   twitter: { card: 'summary_large_image', title: 'Heitor Ricardo — Software Engineering', description: 'Backend, data and embedded systems.', images: ['/media/hindsight.webp'] },
-  icons: { icon: '/favicon.svg', apple: '/media/logo.webp' }
+  icons: { icon: '/favicon.svg', apple: '/media/logo-metallic.png' }
 }
 
 export default function EnglishLayout({ children }: { children: ReactNode }) {

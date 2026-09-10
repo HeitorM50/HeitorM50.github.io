@@ -1,6 +1,6 @@
-/* eslint-disable @next/next/no-img-element */
 import type { CSSProperties, ReactNode } from 'react'
 import { cn } from '@/lib/utils'
+import MetallicPaint from '@/components/ui/metallic-paint'
 
 export interface TagItem {
   id?: string
@@ -78,7 +78,7 @@ export function HeroScrollVideoReveal({
             </div>
             <div className="scroll-reveal__shade" />
             <div className="scroll-reveal__mark" data-scroll-video-mark>
-              <img src="/media/logo.webp" alt="" />
+              <MetallicPaint imageSrc="/media/logo-metal-depth.png" />
               <span>HEITOR RICARDO</span>
               <small>SOFTWARE · DATA · EMBEDDED</small>
             </div>

@@ -1,6 +1,6 @@
-/* eslint-disable @next/next/no-img-element */
 import Link from 'next/link'
 import { copy, type Locale } from '@/data/portfolio'
+import { MetallicLogo } from '@/components/ui/metallic-paint'
 import { ThemeToggle } from './ThemeToggle'
 
 type HeaderProps = {
@@ -18,7 +18,7 @@ export function Header({ locale, alternateHref }: HeaderProps) {
     <header className="site-header">
       <div className="header-shell">
         <Link className="brand" href={home} aria-label="Heitor Ricardo — home">
-          <span className="brand-mark" aria-hidden="true"><img src="/media/logo.webp" alt="" /></span>
+          <span className="brand-mark" aria-hidden="true"><MetallicLogo /></span>
           <span>Heitor Ricardo</span>
         </Link>
 

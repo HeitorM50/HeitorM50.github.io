@@ -86,4 +86,25 @@ test('header leaves the viewport and the pinned aurora opens on scroll', async (
   expect(expandedClip).not.toBe(initialClip)
   await expect(page.locator('[data-aurora-layer]')).toHaveCount(3)
   await expect(page.locator('[data-scroll-video-track] video')).toHaveCount(0)
+  await expect(page.locator('.metallic-logo').first()).toBeVisible()
+  const metallicCanvas = page.locator('[data-metallic-paint] canvas')
+  await expect(metallicCanvas).toHaveCount(1)
+  await expect.poll(() => page.locator('[data-metallic-paint]').getAttribute('data-metallic-status')).toMatch(/ready|fallback/)
+  if (await page.locator('[data-metallic-paint]').getAttribute('data-metallic-status') === 'ready') {
+    const beforeMetal = await metallicCanvas.screenshot()
+    await page.waitForTimeout(220)
+    const afterMetal = await metallicCanvas.screenshot()
+    expect(afterMetal.equals(beforeMetal)).toBe(false)
+  }
+})
+
+test('metallic mark falls back cleanly when reduced motion is enabled', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' })
+  await page.goto('/')
+  const paint = page.locator('[data-metallic-paint]')
+  await paint.scrollIntoViewIfNeeded()
+
+  await expect.poll(() => paint.getAttribute('data-metallic-status')).toBe('fallback')
+  await expect(paint.locator('canvas')).toHaveCSS('display', 'none')
+  await expect(paint.locator('.metallic-paint__fallback')).toBeVisible()
 })
