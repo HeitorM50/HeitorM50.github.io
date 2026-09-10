@@ -5,7 +5,8 @@ const root = join(process.cwd(), 'out')
 const required = [
   'index.html', 'en/index.html', 'projetos/hindsight/index.html',
   'en/projects/hindsight/index.html', 'unb-prazos/index.html',
-  'omarchy-gcal/index.html', 'cv.pdf', '404.html', 'robots.txt', 'sitemap.xml'
+  'omarchy-gcal/index.html', 'cv.pdf', '404.html', 'robots.txt', 'sitemap.xml',
+  'media/scroll-reveal.mp4', 'vendor/gsap.min.js', 'vendor/ScrollTrigger.min.js', 'vendor/SplitText.min.js'
 ]
 
 const htmlFiles = []

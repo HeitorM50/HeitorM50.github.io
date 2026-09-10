@@ -61,3 +61,26 @@ test('flow field renders and keeps reacting while the page scrolls', async ({ pa
   expect(await page.evaluate(() => window.scrollY)).toBeGreaterThan(0)
   expect(after).not.toBe(before)
 })
+
+test('header leaves the viewport and the pinned video opens on scroll', async ({ page }) => {
+  await page.goto('/')
+  const header = page.locator('.site-header')
+  await expect(header).toHaveCSS('position', 'relative')
+  await page.evaluate(() => window.scrollTo(0, 700))
+  await expect.poll(() => header.evaluate((element) => element.getBoundingClientRect().bottom)).toBeLessThan(0)
+
+  const track = page.locator('[data-scroll-video-track]')
+  const geometry = await track.evaluate((element) => {
+    const rect = element.getBoundingClientRect()
+    return { start: rect.top + window.scrollY, distance: rect.height - window.innerHeight }
+  })
+  await page.evaluate((start) => window.scrollTo(0, start), geometry.start)
+  await page.waitForTimeout(200)
+  const initialClip = await page.locator('[data-scroll-video-box]').evaluate((element) => getComputedStyle(element).clipPath)
+  await page.evaluate(({ start, distance }) => window.scrollTo(0, start + distance * 0.55), geometry)
+  await page.waitForTimeout(350)
+  const expandedClip = await page.locator('[data-scroll-video-box]').evaluate((element) => getComputedStyle(element).clipPath)
+
+  expect(expandedClip).not.toBe(initialClip)
+  await expect.poll(() => page.locator('[data-scroll-video-track] video').evaluate((video) => !(video as HTMLVideoElement).paused)).toBe(true)
+})

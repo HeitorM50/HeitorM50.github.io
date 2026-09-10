@@ -1,4 +1,4 @@
-import { copyFileSync, cpSync, existsSync, readFileSync, readdirSync, statSync, writeFileSync } from 'node:fs'
+import { copyFileSync, cpSync, existsSync, mkdirSync, readFileSync, readdirSync, statSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 
 const out = join(process.cwd(), 'out')
@@ -8,6 +8,11 @@ const pages404 = join(out, '404.html')
 if (!existsSync(nested404)) throw new Error('Next.js did not generate the expected 404 page')
 copyFileSync(nested404, pages404)
 cpSync(join(process.cwd(), 'assets', 'icons'), join(out, 'assets', 'icons'), { recursive: true })
+const vendor = join(out, 'vendor')
+mkdirSync(vendor, { recursive: true })
+for (const file of ['gsap.min.js', 'ScrollTrigger.min.js', 'SplitText.min.js']) {
+  copyFileSync(join(process.cwd(), 'node_modules', 'gsap', 'dist', file), join(vendor, file))
+}
 
 function htmlFiles(directory) {
   return readdirSync(directory).flatMap((entry) => {

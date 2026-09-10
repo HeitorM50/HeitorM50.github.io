@@ -4,6 +4,7 @@ import type { CSSProperties } from 'react'
 import { Header } from './Header'
 import { Picture } from './Picture'
 import NeuralBackground from '@/components/ui/flow-field-background'
+import HeroScrollVideoReveal from '@/components/ui/hero-scroll-video-pin-reveal'
 import { caseHref, experiences, projects, site, stackGroups, type Locale, type Project } from '@/data/portfolio'
 
 const homeCopy = {
@@ -110,6 +111,34 @@ export function HomePage({ locale }: { locale: Locale }) {
           </div>
         </div>
       </section>
+
+      <HeroScrollVideoReveal
+        topText={locale === 'pt'
+          ? <>Código é só o começo.<br />O que importa é chegar ao uso real.</>
+          : <>Code is only the beginning.<br />What matters is reaching real use.</>}
+        headingText={locale === 'pt'
+          ? <>Construo entre software,<br />dados e hardware.</>
+          : <>I build across software,<br />data and hardware.</>}
+        tags={locale === 'pt'
+          ? [
+              { text: 'Backend', background: '#171a23' },
+              { text: 'Dados', background: '#5146a8' },
+              { text: 'Sistemas embarcados', background: '#d7ccff', color: '#171321' },
+              { text: 'Liderança técnica', background: '#244b5a' },
+            ]
+          : [
+              { text: 'Backend', background: '#171a23' },
+              { text: 'Data', background: '#5146a8' },
+              { text: 'Embedded systems', background: '#d7ccff', color: '#171321' },
+              { text: 'Technical leadership', background: '#244b5a' },
+            ]}
+        subText={locale === 'pt'
+          ? 'Cada projeto abaixo mostra decisões técnicas, limites e resultados.'
+          : 'Each project below shows technical decisions, constraints and outcomes.'}
+        bottomText={locale === 'pt'
+          ? <>Do protótipo à entrega.<br />Com contexto, trade-offs e resultado.</>
+          : <>From prototype to delivery.<br />With context, trade-offs and outcomes.</>}
+      />
 
       <section className="legacy-section" id="projetos" aria-labelledby="featured-title">
         <div className="content-shell">
