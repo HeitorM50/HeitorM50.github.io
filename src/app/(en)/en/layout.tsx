@@ -20,5 +20,5 @@ export const metadata: Metadata = {
 }
 
 export default function EnglishLayout({ children }: { children: ReactNode }) {
-  return <html lang="en" data-theme="dark" suppressHydrationWarning><head><script data-static-runtime dangerouslySetInnerHTML={{ __html: staticRuntime }} /></head><body>{children}</body></html>
+  return <html lang="en" data-theme="dark" suppressHydrationWarning><head><link rel="preload" href="/fonts/space-grotesk-latin.woff2" as="font" type="font/woff2" crossOrigin="anonymous" /><script data-static-runtime dangerouslySetInnerHTML={{ __html: staticRuntime }} /></head><body>{children}</body></html>
 }

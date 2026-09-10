@@ -3,7 +3,7 @@
   src: url('/fonts/space-grotesk-latin-ext.woff2') format('woff2');
   font-style: normal;
   font-weight: 400 700;
-  font-display: swap;
+  font-display: optional;
   unicode-range: U+0100-02BA, U+2000-206F;
 }
 
@@ -12,7 +12,7 @@
   src: url('/fonts/space-grotesk-latin.woff2') format('woff2');
   font-style: normal;
   font-weight: 400 700;
-  font-display: swap;
+  font-display: optional;
   unicode-range: U+0000-00FF;
 }
 
@@ -21,7 +21,7 @@
   src: url('/fonts/ibm-plex-mono-400-latin-ext.woff2') format('woff2');
   font-style: normal;
   font-weight: 400;
-  font-display: swap;
+  font-display: optional;
   unicode-range: U+0100-02BA, U+2000-206F;
 }
 
@@ -30,7 +30,7 @@
   src: url('/fonts/ibm-plex-mono-400-latin.woff2') format('woff2');
   font-style: normal;
   font-weight: 400 500;
-  font-display: swap;
+  font-display: optional;
   unicode-range: U+0000-00FF;
 }
 
@@ -87,17 +87,8 @@ p, h1, h2, h3, h4 { margin-top: 0; }
 .wide-shell { width: min(100% - 5rem, 77.5rem); margin-inline: auto; }
 .content-shell, .shell { width: min(100% - 5rem, 73.75rem); margin-inline: auto; }
 
-.atmosphere { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; background: var(--bg); }
-.atmosphere::before { content: ''; position: absolute; inset: 0; opacity: .2; background: radial-gradient(circle at 22% 18%, color-mix(in oklab, var(--accent) 12%, transparent), transparent 30%), radial-gradient(circle at 80% 76%, color-mix(in oklab, var(--accent-2) 10%, transparent), transparent 28%); }
-.atmosphere span { position: absolute; left: 50%; top: -18%; width: 15vw; min-width: 9rem; height: 145%; border-radius: 50%; filter: blur(38px); opacity: .38; transform-origin: 50% 50%; mix-blend-mode: screen; }
-.atmosphere span:nth-child(1) { background: linear-gradient(180deg, transparent, oklch(0.8 0.2 185 / .62) 23%, oklch(0.72 0.22 300 / .75) 56%, transparent 84%); transform: translateX(-140%) rotate(11deg); animation: strand-a 22s ease-in-out infinite; }
-.atmosphere span:nth-child(2) { width: 10vw; background: linear-gradient(180deg, transparent, oklch(0.74 0.2 330 / .7) 30%, oklch(0.78 0.19 98 / .38) 58%, transparent 84%); transform: translateX(-20%) rotate(-9deg); animation: strand-b 27s ease-in-out infinite; }
-.atmosphere span:nth-child(3) { width: 6vw; background: linear-gradient(180deg, transparent 8%, oklch(0.74 0.18 235 / .65) 42%, oklch(0.74 0.18 318 / .52) 68%, transparent 91%); transform: translateX(160%) rotate(8deg); animation: strand-c 19s ease-in-out infinite; }
-:root[data-theme='light'] .atmosphere span { opacity: .16; mix-blend-mode: multiply; }
-
-@keyframes strand-a { 0%,100% { transform: translateX(-140%) rotate(11deg) scaleX(1); } 50% { transform: translateX(-80%) rotate(-5deg) scaleX(1.35); } }
-@keyframes strand-b { 0%,100% { transform: translateX(-20%) rotate(-9deg); } 50% { transform: translateX(50%) rotate(10deg) scaleX(.8); } }
-@keyframes strand-c { 0%,100% { transform: translateX(160%) rotate(8deg); } 50% { transform: translateX(100%) rotate(-13deg) scaleX(1.45); } }
+.atmosphere { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; background-color: var(--bg); background-image: linear-gradient(82deg, transparent 37%, oklch(0.74 0.18 185 / .09) 43%, oklch(0.7 0.2 300 / .13) 48%, transparent 56%), linear-gradient(101deg, transparent 47%, oklch(0.72 0.2 330 / .1) 52%, oklch(0.73 0.16 235 / .08) 57%, transparent 63%), radial-gradient(circle at 22% 18%, color-mix(in oklab, var(--accent) 10%, transparent), transparent 30%), radial-gradient(circle at 80% 76%, color-mix(in oklab, var(--accent-2) 8%, transparent), transparent 28%); }
+.atmosphere span { display: none; }
 @keyframes shine { from { background-position: 200% 50%; } to { background-position: -100% 50%; } }
 @keyframes specular { from { transform: translateX(-150%) skewX(-18deg); } to { transform: translateX(300%) skewX(-18deg); } }
 @keyframes fade-up { from { opacity: 0; transform: translateY(.5rem); } to { opacity: 1; transform: translateY(0); } }
@@ -128,7 +119,7 @@ p, h1, h2, h3, h4 { margin-top: 0; }
 .hero-grid { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: 3.5rem; align-items: center; }
 .eyebrow, .section-index, .project-count, .deck-hint { margin: 0; color: var(--muted); font: 500 .72rem/1.5 'IBM Plex Mono', monospace; letter-spacing: .14em; }
 .hero h1 { max-width: 43rem; margin: 1.35rem 0 0; font-size: clamp(2.9rem, 4.4vw, 3.9rem); font-weight: 600; line-height: 1.03; letter-spacing: -.045em; }
-.shine-text { background: linear-gradient(100deg, currentColor 25%, oklch(0.83 0.15 300) 45%, currentColor 65%); background-size: 220% 100%; background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: shine 5s linear infinite; }
+.shine-text { background: linear-gradient(100deg, currentColor 20%, oklch(0.83 0.15 300) 48%, currentColor 76%); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 .hero-intro { max-width: 27.5rem; margin: 1.75rem 0 0; color: var(--muted-strong); font-size: 1.03rem; line-height: 1.65; text-wrap: pretty; }
 .hero-stats { display: flex; gap: 2.25rem; margin-top: 2.1rem; color: var(--muted); font: 500 .68rem/1.5 'IBM Plex Mono', monospace; }
 .hero-stats div { display: grid; gap: .35rem; }
@@ -140,7 +131,7 @@ p, h1, h2, h3, h4 { margin-top: 0; }
 .button-outline { border-color: var(--line-strong); background: var(--placeholder); color: var(--fg); }
 .button small { color: var(--muted); font: 500 .65rem/1 'IBM Plex Mono', monospace; }
 .shine-button { position: relative; overflow: hidden; }
-.shine-button > span:last-child { position: absolute; inset-block: 0; width: 40%; background: linear-gradient(90deg, transparent, rgba(255,255,255,.85), transparent); animation: specular 4.2s ease-in-out infinite; }
+.shine-button > span:last-child { position: absolute; inset-block: 0; left: 12%; width: 34%; opacity: .36; background: linear-gradient(90deg, transparent, rgba(255,255,255,.85), transparent); transform: skewX(-18deg); }
 
 .deck-wrap { position: relative; height: 33.1rem; overflow: hidden; }
 .project-deck { position: absolute; inset: 0; cursor: pointer; transform-style: preserve-3d; outline: none; }
