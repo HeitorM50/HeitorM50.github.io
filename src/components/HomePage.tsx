@@ -6,6 +6,7 @@ import { Picture } from './Picture'
 import NeuralBackground from '@/components/ui/flow-field-background'
 import HeroScrollVideoReveal from '@/components/ui/hero-scroll-video-pin-reveal'
 import { MetallicLogo } from '@/components/ui/metallic-paint'
+import ProfileCard from '@/components/ui/profile-card'
 import { caseHref, experiences, projects, site, stackGroups, type Locale, type Project } from '@/data/portfolio'
 
 const homeCopy = {
@@ -104,7 +105,19 @@ export function HomePage({ locale }: { locale: Locale }) {
 
       <section className="legacy-section" id="sobre" aria-labelledby="about-title">
         <div className="content-shell about-grid">
-          <div className="portrait"><Picture name="retrato" alt={locale === 'pt' ? 'Retrato de Heitor Ricardo' : 'Portrait of Heitor Ricardo'} width={1024} height={1024} /></div>
+          <ProfileCard
+            className="portrait-card"
+            avatarUrl="/media/retrato.webp"
+            avatarAvifUrl="/media/retrato.avif"
+            name="Heitor Ricardo"
+            title={locale === 'pt' ? 'Engenharia de Software · UnB' : 'Software Engineering · UnB'}
+            handle="heitorm50"
+            status={locale === 'pt' ? 'Aberto a estágio' : 'Open to internships'}
+            showUserInfo={false}
+            enableTilt
+            behindGlowColor="rgba(190, 155, 255, .52)"
+            innerGradient="linear-gradient(145deg, rgba(201,176,255,.2) 0%, rgba(65,211,157,.1) 48%, rgba(3,4,7,.86) 100%)"
+          />
           <div className="about-copy">
             <p className="section-index">01 — {text.about}</p><h2 className="sr-only" id="about-title">{text.about}</h2>
             <p>{text.about1}</p><p>{text.about2}</p>

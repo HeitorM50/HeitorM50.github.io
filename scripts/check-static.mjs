@@ -8,7 +8,7 @@ const required = [
   'omarchy-gcal/index.html', 'cv.pdf', '404.html', 'robots.txt', 'sitemap.xml',
   'media/logo-metal-mask.svg', 'media/logo-metal-depth.png', 'media/logo-metallic.svg',
   'media/logo-metallic.png', 'vendor/metallic-paint.js', 'vendor/gsap.min.js',
-  'vendor/ScrollTrigger.min.js', 'vendor/SplitText.min.js'
+  'vendor/ScrollTrigger.min.js', 'vendor/SplitText.min.js', 'vendor/profile-card.css'
 ]
 const forbidden = ['media/scroll-reveal.mp4', 'media/logo.webp', 'media/logo.avif']
 

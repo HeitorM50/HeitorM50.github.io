@@ -62,6 +62,31 @@ test('flow field renders and keeps reacting while the page scrolls', async ({ pa
   expect(after).not.toBe(before)
 })
 
+test('profile portrait uses the branded holographic card and desktop tilt', async ({ page }) => {
+  await page.goto('/')
+  const wrapper = page.locator('[data-profile-card]')
+  const card = wrapper.locator('.pc-card')
+
+  await wrapper.scrollIntoViewIfNeeded()
+  await expect(wrapper).toBeVisible()
+  await expect(card.getByRole('img', { name: 'Heitor Ricardo' })).toBeVisible()
+  await expect(card).toContainText('Engenharia de Software · UnB')
+
+  const canTilt = await page.evaluate(() => matchMedia('(hover: hover) and (pointer: fine)').matches)
+  if (!canTilt) {
+    await expect(wrapper).not.toHaveAttribute('data-profile-ready', 'true')
+    return
+  }
+
+  await expect(wrapper).toHaveAttribute('data-profile-ready', 'true')
+  const before = await card.evaluate((element) => getComputedStyle(element).transform)
+  const box = await card.boundingBox()
+  expect(box).not.toBeNull()
+  await page.mouse.move(box!.x + box!.width * .82, box!.y + box!.height * .22)
+  await expect(wrapper).toHaveAttribute('data-profile-active', 'true')
+  await expect.poll(() => card.evaluate((element) => getComputedStyle(element).transform)).not.toBe(before)
+})
+
 test('header leaves the viewport and the pinned aurora opens on scroll', async ({ page }) => {
   await page.goto('/')
   const header = page.locator('.site-header')
