@@ -82,40 +82,4 @@ const LiquidButton = React.forwardRef<HTMLButtonElement, LiquidButtonProps>(
 )
 LiquidButton.displayName = 'LiquidButton'
 
-function LiquidGlassFilter() {
-  return (
-    <svg className="liquid-glass-definitions" aria-hidden="true" focusable="false">
-      <defs>
-        <filter
-          id="portfolio-liquid-glass"
-          x="-20%"
-          y="-20%"
-          width="140%"
-          height="140%"
-          colorInterpolationFilters="sRGB"
-        >
-          <feTurbulence
-            type="fractalNoise"
-            baseFrequency="0.018 0.065"
-            numOctaves="2"
-            seed="7"
-            result="turbulence"
-          />
-          <feGaussianBlur in="turbulence" stdDeviation="1.4" result="blurredNoise" />
-          <feDisplacementMap
-            in="SourceGraphic"
-            in2="blurredNoise"
-            scale="34"
-            xChannelSelector="R"
-            yChannelSelector="B"
-            result="displaced"
-          />
-          <feGaussianBlur in="displaced" stdDeviation="0.45" result="softened" />
-          <feComposite in="softened" in2="SourceGraphic" operator="over" />
-        </filter>
-      </defs>
-    </svg>
-  )
-}
-
-export { Button, buttonVariants, LiquidButton, liquidButtonVariants, LiquidGlassFilter }
+export { Button, buttonVariants, LiquidButton, liquidButtonVariants }

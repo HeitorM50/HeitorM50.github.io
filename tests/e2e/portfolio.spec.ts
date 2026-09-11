@@ -42,15 +42,17 @@ test('primary calls to action use responsive liquid glass', async ({ page }) => 
 
   await expect(primary).toHaveAttribute('data-slot', 'liquid-button')
   await expect(primary).toHaveAttribute('data-liquid-ready', 'true')
-  await expect(primary).toHaveCSS('backdrop-filter', /blur\(16px\)/)
+  await expect(primary).toHaveCSS('backdrop-filter', /blur\(10px\)/)
   await expect(download).not.toHaveAttribute('data-slot', 'liquid-button')
-  await expect(page.locator('#portfolio-liquid-glass')).toHaveCount(1)
+  await expect(page.locator('#portfolio-liquid-glass')).toHaveCount(0)
 
   const box = await primary.boundingBox()
   expect(box).not.toBeNull()
   await page.mouse.move(box!.x + box!.width * .82, box!.y + box!.height * .28)
   await expect(primary).toHaveAttribute('data-liquid-active', 'true')
+  await expect(page.locator('#portfolio-liquid-glass')).toHaveCount(1)
   await expect.poll(() => primary.evaluate((element) => element.style.getPropertyValue('--liquid-x'))).not.toBe('50.00%')
+  await expect.poll(() => primary.evaluate((element) => getComputedStyle(element, '::before').backdropFilter)).toContain('portfolio-liquid-glass')
 })
 
 test('restored deck and timeline interactions work', async ({ page }) => {

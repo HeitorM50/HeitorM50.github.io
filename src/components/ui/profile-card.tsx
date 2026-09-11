@@ -44,11 +44,7 @@ export default function ProfileCard({
   } as CSSProperties
 
   return (
-    <>
-      {/* Loaded as a static asset because the site removes the Next.js client runtime after export. */}
-      {/* eslint-disable-next-line @next/next/no-css-tags */}
-      <link rel="stylesheet" href="/vendor/profile-card.css" precedence="low" />
-      <div
+    <div
       className={`pc-card-wrapper ${className}`.trim()}
       data-profile-card
       data-enable-tilt={String(enableTilt)}
@@ -82,7 +78,6 @@ export default function ProfileCard({
           )}
         </figure>
       </div>
-      </div>
-    </>
+    </div>
   )
 }

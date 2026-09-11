@@ -179,7 +179,7 @@ export function HomePage({ locale }: { locale: Locale }) {
       <section className="legacy-section" id="stack" aria-labelledby="stack-title">
         <div className="content-shell">
           <div className="split-heading"><div><p className="section-index">04 — STACK</p><h2 className="section-title" id="stack-title">{text.stackTitle}</h2></div><p className="regular-note">{text.stackNote}</p></div>
-          <div className="stack-grid">{stackGroups.map((group, groupIndex) => <article className="stack-card" key={group.en}><header><span style={{ '--dot-hue': `${285 + groupIndex * 55}` } as CSSProperties} />{group[locale]}<small>{String(group.items.length).padStart(2, '0')}</small></header><div>{group.items.map((item) => <span className="stack-chip" key={item}>{stackIcons[item] && <img src={`/assets/icons/ic_${stackIcons[item]}.svg`} alt="" />} {item}</span>)}</div></article>)}</div>
+          <div className="stack-grid">{stackGroups.map((group, groupIndex) => <article className="stack-card" key={group.en}><header><span style={{ '--dot-hue': `${285 + groupIndex * 55}` } as CSSProperties} />{group[locale]}<small>{String(group.items.length).padStart(2, '0')}</small></header><div>{group.items.map((item) => <span className="stack-chip" key={item}>{stackIcons[item] && <img src={`/assets/icons/ic_${stackIcons[item]}.svg`} alt="" loading="lazy" decoding="async" />} {item}</span>)}</div></article>)}</div>
         </div>
       </section>
 
