@@ -3,6 +3,7 @@ import type { ReactNode } from 'react'
 import '../globals.css'
 import { site } from '@/data/portfolio'
 import { staticRuntime } from '@/data/static-runtime'
+import { LiquidGlassFilter } from '@/components/ui/liquid-glass-button'
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -20,5 +21,5 @@ export const metadata: Metadata = {
 }
 
 export default function PortugueseLayout({ children }: { children: ReactNode }) {
-  return <html lang="pt-BR" data-theme="dark" suppressHydrationWarning><head><link rel="preload" href="/fonts/space-grotesk-latin.woff2" as="font" type="font/woff2" crossOrigin="anonymous" /><script data-static-runtime dangerouslySetInnerHTML={{ __html: staticRuntime }} /></head><body>{children}</body></html>
+  return <html lang="pt-BR" data-theme="dark" suppressHydrationWarning><head><link rel="preload" href="/fonts/space-grotesk-latin.woff2" as="font" type="font/woff2" crossOrigin="anonymous" /><script data-static-runtime dangerouslySetInnerHTML={{ __html: staticRuntime }} /></head><body><LiquidGlassFilter />{children}</body></html>
 }

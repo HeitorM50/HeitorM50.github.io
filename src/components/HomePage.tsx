@@ -7,6 +7,7 @@ import NeuralBackground from '@/components/ui/flow-field-background'
 import HeroScrollVideoReveal from '@/components/ui/hero-scroll-video-pin-reveal'
 import { MetallicLogo } from '@/components/ui/metallic-paint'
 import ProfileCard from '@/components/ui/profile-card'
+import { LiquidButton } from '@/components/ui/liquid-glass-button'
 import { caseHref, experiences, projects, site, stackGroups, type Locale, type Project } from '@/data/portfolio'
 
 const homeCopy = {
@@ -58,8 +59,8 @@ const deckProjects = ['crianex-hub', 'coops', 'extracao-rda']
 function ProjectButtons({ project, locale }: { project: Project; locale: Locale }) {
   const text = homeCopy[locale]
   return <div className="project-buttons">
-    <Link className="button button-primary" href={caseHref(project, locale)}>{text.caseStudy}</Link>
-    {project.links.live && <a className="button button-primary" href={project.links.live} target="_blank" rel="noreferrer">{text.live}</a>}
+    <LiquidButton asChild size="sm"><Link href={caseHref(project, locale)}>{text.caseStudy}</Link></LiquidButton>
+    {project.links.live && <LiquidButton asChild size="sm"><a href={project.links.live} target="_blank" rel="noreferrer">{text.live}</a></LiquidButton>}
     {project.links.source && <a className="button button-outline" href={project.links.source} target="_blank" rel="noreferrer">{text.source}</a>}
   </div>
 }
@@ -87,7 +88,7 @@ export function HomePage({ locale }: { locale: Locale }) {
             <p className="hero-intro">{text.intro}</p>
             <div className="hero-stats">{text.stats.map(([value, label]) => <div key={label}><strong>{value}</strong><span>{label}</span></div>)}</div>
             <div className="hero-actions">
-              <a className="button button-primary shine-button" href="#projetos">{text.work}<span aria-hidden="true" /></a>
+              <LiquidButton asChild size="xl"><a href="#projetos">{text.work}</a></LiquidButton>
               <a className="button button-outline" href={site.cv} target="_blank" rel="noreferrer">{text.cv}<small>PDF</small></a>
             </div>
           </div>
@@ -194,7 +195,7 @@ export function HomePage({ locale }: { locale: Locale }) {
       </section>
 
       <section className="legacy-section contact-section" id="contato" aria-labelledby="contact-title">
-        <div className="contact-shell"><p className="section-index">06 — {text.contact}</p><h2 className="shine-text" id="contact-title">{text.contactTitle}</h2><p>{text.contactBody}</p><a className="email-button shine-button" href={`mailto:${site.email}`}>{site.email}<span aria-hidden="true" /></a><div><a href={site.github} target="_blank" rel="noreferrer">GITHUB</a><a href={site.linkedin} target="_blank" rel="noreferrer">LINKEDIN</a><a href={site.cv} target="_blank" rel="noreferrer">CV · PDF</a></div></div>
+        <div className="contact-shell"><p className="section-index">06 — {text.contact}</p><h2 className="shine-text" id="contact-title">{text.contactTitle}</h2><p>{text.contactBody}</p><LiquidButton asChild size="xl" className="email-liquid-button"><a href={`mailto:${site.email}`}>{site.email}</a></LiquidButton><div><a href={site.github} target="_blank" rel="noreferrer">GITHUB</a><a href={site.linkedin} target="_blank" rel="noreferrer">LINKEDIN</a><a href={site.cv} target="_blank" rel="noreferrer">CV · PDF</a></div></div>
       </section>
     </main>
     <footer className="site-footer"><span>© {new Date().getFullYear()} {site.name}</span><span>{text.footer}</span></footer>

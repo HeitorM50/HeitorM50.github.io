@@ -35,6 +35,24 @@ test('theme choice is persisted', async ({ page }) => {
   await expect(page.locator('html')).toHaveAttribute('data-theme', updated || 'light')
 })
 
+test('primary calls to action use responsive liquid glass', async ({ page }) => {
+  await page.goto('/')
+  const primary = page.getByRole('link', { name: 'Ver projetos' })
+  const download = page.getByRole('link', { name: /Baixar CV/i })
+
+  await expect(primary).toHaveAttribute('data-slot', 'liquid-button')
+  await expect(primary).toHaveAttribute('data-liquid-ready', 'true')
+  await expect(primary).toHaveCSS('backdrop-filter', /blur\(16px\)/)
+  await expect(download).not.toHaveAttribute('data-slot', 'liquid-button')
+  await expect(page.locator('#portfolio-liquid-glass')).toHaveCount(1)
+
+  const box = await primary.boundingBox()
+  expect(box).not.toBeNull()
+  await page.mouse.move(box!.x + box!.width * .82, box!.y + box!.height * .28)
+  await expect(primary).toHaveAttribute('data-liquid-active', 'true')
+  await expect.poll(() => primary.evaluate((element) => element.style.getPropertyValue('--liquid-x'))).not.toBe('50.00%')
+})
+
 test('restored deck and timeline interactions work', async ({ page }) => {
   await page.goto('/')
   await expect(page.locator('[data-deck-counter]')).toHaveText('01 / 03')
