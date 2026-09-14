@@ -55,16 +55,28 @@ test('primary calls to action use responsive liquid glass', async ({ page }) => 
   await expect.poll(() => primary.evaluate((element) => getComputedStyle(element, '::before').backdropFilter)).toContain('portfolio-liquid-glass')
 })
 
-test('restored deck and timeline interactions work', async ({ page }) => {
+test('project deck and scroll-driven career timeline work', async ({ page }) => {
   await page.goto('/')
   await expect(page.locator('[data-deck-counter]')).toHaveText('01 / 03')
   await page.locator('[data-deck]').click()
   await expect(page.locator('[data-deck-counter]')).toHaveText('02 / 03')
 
-  const ibmTab = page.getByRole('tab', { name: /IBM TechXchange/i })
-  await ibmTab.click()
-  await expect(ibmTab).toHaveAttribute('aria-selected', 'true')
-  await expect(page.locator('[data-exp-panel="2"]')).toBeVisible()
+  const timeline = page.locator('[data-timeline]')
+  const entries = timeline.locator('[data-timeline-entry]')
+  const progress = timeline.locator('[data-timeline-progress]')
+  await timeline.scrollIntoViewIfNeeded()
+  await expect(timeline).toHaveAttribute('data-timeline-ready', 'true')
+  await expect(entries).toHaveCount(4)
+  await expect(timeline).toContainText('IBM TechXchange 2026')
+
+  const before = await progress.evaluate((element) => getComputedStyle(element).transform)
+  const geometry = await timeline.evaluate((element) => {
+    const rect = element.getBoundingClientRect()
+    return { top: rect.top + window.scrollY, height: rect.height }
+  })
+  await page.evaluate(({ top, height }) => window.scrollTo(0, top + height * .45), geometry)
+  await expect.poll(() => timeline.locator('[data-timeline-active="true"]').count()).toBeGreaterThan(0)
+  await expect.poll(() => progress.evaluate((element) => getComputedStyle(element).transform)).not.toBe(before)
 })
 
 test('flow field renders and keeps reacting while the page scrolls', async ({ page }) => {

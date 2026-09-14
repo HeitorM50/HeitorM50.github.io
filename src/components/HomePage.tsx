@@ -8,6 +8,7 @@ import HeroScrollVideoReveal from '@/components/ui/hero-scroll-video-pin-reveal'
 import { MetallicLogo } from '@/components/ui/metallic-paint'
 import ProfileCard from '@/components/ui/profile-card'
 import { LiquidButton } from '@/components/ui/liquid-glass-button'
+import { Timeline, type TimelineEntry } from '@/components/ui/timeline'
 import { caseHref, experiences, projects, site, stackGroups, type Locale, type Project } from '@/data/portfolio'
 
 const homeCopy = {
@@ -24,7 +25,7 @@ const homeCopy = {
     featured: 'DESTAQUES', featuredTitle: 'Projetos em destaque', caseStudy: 'Estudo de caso', live: 'Ver ao vivo', source: 'Código',
     all: 'TODOS OS PROJETOS', allTitle: 'Grade de projetos', hover: 'PASSE O MOUSE — A COR SEGUE O CURSOR',
     stackTitle: 'Ferramentas do dia a dia', stackNote: 'Ferramentas que uso nos projetos listados aqui.',
-    timeline: 'TRAJETÓRIA', timelineTitle: 'Linha do tempo', keyResult: 'PRINCIPAL RESULTADO', stackPeriod: 'STACK NO PERÍODO',
+    timeline: 'TRAJETÓRIA', timelineTitle: 'Linha do tempo', timelineIntro: 'Experiências em que assumi mais responsabilidade, conectei disciplinas e transformei decisões técnicas em entregas reais.', keyResult: 'PRINCIPAL RESULTADO', stackPeriod: 'STACK NO PERÍODO',
     contact: 'CONTATO', contactTitle: 'Aberto a estágio', contactBody: 'Procuro estágio em desenvolvimento, com foco em backend, dados ou sistemas embarcados. Em Brasília ou remoto.',
     footer: 'FEITO COM REACT · NEXT.JS · NEXTRA · BRASÍLIA, DF'
   },
@@ -41,7 +42,7 @@ const homeCopy = {
     featured: 'FEATURED', featuredTitle: 'Featured projects', caseStudy: 'Case study', live: 'Live demo', source: 'Source',
     all: 'ALL PROJECTS', allTitle: 'Project grid', hover: 'HOVER — COLOR FOLLOWS THE CURSOR',
     stackTitle: 'Everyday tools', stackNote: 'Tools I use in the projects listed here.',
-    timeline: 'TIMELINE', timelineTitle: 'Career timeline', keyResult: 'KEY RESULT', stackPeriod: 'STACK AT THE TIME',
+    timeline: 'TIMELINE', timelineTitle: 'Career timeline', timelineIntro: 'Experiences where I took on more responsibility, connected disciplines and turned technical decisions into real deliveries.', keyResult: 'KEY RESULT', stackPeriod: 'STACK AT THE TIME',
     contact: 'CONTACT', contactTitle: 'Open to internships', contactBody: "I'm looking for a development internship focused on backend, data or embedded systems. In Brasília or remote.",
     footer: 'BUILT WITH REACT · NEXT.JS · NEXTRA · BRASÍLIA, BR'
   }
@@ -70,6 +71,20 @@ export function HomePage({ locale }: { locale: Locale }) {
   const featured = projects.filter((project) => project.featured)
   const archive = projects.filter((project) => !project.featured)
   const deck = deckProjects.map((slug) => projects.find((project) => project.slug === slug)!).filter(Boolean)
+  const timelineData: TimelineEntry[] = experiences.map((experience) => ({
+    title: experience.period[locale],
+    content: <article className="experience-card">
+      <div className="experience-main">
+        <header><span>{experience.logo}</span><div><h4>{experience.role[locale]}</h4><p>{experience.company}</p></div></header>
+        <p>{experience.summary[locale]}</p>
+        <ul><li>{experience.detail[locale]}</li><li>{experience.highlight[locale]}</li></ul>
+      </div>
+      <aside>
+        <div><small>{text.keyResult}</small><strong>{experience.metricValue[locale]}</strong><p>{experience.metric[locale]}</p></div>
+        <div><small>{text.stackPeriod}</small><div className="tech-list">{experience.stack.map((item) => <span key={item}>{item}</span>)}</div></div>
+      </aside>
+    </article>
+  }))
   const personSchema = {
     '@context': 'https://schema.org', '@type': 'Person', name: site.fullName, alternateName: site.name,
     url: locale === 'pt' ? site.url : `${site.url}/en/`, email: `mailto:${site.email}`,
@@ -183,14 +198,10 @@ export function HomePage({ locale }: { locale: Locale }) {
         </div>
       </section>
 
-      <section className="legacy-section" id="exp" aria-labelledby="timeline-title">
-        <div className="content-shell" data-experience>
-          <p className="section-index">05 — {text.timeline}</p><h2 className="section-title" id="timeline-title">{text.timelineTitle}</h2>
-          <div className="experience-rail" role="tablist">{experiences.map((experience, index) => <button type="button" role="tab" aria-selected={index === 0} data-exp-index={index} key={experience.company}><span /><small>{experience.period[locale]}</small><strong>{experience.role[locale]}</strong></button>)}</div>
-          <div className="experience-panels">{experiences.map((experience, index) => <article data-exp-panel={index} hidden={index !== 0} key={experience.company}>
-            <div className="experience-main"><header><span>{experience.logo}</span><div><h3>{experience.role[locale]}</h3><p>{experience.company}</p></div></header><p>{experience.summary[locale]}</p><ul><li>{experience.detail[locale]}</li><li>{experience.highlight[locale]}</li></ul></div>
-            <aside><div><small>{text.keyResult}</small><strong>{experience.metricValue[locale]}</strong><p>{experience.metric[locale]}</p></div><div><small>{text.stackPeriod}</small><div className="tech-list">{experience.stack.map((item) => <span key={item}>{item}</span>)}</div></div></aside>
-          </article>)}</div>
+      <section className="legacy-section timeline-section" id="exp" aria-labelledby="timeline-title">
+        <div className="content-shell">
+          <p className="section-index">05 — {text.timeline}</p>
+          <Timeline data={timelineData} heading={text.timelineTitle} description={text.timelineIntro} />
         </div>
       </section>
 
