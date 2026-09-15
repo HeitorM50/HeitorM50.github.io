@@ -35,6 +35,30 @@ test('theme choice is persisted', async ({ page }) => {
   await expect(page.locator('html')).toHaveAttribute('data-theme', updated || 'light')
 })
 
+test('top navigation uses a responsive liquid glass dock', async ({ page }) => {
+  await page.goto('/')
+  const dock = page.locator('[data-dock]')
+  const panel = dock.locator('[data-dock-panel]')
+  const about = dock.locator('[data-dock-item]').first()
+
+  await expect(dock).toHaveAttribute('data-dock-ready', 'true')
+  await expect(dock.getByRole('img', { name: 'Heitor Ricardo' })).toBeVisible()
+  await expect(dock.getByRole('toolbar')).toBeVisible()
+  await expect(dock.getByRole('link', { name: 'Sobre' })).toHaveAttribute('href', '/#sobre')
+  await expect(panel).toHaveCSS('backdrop-filter', /blur\(16px\)/)
+
+  const box = await about.boundingBox()
+  expect(box).not.toBeNull()
+  await page.mouse.move(box!.x + box!.width / 2, box!.y + box!.height / 2)
+  await expect(panel).toHaveAttribute('data-dock-active', 'true')
+  await expect(page.locator('#portfolio-liquid-glass')).toHaveCount(1)
+
+  const canMagnify = await page.evaluate(() => matchMedia('(hover: hover) and (pointer: fine)').matches)
+  if (canMagnify) {
+    await expect.poll(() => about.evaluate((element) => parseFloat(element.style.width))).toBeGreaterThan(50)
+  }
+})
+
 test('primary calls to action use responsive liquid glass', async ({ page }) => {
   await page.goto('/')
   const primary = page.getByRole('link', { name: 'Ver projetos' })

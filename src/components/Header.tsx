@@ -1,7 +1,8 @@
 import Link from 'next/link'
+import { Boxes, BriefcaseBusiness, Mail, Milestone, SunMoon, UserRound } from 'lucide-react'
 import { copy, type Locale } from '@/data/portfolio'
+import { Dock, DockIcon, DockItem, DockLabel } from '@/components/ui/dock'
 import { MetallicLogo } from '@/components/ui/metallic-paint'
-import { ThemeToggle } from './ThemeToggle'
 
 type HeaderProps = {
   locale: Locale
@@ -13,45 +14,52 @@ export function Header({ locale, alternateHref }: HeaderProps) {
   const home = locale === 'pt' ? '/' : '/en/'
   const portugueseHref = locale === 'en' ? alternateHref : '/'
   const englishHref = locale === 'pt' ? alternateHref : '/en/'
+  const items = [
+    { label: text.nav.about, href: `${home}#sobre`, icon: UserRound },
+    { label: text.nav.work, href: `${home}#projetos`, icon: BriefcaseBusiness },
+    { label: 'Stack', href: `${home}#stack`, icon: Boxes },
+    { label: text.nav.experience, href: `${home}#exp`, icon: Milestone },
+    { label: text.nav.contact, href: `${home}#contato`, icon: Mail },
+  ]
 
   return (
     <header className="site-header">
-      <div className="header-shell">
-        <Link className="brand" href={home} aria-label="Heitor Ricardo — home">
-          <span className="brand-mark" aria-hidden="true"><MetallicLogo /></span>
-          <span>Heitor Ricardo</span>
-        </Link>
+      <nav className="dock-navigation" aria-label="Primary">
+        <Dock label={text.menuLabel} itemSize={36} magnification={64} distance={130}>
+          <div className="dock-brand" role="img" aria-label="Heitor Ricardo">
+            <MetallicLogo />
+          </div>
 
-        <details className="nav-disclosure">
-          <summary aria-label={text.menuLabel}>
-            <span />
-            <span />
-          </summary>
-          <nav aria-label="Primary">
-            <a href={`${home}#sobre`}>{text.nav.about}</a>
-            <a href={`${home}#projetos`}>{text.nav.work}</a>
-            <a href={`${home}#stack`}>Stack</a>
-            <a href={`${home}#exp`}>{text.nav.experience}</a>
-            <a href={`${home}#contato`}>{text.nav.contact}</a>
-          </nav>
-        </details>
+          <span className="dock-separator" aria-hidden="true" />
 
-        <nav className="desktop-nav" aria-label="Primary">
-          <a href={`${home}#sobre`}>{text.nav.about}</a>
-          <a href={`${home}#projetos`}>{text.nav.work}</a>
-          <a href={`${home}#stack`}>Stack</a>
-          <a href={`${home}#exp`}>{text.nav.experience}</a>
-          <a href={`${home}#contato`}>{text.nav.contact}</a>
-        </nav>
+          {items.map(({ label, href, icon: Icon }) => (
+            <DockItem key={href}>
+              <DockLabel>{label}</DockLabel>
+              <DockIcon>
+                <a className="dock-action" href={href} aria-label={label}>
+                  <Icon aria-hidden="true" />
+                </a>
+              </DockIcon>
+            </DockItem>
+          ))}
 
-        <div className="header-actions">
-          <div className="language-switch" aria-label={text.languageLabel}>
+          <span className="dock-separator" aria-hidden="true" />
+
+          <div className="dock-language" aria-label={text.languageLabel}>
             <Link className={locale === 'pt' ? 'active' : ''} href={portugueseHref} hrefLang="pt-BR" aria-label={locale === 'en' ? text.languageLabel : undefined}>PT</Link>
             <Link className={locale === 'en' ? 'active' : ''} href={englishHref} hrefLang="en" aria-label={locale === 'pt' ? text.languageLabel : undefined}>EN</Link>
           </div>
-          <ThemeToggle label={text.themeLabel} />
-        </div>
-      </div>
+
+          <DockItem>
+            <DockLabel>{text.themeLabel}</DockLabel>
+            <DockIcon>
+              <button className="dock-action dock-theme" type="button" data-theme-toggle aria-label={text.themeLabel}>
+                <SunMoon aria-hidden="true" />
+              </button>
+            </DockIcon>
+          </DockItem>
+        </Dock>
+      </nav>
     </header>
   )
 }
