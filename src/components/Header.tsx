@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Boxes, BriefcaseBusiness, Mail, Milestone, SunMoon, UserRound } from 'lucide-react'
+import { Boxes, BriefcaseBusiness, Cpu, Mail, Milestone, SunMoon, UserRound } from 'lucide-react'
 import { copy, type Locale } from '@/data/portfolio'
 import { Dock, DockIcon, DockItem, DockLabel } from '@/components/ui/dock'
 import { MetallicLogo } from '@/components/ui/metallic-paint'
@@ -17,6 +17,7 @@ export function Header({ locale, alternateHref }: HeaderProps) {
   const items = [
     { label: text.nav.about, href: `${home}#sobre`, icon: UserRound },
     { label: text.nav.work, href: `${home}#projetos`, icon: BriefcaseBusiness },
+    { label: locale === 'pt' ? 'Embarcados' : 'Embedded systems', href: `${home}#embarcados`, icon: Cpu },
     { label: 'Stack', href: `${home}#stack`, icon: Boxes },
     { label: text.nav.experience, href: `${home}#exp`, icon: Milestone },
     { label: text.nav.contact, href: `${home}#contato`, icon: Mail },

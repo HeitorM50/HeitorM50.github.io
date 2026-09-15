@@ -8,7 +8,9 @@ const required = [
   'omarchy-gcal/index.html', 'cv.pdf', '404.html', 'robots.txt', 'sitemap.xml',
   'media/logo-metal-mask.svg', 'media/logo-metal-depth.png', 'media/logo-metallic.svg',
   'media/logo-metallic.png', 'vendor/metallic-paint.js', 'vendor/gsap.min.js',
-  'vendor/ScrollTrigger.min.js', 'vendor/SplitText.min.js', 'vendor/profile-card.css'
+  'vendor/ScrollTrigger.min.js', 'vendor/SplitText.min.js', 'vendor/profile-card.css',
+  'vendor/embedded/loader.js', 'media/pmi-workspace.webp', 'media/pmi-workspace.avif',
+  'media/omapkdex.webp', 'media/omapkdex.avif'
 ]
 const forbidden = ['media/scroll-reveal.mp4', 'media/logo.webp', 'media/logo.avif']
 
@@ -30,10 +32,8 @@ for (const htmlPath of htmlFiles) {
   const html = readFileSync(htmlPath, 'utf8')
   if (/\{\{[^}]+\}\}/.test(html)) failures.push(`unresolved template in ${htmlPath}`)
   if (/cdn\.simpleicons\.org|unpkg\.com/.test(html)) failures.push(`unexpected runtime CDN in ${htmlPath}`)
-  if (html.includes('/_next/static/css/')) {
-    if (html.includes('/_next/static/chunks/')) failures.push(`unexpected Next.js runtime in ${htmlPath}`)
-    if (html.includes('self.__next_f')) failures.push(`unexpected React flight payload in ${htmlPath}`)
-  }
+  if (html.includes('/_next/static/chunks/')) failures.push(`unexpected Next.js runtime in ${htmlPath}`)
+  if (html.includes('self.__next_f')) failures.push(`unexpected React flight payload in ${htmlPath}`)
 
   for (const match of html.matchAll(/(?:href|src)="([^"]+)"/g)) {
     const value = match[1]

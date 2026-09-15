@@ -3,27 +3,29 @@ import Link from 'next/link'
 import type { CSSProperties } from 'react'
 import { Header } from './Header'
 import { Picture } from './Picture'
+import { EmbeddedSection } from './EmbeddedSection'
+import { ProjectMeta } from './ProjectMeta'
 import NeuralBackground from '@/components/ui/flow-field-background'
 import HeroScrollVideoReveal from '@/components/ui/hero-scroll-video-pin-reveal'
 import { MetallicLogo } from '@/components/ui/metallic-paint'
 import ProfileCard from '@/components/ui/profile-card'
 import { LiquidButton } from '@/components/ui/liquid-glass-button'
 import { Timeline, type TimelineEntry } from '@/components/ui/timeline'
-import { caseHref, experiences, projects, site, stackGroups, type Locale, type Project } from '@/data/portfolio'
+import { caseHref, experiences, projects, projectGroups, site, stackGroups, type Locale, type Project } from '@/data/portfolio'
 
 const homeCopy = {
   pt: {
     badge: 'ABERTO A ESTÁGIO · BACKEND, DADOS E SISTEMAS EMBARCADOS',
     headline: ['Estudante de', 'Engenharia de Software na'],
     intro: 'Trabalho com Python, TypeScript, C++ e Rust, entre backend, dados e sistemas embarcados. Nos últimos dois anos entreguei uma plataforma para cliente real, um sistema de telemetria em CAN para a equipe de Baja SAE e automações internas em um órgão público.',
-    stats: [['2+', 'ANOS CODANDO'], ['11', 'PROJETOS'], ['4', 'LIDERADOS']],
+    stats: [['2+', 'ANOS CODANDO'], [String(projects.length), 'PROJETOS'], ['4', 'LIDERADOS']],
     work: 'Ver projetos', cv: 'Baixar CV', deckHint: 'CLIQUE PARA TROCAR',
     about: 'SOBRE MIM',
     about1: 'Curso Engenharia de Software na UnB, com conclusão prevista para março de 2029, e Análise e Desenvolvimento de Sistemas no GRAN. Entrei na equipe de Baja SAE em 2024 e hoje lidero o subsistema de eletrônica, com quatro integrantes.',
     about2: 'Já trabalhei em web, dados e sistemas embarcados: uma plataforma de métricas de colaboração no GitHub, um hub administrativo em produção para um cliente real e o sistema de telemetria do Baja, com quatro nós ECU em barramento CAN. Em agosto de 2026 participei do hackathon do IBM TechXchange, num time de cinco. Procuro estágio em desenvolvimento, em Brasília ou remoto.',
     aboutStats: [['2+', 'ANOS CODANDO'], ['4', 'PRODUTOS NO AR'], ['Brasília', 'BASE · REMOTO OK']],
     featured: 'DESTAQUES', featuredTitle: 'Projetos em destaque', caseStudy: 'Estudo de caso', live: 'Ver ao vivo', source: 'Código',
-    all: 'TODOS OS PROJETOS', allTitle: 'Grade de projetos', hover: 'PASSE O MOUSE — A COR SEGUE O CURSOR',
+    all: 'OUTROS PROJETOS', allTitle: 'Outras formas de construir', hover: 'PROJETOS PRÓPRIOS, PESQUISA E CONSTRUÇÃO EM EQUIPE',
     stackTitle: 'Ferramentas do dia a dia', stackNote: 'Ferramentas que uso nos projetos listados aqui.',
     timeline: 'TRAJETÓRIA', timelineTitle: 'Linha do tempo', timelineIntro: 'Experiências em que assumi mais responsabilidade, conectei disciplinas e transformei decisões técnicas em entregas reais.', keyResult: 'PRINCIPAL RESULTADO', stackPeriod: 'STACK NO PERÍODO',
     contact: 'CONTATO', contactTitle: 'Aberto a estágio', contactBody: 'Procuro estágio em desenvolvimento, com foco em backend, dados ou sistemas embarcados. Em Brasília ou remoto.',
@@ -33,14 +35,14 @@ const homeCopy = {
     badge: 'OPEN TO INTERNSHIPS · BACKEND, DATA AND EMBEDDED SYSTEMS',
     headline: ['Software', 'Engineering student at'],
     intro: 'I work with Python, TypeScript, C++ and Rust, across backend, data and embedded systems. Over the past two years I delivered a platform for a real client, a CAN telemetry system for the Baja SAE team and internal automation at a government agency.',
-    stats: [['2+', 'YEARS CODING'], ['11', 'PROJECTS'], ['4', 'TEAM LED']],
+    stats: [['2+', 'YEARS CODING'], [String(projects.length), 'PROJECTS'], ['4', 'TEAM LED']],
     work: 'See my work', cv: 'Download CV', deckHint: 'CLICK TO SWAP',
     about: 'ABOUT ME',
     about1: "I'm studying Software Engineering at UnB, graduating in March 2029, and Systems Analysis and Development at GRAN. I joined the Baja SAE team in 2024 and now lead the electronics subsystem, with four members.",
     about2: "I've worked on web, data and embedded systems: a GitHub collaboration metrics platform, an admin hub in production for a real client and the Baja telemetry system, with four ECU nodes on a CAN bus. In August 2026 I took part in the IBM TechXchange hackathon, in a team of five. I'm looking for a development internship, in Brasília or remote.",
     aboutStats: [['2+', 'YEARS CODING'], ['4', 'SHIPPED PRODUCTS'], ['Brasília', 'BASED · REMOTE OK']],
     featured: 'FEATURED', featuredTitle: 'Featured projects', caseStudy: 'Case study', live: 'Live demo', source: 'Source',
-    all: 'ALL PROJECTS', allTitle: 'Project grid', hover: 'HOVER — COLOR FOLLOWS THE CURSOR',
+    all: 'MORE PROJECTS', allTitle: 'More ways to build', hover: 'PERSONAL PROJECTS, RESEARCH AND TEAMWORK',
     stackTitle: 'Everyday tools', stackNote: 'Tools I use in the projects listed here.',
     timeline: 'TIMELINE', timelineTitle: 'Career timeline', timelineIntro: 'Experiences where I took on more responsibility, connected disciplines and turned technical decisions into real deliveries.', keyResult: 'KEY RESULT', stackPeriod: 'STACK AT THE TIME',
     contact: 'CONTACT', contactTitle: 'Open to internships', contactBody: "I'm looking for a development internship focused on backend, data or embedded systems. In Brasília or remote.",
@@ -69,7 +71,7 @@ function ProjectButtons({ project, locale }: { project: Project; locale: Locale 
 export function HomePage({ locale }: { locale: Locale }) {
   const text = homeCopy[locale]
   const featured = projects.filter((project) => project.featured)
-  const archive = projects.filter((project) => !project.featured)
+  const archive = projects.filter((project) => !project.featured && project.category !== 'embedded')
   const deck = deckProjects.map((slug) => projects.find((project) => project.slug === slug)!).filter(Boolean)
   const timelineData: TimelineEntry[] = experiences.map((experience) => ({
     title: experience.period[locale],
@@ -175,38 +177,43 @@ export function HomePage({ locale }: { locale: Locale }) {
           <p className="section-index">02 — {text.featured}</p><h2 className="section-title" id="featured-title">{text.featuredTitle}</h2>
           <div className="featured-list">{featured.map((project, index) => <article className="featured-project" key={project.slug}>
             <Link className="featured-media" href={caseHref(project, locale)}>{project.cover && <Picture name={project.cover} alt={`${project.title} — screenshot`} width={project.coverWidth ?? 1400} height={project.coverHeight ?? 875} />}</Link>
-            <div className="featured-copy"><p className="project-count">{String(index + 1).padStart(2, '0')} / {String(featured.length).padStart(2, '0')}</p><h3>{project.title}</h3><p>{project.summary[locale]} {project.role[locale]}</p><div className="tech-list">{project.stack.map((item) => <span key={item}>{item}</span>)}</div><ProjectButtons project={project} locale={locale} /></div>
+            <div className="featured-copy"><p className="project-count">{String(index + 1).padStart(2, '0')} / {String(featured.length).padStart(2, '0')}</p><ProjectMeta project={project} locale={locale} /><h3>{project.title}</h3><p>{project.summary[locale]} {project.role[locale]}</p><div className="tech-list">{project.stack.map((item) => <span key={item}>{item}</span>)}</div><ProjectButtons project={project} locale={locale} /></div>
           </article>)}</div>
         </div>
       </section>
 
-      <section className="legacy-section" aria-labelledby="grid-title">
+      <EmbeddedSection locale={locale} />
+
+      <section className="legacy-section" id="outros-projetos" aria-labelledby="grid-title">
         <div className="content-shell">
-          <div className="split-heading"><div><p className="section-index">03 — {text.all}</p><h2 className="section-title" id="grid-title">{text.allTitle}</h2></div><p>{text.hover}</p></div>
-          <div className="project-grid" data-project-grid>{archive.map((project) => {
-            const href = project.links.live ?? project.links.source
-            const body = <><div className="grid-media">{project.cover && <Picture name={project.cover} alt={`${project.title} — screenshot`} width={project.coverWidth ?? 1200} height={project.coverHeight ?? 760} />}</div><div className="grid-copy"><div><strong>{project.title}</strong><span>{project.year}</span></div><p>{project.summary[locale]}</p><small>{project.stack.join(' · ')}</small></div></>
-            return href ? <a className="grid-card" href={href} target="_blank" rel="noreferrer" key={project.slug}>{body}</a> : <article className="grid-card grid-card-static" key={project.slug}>{body}</article>
-          })}</div>
+          <div className="split-heading"><div><p className="section-index">04 — {text.all}</p><h2 className="section-title" id="grid-title">{text.allTitle}</h2></div><p>{text.hover}</p></div>
+          {projectGroups.map(group => <div className="project-group" key={group.id} data-project-group={group.id}>
+            <div className="project-group-heading"><h3>{group[locale]}</h3><p>{group.note[locale]}</p></div>
+            <div className="project-grid" data-project-grid>{archive.filter(project => project.category === group.id).map(project => {
+              const href = project.links.live ?? project.links.source
+              const body = <>{project.cover && <div className="grid-media"><Picture name={project.cover} alt={project.title + (locale === 'pt' ? ' — captura do projeto' : ' — project screenshot')} width={project.coverWidth ?? 1200} height={project.coverHeight ?? 760} /></div>}<div className="grid-copy"><ProjectMeta project={project} locale={locale} /><div><h4>{project.title}</h4><span>{project.year}</span></div><p>{project.summary[locale]}</p><p className="project-contribution"><strong>{locale === 'pt' ? 'Minha contribuição' : 'My contribution'}</strong>{project.role[locale]}</p><small>{project.stack.join(' · ')}</small>{href && <span className="grid-link-label">{project.links.live ? (locale === 'pt' ? 'Explorar projeto' : 'Explore project') : (locale === 'pt' ? 'Ver repositório' : 'View repository')} ↗</span>}</div></>
+              return href ? <a className={'grid-card' + (project.cover ? '' : ' grid-card-text')} data-project-slug={project.slug} href={href} target="_blank" rel="noreferrer" key={project.slug}>{body}</a> : <article className="grid-card grid-card-static grid-card-text" data-project-slug={project.slug} key={project.slug}>{body}</article>
+            })}</div>
+          </div>)}
         </div>
       </section>
 
       <section className="legacy-section" id="stack" aria-labelledby="stack-title">
         <div className="content-shell">
-          <div className="split-heading"><div><p className="section-index">04 — STACK</p><h2 className="section-title" id="stack-title">{text.stackTitle}</h2></div><p className="regular-note">{text.stackNote}</p></div>
+          <div className="split-heading"><div><p className="section-index">05 — STACK</p><h2 className="section-title" id="stack-title">{text.stackTitle}</h2></div><p className="regular-note">{text.stackNote}</p></div>
           <div className="stack-grid">{stackGroups.map((group, groupIndex) => <article className="stack-card" key={group.en}><header><span style={{ '--dot-hue': `${285 + groupIndex * 55}` } as CSSProperties} />{group[locale]}<small>{String(group.items.length).padStart(2, '0')}</small></header><div>{group.items.map((item) => <span className="stack-chip" key={item}>{stackIcons[item] && <img src={`/assets/icons/ic_${stackIcons[item]}.svg`} alt="" loading="lazy" decoding="async" />} {item}</span>)}</div></article>)}</div>
         </div>
       </section>
 
       <section className="legacy-section timeline-section" id="exp" aria-labelledby="timeline-title">
         <div className="content-shell">
-          <p className="section-index">05 — {text.timeline}</p>
+          <p className="section-index">06 — {text.timeline}</p>
           <Timeline data={timelineData} heading={text.timelineTitle} description={text.timelineIntro} />
         </div>
       </section>
 
       <section className="legacy-section contact-section" id="contato" aria-labelledby="contact-title">
-        <div className="contact-shell"><p className="section-index">06 — {text.contact}</p><h2 className="shine-text" id="contact-title">{text.contactTitle}</h2><p>{text.contactBody}</p><LiquidButton asChild size="xl" className="email-liquid-button"><a href={`mailto:${site.email}`}>{site.email}</a></LiquidButton><div><a href={site.github} target="_blank" rel="noreferrer">GITHUB</a><a href={site.linkedin} target="_blank" rel="noreferrer">LINKEDIN</a><a href={site.cv} target="_blank" rel="noreferrer">CV · PDF</a></div></div>
+        <div className="contact-shell"><p className="section-index">07 — {text.contact}</p><h2 className="shine-text" id="contact-title">{text.contactTitle}</h2><p>{text.contactBody}</p><LiquidButton asChild size="xl" className="email-liquid-button"><a href={`mailto:${site.email}`}>{site.email}</a></LiquidButton><div><a href={site.github} target="_blank" rel="noreferrer">GITHUB</a><a href={site.linkedin} target="_blank" rel="noreferrer">LINKEDIN</a><a href={site.cv} target="_blank" rel="noreferrer">CV · PDF</a></div></div>
       </section>
     </main>
     <footer className="site-footer"><span>© {new Date().getFullYear()} {site.name}</span><span>{text.footer}</span></footer>

@@ -1,6 +1,7 @@
 import { createServer } from 'node:http'
 import { createReadStream, existsSync, statSync } from 'node:fs'
 import { extname, join, normalize } from 'node:path'
+import { createGzip } from 'node:zlib'
 
 const root = join(process.cwd(), 'out')
 const port = Number(process.env.PORT || 4173)
@@ -16,6 +17,18 @@ createServer((request, response) => {
   if (existsSync(filePath) && statSync(filePath).isDirectory()) filePath = join(filePath, 'index.html')
   const found = existsSync(filePath)
   if (!found) filePath = join(root, '404.html')
-  response.writeHead(found ? 200 : 404, { 'Content-Type': types[extname(filePath)] || 'application/octet-stream' })
-  createReadStream(filePath).pipe(response)
+  const contentType = types[extname(filePath)] || 'application/octet-stream'
+  const compressible = /^(text\/|image\/svg\+xml|application\/xml)/.test(contentType)
+  // GitHub Pages serves text assets with gzip. Match that delivery here so
+  // local Lighthouse budgets measure the same transfer sizes as production.
+  const encodings = (request.headers['accept-encoding'] || '').toLowerCase().split(',')
+  const gzip = compressible && encodings.some(value => /^\s*gzip(?:\s*;|\s*$)/.test(value) && !/;\s*q=0(?:\.0*)?\s*$/.test(value))
+  response.writeHead(found ? 200 : 404, {
+    'Content-Type': contentType,
+    ...(compressible ? { Vary: 'Accept-Encoding' } : {}),
+    ...(gzip ? { 'Content-Encoding': 'gzip' } : {})
+  })
+  const stream = createReadStream(filePath)
+  if (gzip) stream.pipe(createGzip()).pipe(response)
+  else stream.pipe(response)
 }).listen(port, '127.0.0.1', () => console.log(`Static portfolio at http://127.0.0.1:${port}`))

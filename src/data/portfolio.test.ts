@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import { caseHref, copy, projects } from './portfolio'
+import { caseHref, copy, projects, projectGroups, benchPhotos } from './portfolio'
+import { existsSync } from 'node:fs'
 
 describe('portfolio data', () => {
   it('keeps project slugs unique', () => {
@@ -28,5 +29,26 @@ describe('portfolio data', () => {
 
   it('keeps both language dictionaries aligned', () => {
     expect(Object.keys(copy.pt)).toEqual(Object.keys(copy.en))
+  })
+
+  it('assigns every archive project to a visible section and keeps covers available', () => {
+    for (const project of projects) {
+      expect([...projectGroups.map(group => group.id), 'embedded']).toContain(project.category)
+      if (project.status) {
+        expect(project.status.pt).toBeTruthy()
+        expect(project.status.en).toBeTruthy()
+      }
+      if (project.cover) {
+        for (const extension of ['webp', 'avif']) expect(existsSync(`public/media/${project.cover}.${extension}`)).toBe(true)
+      }
+    }
+    for (const photo of benchPhotos) {
+      expect(photo.width).toBeGreaterThan(0)
+      expect(photo.height).toBeGreaterThan(0)
+      for (const locale of ['pt', 'en'] as const) {
+        expect(photo.alt[locale]).toBeTruthy()
+        expect(photo.caption[locale]).toBeTruthy()
+      }
+    }
   })
 })

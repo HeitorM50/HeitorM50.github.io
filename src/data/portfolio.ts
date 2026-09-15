@@ -18,6 +18,9 @@ export type Project = {
   coverHeight?: number
   links: ProjectLink
   featured: boolean
+  category: 'personal' | 'academic' | 'team' | 'embedded'
+  collaboration?: 'solo' | 'pair' | 'team'
+  status?: LocalizedText
   metrics?: LocalizedText[]
 }
 
@@ -53,7 +56,7 @@ export const copy = {
     intro: 'Trabalho com Python, TypeScript, C++ e Rust entre backend, dados e sistemas embarcados. Gosto de problemas que pedem medição, automação e decisões técnicas claras.',
     primaryCta: 'Ver projetos',
     secondaryCta: 'Baixar CV',
-    proof: ['4 produtos no ar', '4 pessoas lideradas', '11 projetos selecionados'],
+    proof: ['4 produtos no ar', '4 pessoas lideradas'],
     selectedKicker: '01 — TRABALHO SELECIONADO',
     selectedTitle: 'Projetos com problema, papel e impacto.',
     selectedIntro: 'Uma seleção do que entreguei em equipes, pesquisa e projetos próprios. Cada case separa com clareza o contexto, minha contribuição e o resultado.',
@@ -89,7 +92,7 @@ export const copy = {
     intro: 'I work with Python, TypeScript, C++ and Rust across backend, data and embedded systems. I enjoy problems that call for measurement, automation and clear technical decisions.',
     primaryCta: 'See my work',
     secondaryCta: 'Download résumé',
-    proof: ['4 shipped products', '4 people led', '11 selected projects'],
+    proof: ['4 shipped products', '4 people led'],
     selectedKicker: '01 — SELECTED WORK',
     selectedTitle: 'Projects with a problem, a role and an impact.',
     selectedIntro: 'A selection of work shipped in teams, research and personal projects. Each case clearly separates the context, my contribution and the result.',
@@ -122,6 +125,7 @@ export const copy = {
 export const projects: Project[] = [
   {
     slug: 'hindsight', title: 'Hindsight', year: '2026', featured: true,
+    category: 'team', collaboration: 'team',
     summary: {
       pt: 'Analisa sessões do IBM Bob, encontra desperdício de contexto e gera uma configuração corrigida para comparação A/B.',
       en: 'Analyses IBM Bob sessions, finds wasted context and generates a corrected configuration for an A/B comparison.'
@@ -141,6 +145,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'crianex-hub', title: 'Crianex Hub', year: '2026', featured: true,
+    category: 'team', collaboration: 'team',
     summary: {
       pt: 'Plataforma administrativa e vitrine bilíngue entregue para uma software house e colocada em produção.',
       en: 'An admin platform and bilingual showcase delivered to a software company and shipped to production.'
@@ -156,6 +161,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'coops', title: 'CoOps', year: '2025', featured: true,
+    category: 'team', collaboration: 'team',
     summary: {
       pt: 'Plataforma de métricas de colaboração no GitHub, com dashboards em D3 e síntese dos dados por IA.',
       en: 'A GitHub collaboration analytics platform with D3 dashboards and AI-assisted data summaries.'
@@ -171,6 +177,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'extracao-rda', title: 'ExtracaoRDA', year: '2025', featured: true,
+    category: 'personal', collaboration: 'solo',
     summary: {
       pt: 'Aplicação desktop que transforma relatórios PADIS em planilhas validadas e remove a transcrição manual do fluxo.',
       en: 'A desktop app that turns PADIS reports into validated spreadsheets and removes manual transcription from the workflow.'
@@ -186,6 +193,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'pibic-dinamica-veicular', title: 'PIBIC · Dinâmica Veicular', year: '2026', featured: false,
+    category: 'academic',
     summary: { pt: 'Modelo multicorpo em C++ validado contra o Project Chrono, com sandbox em Godot.', en: 'A C++ multibody model validated against Project Chrono, with a Godot sandbox.' },
     role: { pt: 'Pesquisa, implementação e documentação técnica por sprint.', en: 'Research, implementation and technical documentation by sprint.' },
     stack: ['C++', 'Godot', 'Chrono'], cover: 'pibic', coverWidth: 1568, coverHeight: 780,
@@ -193,6 +201,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'dev-second-brain', title: 'dev-second-brain', year: '2026', featured: false,
+    category: 'personal', collaboration: 'solo',
     summary: { pt: 'Servidor MCP local que consulta notas e recupera decisões passadas de projeto.', en: 'A local MCP server that queries notes and retrieves past project decisions.' },
     role: { pt: 'Projeto pessoal, com busca e embeddings locais e sem chave de API.', en: 'Personal project with local search and embeddings and no API key.' },
     stack: ['TypeScript', 'RAG', 'MCP'], cover: 'dev-second-brain', coverWidth: 1200, coverHeight: 750,
@@ -200,6 +209,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'rbtree-db', title: 'rbtree-db', year: '2026', featured: false,
+    category: 'academic', collaboration: 'pair',
     summary: { pt: 'Banco chave-valor em Rust sobre árvore Rubro-Negra, com range queries e REPL.', en: 'A Rust key-value store built on a Red-Black tree, with range queries and a REPL.' },
     role: { pt: 'Projeto em dupla com benchmarks Criterion.', en: 'Pair project with Criterion benchmarks.' },
     stack: ['Rust', 'Criterion'], cover: 'rbtree-bench', coverWidth: 916, coverHeight: 635,
@@ -207,6 +217,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'rusty-explorer', title: 'Rusty Explorer', year: '2026', featured: false,
+    category: 'academic', collaboration: 'pair',
     summary: { pt: 'Explorador de arquivos usado para comparar algoritmos de ordenação e busca em cenários reais.', en: 'A file explorer used to compare sorting and search algorithms in real scenarios.' },
     role: { pt: 'Implementação e relatório em dupla.', en: 'Pair implementation and report.' },
     stack: ['Rust', 'Ordenação', 'Busca'], cover: 'rusty-explorer', coverWidth: 1041, coverHeight: 692,
@@ -214,6 +225,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'quadtree-compressor', title: 'Quadtree Compressor', year: '2026', featured: false,
+    category: 'academic', collaboration: 'pair',
     summary: { pt: 'Compressor de imagens em tons de cinza com Quadtree e formato binário próprio.', en: 'A grayscale image compressor using a Quadtree and a custom binary format.' },
     role: { pt: 'Projeto em dupla com avaliação de compressão e PSNR.', en: 'Pair project evaluating compression and PSNR.' },
     stack: ['Python', 'NumPy', 'Pillow'], cover: 'quadtree', coverWidth: 671, coverHeight: 726,
@@ -221,6 +233,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'crypto-arbitrage-graph', title: 'CryptoArbitrageGraph', year: '2026', featured: false,
+    category: 'academic', collaboration: 'team',
     summary: { pt: 'Detecção de arbitragem triangular em cripto com Bellman-Ford e visualização interativa.', en: 'Triangular crypto arbitrage detection with Bellman-Ford and an interactive visualisation.' },
     role: { pt: 'Projeto acadêmico em equipe.', en: 'Academic team project.' },
     stack: ['Python', 'Bellman-Ford'], cover: 'crypto-arbitrage', coverWidth: 1200, coverHeight: 608,
@@ -228,11 +241,77 @@ export const projects: Project[] = [
   },
   {
     slug: 'alugafacil', title: 'AlugaFacil', year: '2026', featured: false,
+    category: 'personal',
     summary: { pt: 'Gerenciador de frota, disponibilidade e ciclo de aluguel para locadora de carros.', en: 'Fleet, availability and rental-cycle management for a car rental company.' },
     role: { pt: 'Frontend Next.js e API Node/Express; repositório privado.', en: 'Next.js frontend and Node/Express API; private repository.' },
     stack: ['Next.js', 'TypeScript', 'Node.js'], links: {}
+  },
+  {
+    slug: 'unbaja-telemetria', title: 'UnBaja · Telemetria embarcada', year: '2024 — 2026', featured: false,
+    category: 'embedded', collaboration: 'team',
+    status: { pt: 'Sistema embarcado construído', en: 'Embedded system built' },
+    summary: { pt: 'Quatro nós ECU em barramento CAN levam os dados dos sensores até o display TFT do piloto.', en: 'Four ECU nodes on a CAN bus carry sensor data to the driver’s TFT display.' },
+    role: { pt: 'Leitura de sensores, comunicação entre nós, tratamento dos dados e interface de bordo. Liderança de quatro integrantes da eletrônica.', en: 'Sensor reading, communication between nodes, data processing and the on-board interface. Leadership of four electronics team members.' },
+    stack: ['C++', 'ESP32', 'Arduino', 'CAN', 'TFT'], links: {}
+  },
+  {
+    slug: 'baja-telemetry-api', title: 'baja-telemetry-api', year: '2026', featured: false,
+    category: 'embedded', collaboration: 'solo',
+    status: { pt: 'Em desenvolvimento', en: 'In development' },
+    summary: { pt: 'A próxima etapa da telemetria: guardar o que hoje passa pelo display e permitir a análise após cada teste.', en: 'The next step for telemetry: retain what currently passes through the display and enable analysis after each test.' },
+    role: { pt: 'Desenvolvimento do backend da equipe em Kotlin e Spring Boot, com arquitetura, contratos e ingestão inicial de frames CAN.', en: 'Development of the team’s Kotlin and Spring Boot backend, including architecture, contracts and initial CAN frame ingestion.' },
+    stack: ['Kotlin', 'Spring Boot', 'PostgreSQL', 'TimescaleDB', 'Docker'],
+    links: { source: 'https://github.com/UnBajaSAE/baja-telemetry-api' }
+  },
+  {
+    slug: 'pmi-sleep-5', title: 'PMI Sleep 5 · Krilltech', year: '2026', featured: false,
+    category: 'team', collaboration: 'team', status: { pt: 'Hackathon · demonstração', en: 'Hackathon · demo' },
+    summary: { pt: 'Workspace de análise de crédito que reúne cliente, operação e evidências para apoiar a revisão humana. Demonstração com dados simulados.', en: 'A credit analysis workspace bringing together customers, operations and evidence to support human review. Demonstration with simulated data.' },
+    role: { pt: 'Concepção do produto e das regras de negócio, Product Model Canvas e roteiro do pitch, orientando a implementação pela equipe.', en: 'Product concept and business rules, Product Model Canvas and pitch script, guiding the team’s implementation.' },
+    stack: ['Product Model Canvas', 'React', 'TypeScript', 'Python'],
+    cover: 'pmi-workspace', coverWidth: 1536, coverHeight: 1616,
+    links: { source: 'https://github.com/guxvr/PMI-Sleep-5' }
+  },
+  {
+    slug: 'omapkdex', title: 'OmaPkDex', year: '2026', featured: false,
+    category: 'personal', collaboration: 'solo',
+    summary: { pt: 'Um companheiro virtual na barra do Omarchy que evolui com o uso de tokens, com coleção, histórico e progressão persistente.', en: 'A virtual companion in the Omarchy bar that evolves with token usage, with a collection, history and persistent progression.' },
+    role: { pt: 'Implementação para Linux em Python e QML, lendo os registros locais de uso. Inspirado no PokeTokenBar.', en: 'Linux implementation in Python and QML, reading local usage records. Inspired by PokeTokenBar.' },
+    stack: ['Python', 'QML', 'Quickshell'], cover: 'omapkdex', coverWidth: 544, coverHeight: 446,
+    links: { source: 'https://github.com/HeitorM50/omapkdex' }
+  },
+  {
+    slug: 'omarchy-gcal', title: 'omarchy-gcal', year: '2026', featured: false,
+    category: 'personal', collaboration: 'solo',
+    summary: { pt: 'Google Calendar integrado à barra do desktop, com agenda, cache offline e lembretes nativos.', en: 'Google Calendar integrated into the desktop bar, with an agenda, offline cache and native reminders.' },
+    role: { pt: 'Interface QML, autenticação OAuth, sincronização em Python e agendamento de lembretes com systemd.', en: 'QML interface, OAuth authentication, Python synchronization and reminder scheduling with systemd.' },
+    stack: ['QML', 'Python', 'OAuth', 'systemd'],
+    links: { source: 'https://github.com/HeitorM50/omarchy-gcal' }
+  },
+  {
+    slug: 'ia2-bloodmnist', title: 'IA2 · BloodMNIST', year: '2026', featured: false,
+    category: 'academic', collaboration: 'pair', status: { pt: 'Pesquisa acadêmica', en: 'Academic research' },
+    summary: { pt: 'Comparação de regressão logística, CNN compacta e ResNet18 na classificação de células sanguíneas, sob o mesmo protocolo experimental.', en: 'Comparison of logistic regression, a compact CNN and ResNet18 for blood cell classification under the same experimental protocol.' },
+    role: { pt: 'Pipeline de dados, linha de base e transfer learning; Metodologia, Resumo e Conclusão do artigo escrito em dupla.', en: 'Data pipeline, baseline and transfer learning; Methodology, Abstract and Conclusion of the paper written as a pair.' },
+    stack: ['Python', 'PyTorch', 'scikit-learn', 'LaTeX'],
+    links: { source: 'https://github.com/HeitorM50/IA2-2026.2' }
   }
 ]
+
+export const projectGroups = [
+  { id: 'personal', pt: 'Projetos pessoais', en: 'Personal projects', note: { pt: 'Ferramentas que nasceram de uma necessidade minha.', en: 'Tools that started with a need of my own.' } },
+  { id: 'team', pt: 'Hackathons & equipes', en: 'Hackathons & teams', note: { pt: 'Da ideia de produto à construção em conjunto.', en: 'From product concept to building together.' } },
+  { id: 'academic', pt: 'Pesquisa & trabalhos acadêmicos', en: 'Research & academic work', note: { pt: 'Algoritmos, experimentos e decisões documentadas.', en: 'Algorithms, experiments and documented decisions.' } }
+] as const
+
+export const collaborationLabels = {
+  solo: { pt: 'Individual', en: 'Solo' },
+  pair: { pt: 'Em dupla', en: 'Pair' },
+  team: { pt: 'Em equipe', en: 'Team' }
+} as const
+
+export type BenchPhoto = { name: string; width: number; height: number; alt: LocalizedText; caption: LocalizedText }
+export const benchPhotos: BenchPhoto[] = []
 
 export const experiences: Experience[] = [
   {
@@ -282,10 +361,10 @@ export const experiences: Experience[] = [
 ]
 
 export const stackGroups = [
-  { pt: 'Linguagens', en: 'Languages', items: ['Python', 'TypeScript', 'C++', 'Rust', 'Java'] },
-  { pt: 'Web & dados', en: 'Web & data', items: ['React', 'SvelteKit', 'Node.js', 'D3.js', 'PostgreSQL', 'Supabase'] },
+  { pt: 'Linguagens', en: 'Languages', items: ['Python', 'TypeScript', 'C++', 'Rust', 'Java', 'Kotlin', 'QML'] },
+  { pt: 'Web & dados', en: 'Web & data', items: ['React', 'SvelteKit', 'Node.js', 'D3.js', 'PostgreSQL', 'Supabase', 'Spring Boot', 'PyTorch'] },
   { pt: 'Infra & testes', en: 'Infra & testing', items: ['Docker', 'GitHub Actions', 'pytest', 'Vitest', 'Git', 'Linux'] },
-  { pt: 'Embarcados', en: 'Embedded', items: ['ESP32', 'Arduino', 'CAN', 'Godot', 'NumPy'] }
+  { pt: 'Embarcados & simulação', en: 'Embedded & simulation', items: ['ESP32', 'Arduino', 'CAN', 'TFT', 'Godot', 'Chrono'] }
 ] as const
 
 export function getProject(slug: string) {
