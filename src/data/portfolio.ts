@@ -125,7 +125,7 @@ export const copy = {
 export const projects: Project[] = [
   {
     slug: 'hindsight', title: 'Hindsight', year: '2026', featured: true,
-    category: 'team', collaboration: 'team',
+    category: 'team', collaboration: 'team', status: { pt: 'Hackathon · IBM TechXchange', en: 'Hackathon · IBM TechXchange' },
     summary: {
       pt: 'Analisa sessões do IBM Bob, encontra desperdício de contexto e gera uma configuração corrigida para comparação A/B.',
       en: 'Analyses IBM Bob sessions, finds wasted context and generates a corrected configuration for an A/B comparison.'

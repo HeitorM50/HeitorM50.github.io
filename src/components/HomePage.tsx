@@ -5,6 +5,7 @@ import { Header } from './Header'
 import { Picture } from './Picture'
 import { EmbeddedSection } from './EmbeddedSection'
 import { ProjectMeta } from './ProjectMeta'
+import { SqueezeCarousel } from '@/components/ui/carousel-squeeze'
 import NeuralBackground from '@/components/ui/flow-field-background'
 import HeroScrollVideoReveal from '@/components/ui/hero-scroll-video-pin-reveal'
 import { MetallicLogo } from '@/components/ui/metallic-paint'
@@ -175,10 +176,12 @@ export function HomePage({ locale }: { locale: Locale }) {
       <section className="legacy-section" id="projetos" aria-labelledby="featured-title">
         <div className="content-shell">
           <p className="section-index">02 — {text.featured}</p><h2 className="section-title" id="featured-title">{text.featuredTitle}</h2>
-          <div className="featured-list">{featured.map((project, index) => <article className="featured-project" key={project.slug}>
-            <Link className="featured-media" href={caseHref(project, locale)}>{project.cover && <Picture name={project.cover} alt={`${project.title} — screenshot`} width={project.coverWidth ?? 1400} height={project.coverHeight ?? 875} />}</Link>
-            <div className="featured-copy"><p className="project-count">{String(index + 1).padStart(2, '0')} / {String(featured.length).padStart(2, '0')}</p><ProjectMeta project={project} locale={locale} /><h3>{project.title}</h3><p>{project.summary[locale]} {project.role[locale]}</p><div className="tech-list">{project.stack.map((item) => <span key={item}>{item}</span>)}</div><ProjectButtons project={project} locale={locale} /></div>
-          </article>)}</div>
+          <SqueezeCarousel label={text.featuredTitle} previousLabel={locale === 'pt' ? 'Projeto anterior' : 'Previous project'} nextLabel={locale === 'pt' ? 'Próximo projeto' : 'Next project'} slides={featured.map(project => ({
+            id: project.slug, title: project.title, description: project.summary[locale],
+            image: `/media/${project.cover}.webp`, imageWidth: project.coverWidth, imageHeight: project.coverHeight,
+            imageAlt: `${project.title} — ${locale === 'pt' ? 'captura do projeto' : 'project screenshot'}`,
+            content: <><ProjectMeta project={project} locale={locale} /><p className="project-contribution"><strong>{locale === 'pt' ? 'Minha contribuição' : 'My contribution'}</strong>{project.role[locale]}</p><div className="tech-list">{project.stack.map(item => <span key={item}>{item}</span>)}</div><ProjectButtons project={project} locale={locale} /></>
+          }))} />
         </div>
       </section>
 
@@ -187,14 +190,15 @@ export function HomePage({ locale }: { locale: Locale }) {
       <section className="legacy-section" id="outros-projetos" aria-labelledby="grid-title">
         <div className="content-shell">
           <div className="split-heading"><div><p className="section-index">04 — {text.all}</p><h2 className="section-title" id="grid-title">{text.allTitle}</h2></div><p>{text.hover}</p></div>
-          {projectGroups.map(group => <div className="project-group" key={group.id} data-project-group={group.id}>
-            <div className="project-group-heading"><h3>{group[locale]}</h3><p>{group.note[locale]}</p></div>
-            <div className="project-grid" data-project-grid>{archive.filter(project => project.category === group.id).map(project => {
-              const href = project.links.live ?? project.links.source
-              const body = <>{project.cover && <div className="grid-media"><Picture name={project.cover} alt={project.title + (locale === 'pt' ? ' — captura do projeto' : ' — project screenshot')} width={project.coverWidth ?? 1200} height={project.coverHeight ?? 760} /></div>}<div className="grid-copy"><ProjectMeta project={project} locale={locale} /><div><h4>{project.title}</h4><span>{project.year}</span></div><p>{project.summary[locale]}</p><p className="project-contribution"><strong>{locale === 'pt' ? 'Minha contribuição' : 'My contribution'}</strong>{project.role[locale]}</p><small>{project.stack.join(' · ')}</small>{href && <span className="grid-link-label">{project.links.live ? (locale === 'pt' ? 'Explorar projeto' : 'Explore project') : (locale === 'pt' ? 'Ver repositório' : 'View repository')} ↗</span>}</div></>
-              return href ? <a className={'grid-card' + (project.cover ? '' : ' grid-card-text')} data-project-slug={project.slug} href={href} target="_blank" rel="noreferrer" key={project.slug}>{body}</a> : <article className="grid-card grid-card-static grid-card-text" data-project-slug={project.slug} key={project.slug}>{body}</article>
-            })}</div>
-          </div>)}
+          <SqueezeCarousel label={text.allTitle} previousLabel={locale === 'pt' ? 'Projeto anterior' : 'Previous project'} nextLabel={locale === 'pt' ? 'Próximo projeto' : 'Next project'} slides={archive.map(project => ({
+            id: project.slug, title: project.title, description: project.summary[locale],
+            image: project.cover ? `/media/${project.cover}.webp` : undefined,
+            imageWidth: project.coverWidth, imageHeight: project.coverHeight,
+            imageAlt: `${project.title} — ${locale === 'pt' ? 'captura do projeto' : 'project screenshot'}`,
+            background: 'linear-gradient(135deg, var(--solid), color-mix(in oklab, var(--accent) 24%, var(--solid)))',
+            overlay: <span className="sq-project-mark"><small>{project.stack.slice(0, 3).join(' / ')}</small>{project.title}</span>,
+            content: <><div className="sq-context">{projectGroups.find(group => group.id === project.category)?.[locale]} <span> / {project.year}</span></div><ProjectMeta project={project} locale={locale} /><p className="project-contribution"><strong>{locale === 'pt' ? 'Minha contribuição' : 'My contribution'}</strong>{project.role[locale]}</p><div className="tech-list">{project.stack.map(item => <span key={item}>{item}</span>)}</div><div className="project-buttons">{project.links.live && <a className="sq-action" href={project.links.live} target="_blank" rel="noreferrer">{text.live} ↗</a>}{project.links.source && <a className="button button-outline" href={project.links.source} target="_blank" rel="noreferrer">{text.source} ↗</a>}</div></>
+          }))} />
         </div>
       </section>
 

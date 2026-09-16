@@ -5,7 +5,7 @@ import { rmSync } from 'node:fs'
 rmSync(new URL('../public/vendor/embedded/', import.meta.url), { recursive: true, force: true })
 
 await build({
-  entryPoints: { loader: 'src/lib/embedded-scene-loader.ts' },
+  entryPoints: { loader: 'src/lib/embedded-scene-loader.ts', 'portfolio-ui': 'src/lib/portfolio-ui.ts' },
   outdir: 'public/vendor/embedded',
   bundle: true,
   splitting: true,

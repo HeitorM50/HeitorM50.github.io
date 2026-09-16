@@ -1,4 +1,4 @@
-import { ArrowUpRight, Radio, Server } from 'lucide-react'
+import { ArrowUpRight, ChevronDown, Cpu, Radio, Server } from 'lucide-react'
 import { Card } from '@/components/ui/card'
 import { benchPhotos, projects, type Locale } from '@/data/portfolio'
 import { EmbeddedScene } from './EmbeddedScene'
@@ -16,16 +16,19 @@ export function EmbeddedSection({ locale }: { locale: Locale }) {
           <p className="embedded-kicker"><span /> UNBAJA SAE · UnB</p>
           <h2 id="embedded-title">{pt ? <>Do sensor<br />ao <span>software.</span></> : <>From sensor<br />to <span>software.</span></>}</h2>
           <p>{pt ? 'No Baja, o código encontra o mundo físico. Sensores, comunicação e decisões técnicas precisam funcionar juntos — na bancada e dentro do carro.' : 'In Baja, code meets the physical world. Sensors, communication and technical decisions need to work together — on the bench and inside the car.'}</p>
-          <a className="embedded-jump" href="#embedded-projects">{pt ? 'Conheça o sistema' : 'Explore the system'} <ArrowUpRight size={18} aria-hidden="true" /></a>
           <div className="embedded-facts"><span><strong>4</strong> {pt ? 'nós ECU' : 'ECU nodes'}</span><span><strong>CAN</strong> {pt ? 'comunicação' : 'communication'}</span><span><strong>TFT</strong> {pt ? 'interface de bordo' : 'on-board interface'}</span></div>
         </div>
         <EmbeddedScene locale={locale} />
       </Card>
+      <details className="embedded-lab" id="embedded-projects">
+        <summary className="embedded-jump"><Cpu size={22} aria-hidden="true" /><span>{pt ? 'Conheça o sistema' : 'Explore the system'}<small>{pt ? 'ABRIR LAB DE EMBARCADOS' : 'OPEN EMBEDDED LAB'}</small></span><ChevronDown className="lab-chevron" size={22} aria-hidden="true" /></summary>
+        <div className="embedded-lab-content">
+          <header className="embedded-lab-heading"><p className="section-index">HARDWARE / FIRMWARE / BACKEND</p><h3>{pt ? 'Lab de Embarcados' : 'Embedded Lab'}</h3></header>
       <div className="telemetry-path" aria-label={pt ? 'Caminho dos dados de telemetria' : 'Telemetry data flow'}>
         <div><span className="path-label">{pt ? 'NO CARRO · CONSTRUÍDO' : 'ON THE CAR · BUILT'}</span><ol><li>{pt ? 'Sensores / ECUs' : 'Sensors / ECUs'}</li><li>CAN → ESP32</li><li>{pt ? 'Display do piloto' : 'Driver display'}</li></ol></div>
         <div className="path-next"><span className="path-label">{pt ? 'A PARTIR DO ESP32 · EXPANSÃO EM DESENVOLVIMENTO' : 'FROM THE ESP32 · EXPANSION IN DEVELOPMENT'}</span><ol><li>Wi-Fi → API</li><li>{pt ? 'Decodificação & histórico' : 'Decoding & history'}</li><li>{pt ? 'Análise pós-teste' : 'Post-test analysis'}</li></ol></div>
       </div>
-      <div className="embedded-projects" id="embedded-projects">{embedded.map((project, index) => {
+      <div className="embedded-projects">{embedded.map((project, index) => {
         const Icon = index === 0 ? Radio : Server
         return <article className="embedded-project" key={project.slug} data-project-slug={project.slug}>
           <div className="embedded-project-top"><Icon aria-hidden="true" size={24} /><span>0{index + 1} / {index === 0 ? 'HARDWARE + FIRMWARE' : 'BACKEND + DATA'}</span></div>
@@ -39,6 +42,8 @@ export function EmbeddedSection({ locale }: { locale: Locale }) {
         </article>
       })}</div>
       {benchPhotos.length > 0 && <div className="bench-gallery"><h3>{pt ? 'Na bancada de testes' : 'On the test bench'}</h3><div>{benchPhotos.map(photo => <figure key={photo.name}><Picture name={photo.name} width={photo.width} height={photo.height} alt={photo.alt[locale]} /><figcaption>{photo.caption[locale]}</figcaption></figure>)}</div></div>}
+        </div>
+      </details>
     </div>
   </section>
 }

@@ -31,6 +31,13 @@ describe('portfolio data', () => {
     expect(Object.keys(copy.pt)).toEqual(Object.keys(copy.en))
   })
 
+  it('identifies Hindsight as a hackathon without changing authorship', () => {
+    const hindsight = projects.find(project => project.slug === 'hindsight')!
+    expect(hindsight.collaboration).toBe('team')
+    expect(hindsight.status?.pt).toContain('Hackathon · IBM TechXchange')
+    expect(hindsight.status?.en).toContain('Hackathon · IBM TechXchange')
+  })
+
   it('assigns every archive project to a visible section and keeps covers available', () => {
     for (const project of projects) {
       expect([...projectGroups.map(group => group.id), 'embedded']).toContain(project.category)

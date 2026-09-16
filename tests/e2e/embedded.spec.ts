@@ -17,7 +17,7 @@ test('curated projects and embedded navigation are bilingual and indexable', asy
     await page.goto(path)
     await expect(page.getByRole('link', { name: nav, exact: true })).toHaveAttribute('href', `${path}#embarcados`)
     await expect(page.locator('.hero-stats')).toContainText('17')
-    await expect(page.locator('[data-project-group]')).toHaveCount(3)
+    await expect(page.locator('[data-squeeze-carousel]')).toHaveCount(2)
     for (const slug of ['omapkdex', 'omarchy-gcal', 'ia2-bloodmnist', 'pmi-sleep-5']) {
       await expect(page.locator(`[data-project-slug="${slug}"]`)).toContainText(contribution)
     }

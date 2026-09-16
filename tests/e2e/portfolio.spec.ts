@@ -4,7 +4,7 @@ test('home exposes the recruiter journey', async ({ page }) => {
   await page.goto('/')
   await expect(page.locator('html')).toHaveAttribute('lang', 'pt-BR')
   await expect(page.getByRole('heading', { level: 1 })).toContainText('Estudante de')
-  await expect(page.getByRole('link', { name: /Hindsight/i }).first()).toBeVisible()
+  await expect(page.getByRole('tabpanel', { name: 'Hindsight', exact: true }).getByRole('link', { name: 'Estudo de caso', exact: true })).toHaveAttribute('href', '/projetos/hindsight/')
   await expect(page.getByRole('link', { name: /Baixar CV/i })).toHaveAttribute('href', '/cv.pdf')
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth)
   expect(overflow).toBe(0)

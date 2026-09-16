@@ -1,0 +1,103 @@
+import { expect, test } from '@playwright/test'
+
+test.beforeEach(async ({ page }) => {
+  // Carousel checks should not depend on the unrelated external 3D scene.
+  await page.route('**/embedded-scene-mount-*.js', route => route.fulfill({
+    contentType: 'text/javascript',
+    body: 'export function mountScene(target, scene, ready) { queueMicrotask(ready); return { setPaused() {}, dispose() {} }; }'
+  }))
+})
+
+test('Lab opens only on request and its native disclosure works by keyboard', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' })
+  await page.goto('/')
+  const lab = page.locator('.embedded-lab')
+  const button = lab.locator('summary')
+  await expect(lab).not.toHaveAttribute('open')
+  await expect(lab.getByRole('heading', { name: 'Lab de Embarcados', exact: true })).not.toBeVisible()
+  await button.click()
+  await expect(lab).toHaveAttribute('open', '')
+  await expect(lab.getByRole('heading', { name: 'Lab de Embarcados', exact: true })).toBeVisible()
+  await expect(lab.locator('.telemetry-path')).toBeVisible()
+  await expect(lab.locator('.embedded-lab-content')).toHaveCSS('animation-name', 'none')
+  await button.focus()
+  await button.press('Enter')
+  await expect(lab).not.toHaveAttribute('open')
+})
+
+test('carousels cycle, handle rapid direction changes and preserve project links', async ({ page }) => {
+  test.setTimeout(60000)
+  await page.goto('/')
+  const carousel = page.getByRole('region', { name: 'Projetos em destaque', exact: true }).and(page.locator('[data-squeeze-carousel]'))
+  await expect(carousel).toHaveAttribute('data-sq-ready', 'true')
+  await expect(carousel.getByRole('tabpanel', { name: 'Hindsight', exact: true })).toContainText('Hackathon · IBM TechXchange')
+  const next = carousel.getByRole('button', { name: 'Próximo projeto' })
+  const previous = carousel.getByRole('button', { name: 'Projeto anterior' })
+  await next.click()
+  await expect(carousel).toHaveAttribute('data-sq-index', '1')
+  await previous.click()
+  await previous.click()
+  await expect(carousel).toHaveAttribute('data-sq-index', '3')
+  await next.click()
+  await expect(carousel).toHaveAttribute('data-sq-index', '0')
+  await expect(carousel.getByRole('link', { name: 'Estudo de caso', exact: true })).toHaveAttribute('href', '/projetos/hindsight/')
+  const archive = page.getByRole('region', { name: 'Outras formas de construir', exact: true }).and(page.locator('[data-squeeze-carousel]'))
+  const count = await archive.locator('[data-sq-tab]').count()
+  const visited = new Set<string>()
+  for (let i = 0; i < count; i++) {
+    const panel = archive.getByRole('tabpanel')
+    await expect(panel).toHaveCount(1)
+    visited.add((await panel.getAttribute('data-project-slug'))!)
+    await expect(panel).toContainText('Minha contribuição')
+    await archive.getByRole('button', { name: 'Próximo projeto' }).click()
+  }
+  expect(visited.size).toBe(count)
+  expect([...visited]).toEqual(expect.arrayContaining(['pmi-sleep-5', 'omapkdex', 'omarchy-gcal', 'ia2-bloodmnist']))
+})
+
+test('tabs have roving focus, localized labels and reduced-motion transitions', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' })
+  await page.goto('/en/')
+  const carousel = page.getByRole('region', { name: 'Featured projects', exact: true }).and(page.locator('[data-squeeze-carousel]'))
+  await expect(carousel).toHaveAttribute('data-sq-ready', 'true')
+  const active = () => carousel.getByRole('tab', { selected: true })
+  await active().focus()
+  await active().press('ArrowRight')
+  await expect(carousel).toHaveAttribute('data-sq-index', '1')
+  await expect(active()).toBeFocused()
+  await active().press('End')
+  await expect(carousel).toHaveAttribute('data-sq-index', '3')
+  await active().press('Home')
+  await expect(active()).toHaveAccessibleName('Hindsight')
+  await expect(active()).toHaveCSS('transition-duration', '0s')
+  await expect(carousel.getByRole('button', { name: 'Next project' })).toBeVisible()
+  await expect(carousel.locator('[role="tab"][tabindex="0"]')).toHaveCount(1)
+})
+
+test('mobile panels fit at 320px and support a horizontal swipe', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' })
+  await page.setViewportSize({ width: 320, height: 720 })
+  await page.goto('/')
+  const carousel = page.locator('[data-squeeze-carousel]').first()
+  await expect(carousel).toHaveAttribute('data-sq-ready', 'true')
+  await carousel.scrollIntoViewIfNeeded()
+  const box = await carousel.getByRole('tab', { selected: true }).boundingBox()
+  expect(box!.width).toBeGreaterThan(200)
+  expect(box!.x + box!.width).toBeLessThanOrEqual(320)
+  await carousel.locator('.sq-strip').dispatchEvent('touchstart', { touches: [{ identifier: 1, clientX: 250, clientY: 100 }] })
+  await carousel.locator('.sq-strip').dispatchEvent('touchend', { changedTouches: [{ identifier: 1, clientX: 90, clientY: 110 }] })
+  await expect(carousel).toHaveAttribute('data-sq-index', '1')
+  expect(await page.evaluate(() => document.documentElement.scrollWidth - innerWidth)).toBe(0)
+})
+
+test('all projects and the Lab remain usable without JavaScript', async ({ browser }) => {
+  const context = await browser.newContext({ javaScriptEnabled: false })
+  const page = await context.newPage()
+  await page.goto('/')
+  await expect(page.locator('[data-sq-panel]')).toHaveCount(15)
+  for (const panel of await page.locator('[data-sq-panel]').all()) await expect(panel).toBeVisible()
+  await page.locator('.embedded-lab summary').click()
+  await expect(page.locator('.telemetry-path')).toBeVisible()
+  await expect(page.locator('[data-project-slug="baja-telemetry-api"] a')).toHaveAttribute('href', 'https://github.com/UnBajaSAE/baja-telemetry-api')
+  await context.close()
+})
