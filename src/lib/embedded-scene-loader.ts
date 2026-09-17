@@ -59,7 +59,7 @@ export function prepareEmbeddedScene(host: HTMLElement) {
   }
   function syncPlayback() {
     if (!handle || (state !== 'ready' && state !== 'paused')) return
-    const paused = manualPause || !visible || document.hidden
+    const paused = manualPause || !visible || document.hidden || host.closest<HTMLElement>('.embedded-section')?.dataset.labOpen === 'true'
     handle.setPaused(paused)
     update(paused ? 'paused' : 'ready')
   }
@@ -80,6 +80,8 @@ export function prepareEmbeddedScene(host: HTMLElement) {
   observer.observe(host)
   button.addEventListener('click', toggle)
   document.addEventListener('visibilitychange', syncPlayback)
+  const section = host.closest('.embedded-section')
+  section?.addEventListener('labvisibilitychange', syncPlayback)
   preference.addEventListener('change', changedPreference)
   update('idle')
   const cleanup = () => {
@@ -89,6 +91,7 @@ export function prepareEmbeddedScene(host: HTMLElement) {
     observer.disconnect()
     button.removeEventListener('click', toggle)
     document.removeEventListener('visibilitychange', syncPlayback)
+    section?.removeEventListener('labvisibilitychange', syncPlayback)
     preference.removeEventListener('change', changedPreference)
     handle?.dispose()
     instances.delete(host)

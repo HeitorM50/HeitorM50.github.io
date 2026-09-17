@@ -62,6 +62,12 @@ test('scene waits until the section is near, requires activation on mobile, and 
   await expect(host).toHaveAttribute('data-scene-state', 'paused')
   await host.scrollIntoViewIfNeeded()
   await expect(host).toHaveAttribute('data-scene-state', 'ready')
+  await page.locator('[data-lab-trigger]').click()
+  await expect(host).toHaveAttribute('data-scene-state', 'paused')
+  await page.keyboard.press('Escape')
+  await expect(page.locator('.lab-portal')).not.toHaveAttribute('open')
+  await host.scrollIntoViewIfNeeded()
+  await expect(host).toHaveAttribute('data-scene-state', 'ready')
 })
 
 test('reduced motion requires an explicit choice and network failures have a fallback', async ({ page }) => {

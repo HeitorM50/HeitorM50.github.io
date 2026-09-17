@@ -10,7 +10,7 @@ beforeEach(() => {
   vi.stubGlobal('IntersectionObserver', Observer)
   history.replaceState(null, '', '/')
 })
-afterEach(() => { cleanup(); document.body.innerHTML = ''; vi.unstubAllGlobals() })
+afterEach(() => { cleanup(); document.body.innerHTML = ''; vi.unstubAllGlobals(); vi.restoreAllMocks() })
 
 const slides = ['a', 'b', 'c'].map(id => ({ id, title: `Project ${id}`, description: id }))
 const filters = [
@@ -59,29 +59,56 @@ describe('filtered carousel controller', () => {
   })
 })
 
-describe('embedded Lab progressive disclosure', () => {
+describe('embedded Lab portal', () => {
+  beforeEach(() => {
+    Object.defineProperty(HTMLDialogElement.prototype, 'showModal', { configurable: true, value: function (this: HTMLDialogElement) { this.open = true } })
+    Object.defineProperty(HTMLDialogElement.prototype, 'close', { configurable: true, value: function (this: HTMLDialogElement) { this.open = false } })
+  })
+  afterEach(() => {
+    Reflect.deleteProperty(HTMLDialogElement.prototype, 'showModal')
+    Reflect.deleteProperty(HTMLDialogElement.prototype, 'close')
+  })
   it('enhances the native fallback and restores it on cleanup', () => {
     document.body.innerHTML = `<section><button hidden data-lab-trigger data-open-label="Open" data-close-label="Close"><span data-lab-label>Open</span></button><details class="embedded-lab"><summary>Native open</summary><div class="embedded-lab-content"><button data-lab-close>Close inside</button></div></details></section>`
     const section = document.querySelector('section')!
     const trigger = section.querySelector<HTMLButtonElement>('[data-lab-trigger]')!
     const details = section.querySelector('details')!
     const close = section.querySelector<HTMLButtonElement>('[data-lab-close]')!
+    vi.spyOn(window, 'scrollTo').mockImplementation(() => {})
     const dispose = prepareEmbeddedLab(section)!
+    const dialog = section.querySelector('dialog')!
     expect(trigger.hidden).toBe(false)
     expect(section.querySelector('summary')!.hidden).toBe(true)
     trigger.click()
-    expect(details.open).toBe(true)
-    expect(trigger).toHaveTextContent('Close')
+    expect(dialog.open).toBe(true)
+    expect(dialog.contains(close)).toBe(true)
+    expect(details.querySelector('.embedded-lab-content')).toBeNull()
+    expect(document.body.style.position).toBe('fixed')
+    history.replaceState(null, '', '/#embedded-projects')
     close.focus()
     close.click()
-    expect(details.open).toBe(false)
+    expect(dialog.open).toBe(false)
+    expect(document.body.style.position).toBe('')
     expect(trigger).toHaveFocus()
     expect(trigger).toHaveAttribute('aria-expanded', 'false')
     dispose()
     expect(trigger.hidden).toBe(true)
     expect(section.querySelector('summary')!.hidden).toBe(false)
+    expect(details.contains(close)).toBe(true)
+    expect(section.querySelector('dialog')).toBeNull()
     const prepareAgain = prepareEmbeddedLab(section)
     expect(prepareAgain).toBeTypeOf('function')
     prepareAgain?.()
+  })
+  it('keeps native disclosure when modal dialogs are unavailable', () => {
+    document.body.innerHTML = `<section><button hidden data-lab-trigger>Open</button><details class="embedded-lab"><summary>Open</summary><div class="embedded-lab-content">Projects</div></details></section>`
+    const descriptor = Object.getOwnPropertyDescriptor(HTMLDialogElement.prototype, 'showModal')!
+    Object.defineProperty(HTMLDialogElement.prototype, 'showModal', { ...descriptor, value: undefined })
+    try {
+      const section = document.querySelector('section')!
+      expect(prepareEmbeddedLab(section)).toBeUndefined()
+      expect(section.querySelector('summary')!.hidden).toBe(false)
+      expect(section.querySelector('dialog')).toBeNull()
+    } finally { Object.defineProperty(HTMLDialogElement.prototype, 'showModal', descriptor) }
   })
 })

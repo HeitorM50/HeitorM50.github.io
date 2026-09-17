@@ -1,4 +1,4 @@
-import { ArrowUpRight, ChevronDown, Cpu, Radio, Server } from 'lucide-react'
+import { ArrowLeft, ArrowUpRight, ChevronDown, Cpu, Radio, Server } from 'lucide-react'
 import { Card } from '@/components/ui/card'
 import { benchPhotos, projects, type Locale } from '@/data/portfolio'
 import { EmbeddedScene } from './EmbeddedScene'
@@ -26,7 +26,12 @@ export function EmbeddedSection({ locale }: { locale: Locale }) {
       <details className="embedded-lab" id="embedded-projects">
         <summary className="lab-fallback liquid-glass-button liquid-glass-button--default" data-liquid-glass><Cpu size={22} aria-hidden="true" /><span>{pt ? 'Explorar Lab' : 'Explore Lab'}</span><ChevronDown className="lab-chevron" size={22} aria-hidden="true" /></summary>
         <div className="embedded-lab-content">
-          <header className="embedded-lab-heading"><p className="section-index">HARDWARE / FIRMWARE / BACKEND</p><h3>{pt ? 'Lab de Embarcados' : 'Embedded Lab'}</h3></header>
+          <header className="embedded-lab-heading">
+            <div><p className="section-index">UNBAJA SAE · UnB</p><h3 id="lab-title" tabIndex={-1}>{pt ? 'Lab de Embarcados' : 'Embedded Lab'}</h3></div>
+            <LiquidButton type="button" variant="outline" data-lab-close className="lab-close"><ArrowLeft aria-hidden="true" />{pt ? 'Voltar ao portfólio' : 'Back to portfolio'}</LiquidButton>
+          </header>
+          <div className="lab-workbench">
+          <p className="lab-workbench-label">HARDWARE / FIRMWARE / BACKEND</p>
       <div className="telemetry-path" aria-label={pt ? 'Caminho dos dados de telemetria' : 'Telemetry data flow'}>
         <div><span className="path-label">{pt ? 'NO CARRO · CONSTRUÍDO' : 'ON THE CAR · BUILT'}</span><ol><li>{pt ? 'Sensores / ECUs' : 'Sensors / ECUs'}</li><li>CAN → ESP32</li><li>{pt ? 'Display do piloto' : 'Driver display'}</li></ol></div>
         <div className="path-next"><span className="path-label">{pt ? 'A PARTIR DO ESP32 · EXPANSÃO EM DESENVOLVIMENTO' : 'FROM THE ESP32 · EXPANSION IN DEVELOPMENT'}</span><ol><li>Wi-Fi → API</li><li>{pt ? 'Decodificação & histórico' : 'Decoding & history'}</li><li>{pt ? 'Análise pós-teste' : 'Post-test analysis'}</li></ol></div>
@@ -45,7 +50,7 @@ export function EmbeddedSection({ locale }: { locale: Locale }) {
         </article>
       })}</div>
       {benchPhotos.length > 0 && <div className="bench-gallery"><h3>{pt ? 'Na bancada de testes' : 'On the test bench'}</h3><div>{benchPhotos.map(photo => <figure key={photo.name}><Picture name={photo.name} width={photo.width} height={photo.height} alt={photo.alt[locale]} /><figcaption>{photo.caption[locale]}</figcaption></figure>)}</div></div>}
-          <LiquidButton type="button" variant="outline" data-lab-close className="lab-close">{pt ? 'Recolher Lab' : 'Close Lab'}</LiquidButton>
+          </div>
         </div>
       </details>
     </div>

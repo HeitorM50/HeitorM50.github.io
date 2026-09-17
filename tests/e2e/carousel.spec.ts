@@ -8,10 +8,10 @@ test.beforeEach(async ({ page }) => {
   }))
 })
 
-test('Lab opens only on request and its native disclosure works by keyboard', async ({ page }) => {
+test('Lab opens as a full-screen portal and reduced motion skips the transition', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' })
   await page.goto('/')
-  const lab = page.locator('.embedded-lab')
+  const lab = page.locator('.lab-portal')
   const button = page.locator('[data-lab-trigger]')
   await expect(button).toHaveAttribute('data-slot', 'liquid-button')
   await expect(page.locator('.embedded-intro [data-lab-trigger]')).toHaveCount(1)
@@ -23,8 +23,9 @@ test('Lab opens only on request and its native disclosure works by keyboard', as
   await expect(lab.getByRole('heading', { name: 'Lab de Embarcados', exact: true })).toBeVisible()
   await expect(lab.locator('.telemetry-path')).toBeVisible()
   await expect(lab.locator('.embedded-lab-content')).toHaveCSS('animation-name', 'none')
-  await button.focus()
-  await button.press('Enter')
+  await expect(lab).toHaveAttribute('data-state', 'open')
+  expect(await lab.evaluate(node => node.getAnimations({ subtree: true }).length)).toBe(0)
+  await page.keyboard.press('Escape')
   await expect(lab).not.toHaveAttribute('open')
 })
 
@@ -134,22 +135,52 @@ test('filters reset selection, preserve unique content and support the old hash'
   }
 })
 
-test('Lab closes from inside with focus restoration and survives rapid toggles', async ({ page }) => {
+test('Lab restores focus and scroll, supports history and survives interrupted entry', async ({ page }) => {
   await page.goto('/')
   const trigger = page.locator('[data-lab-trigger]')
-  const lab = page.locator('.embedded-lab')
-  await trigger.click()
-  await expect(trigger).toHaveAccessibleName('Recolher Lab')
+  const lab = page.locator('.lab-portal')
+  await trigger.scrollIntoViewIfNeeded()
+  const scroll = await page.evaluate(() => scrollY)
+  const entrance = await trigger.evaluate(button => {
+    ;(button as HTMLButtonElement).click()
+    const dialog = document.querySelector<HTMLDialogElement>('.lab-portal')!
+    return { state: dialog.dataset.state, duration: dialog.getAnimations()[0]?.effect?.getTiming().duration }
+  })
+  expect(entrance).toEqual({ state: 'entering', duration: 650 })
+  await expect(lab).toHaveAttribute('data-state', 'open')
+  await expect(trigger).toHaveAccessibleName('Entrar no Lab')
+  await expect(page.locator('body')).toHaveCSS('position', 'fixed')
+  await page.keyboard.press('Shift+Tab')
+  expect(await page.evaluate(() => !!document.activeElement?.closest('dialog'))).toBe(true)
   await page.locator('[data-lab-close]').click()
   await expect(trigger).toBeFocused()
   await expect(lab).not.toHaveAttribute('open')
-  await trigger.press('Space')
-  await trigger.press('Space')
-  await trigger.press('Space')
+  expect(Math.abs(await page.evaluate(() => scrollY) - scroll)).toBeLessThan(3)
+  await page.goForward()
+  await expect(lab).toHaveAttribute('data-state', 'open')
+  await page.goBack()
+  await expect(lab).not.toHaveAttribute('open')
+  await trigger.press('Enter')
+  await page.keyboard.press('Escape')
+  await expect(lab).not.toHaveAttribute('open')
+  await expect(trigger).toBeFocused()
+  await trigger.press('Enter')
   await expect(lab).toHaveAttribute('open', '')
   await expect(trigger).toHaveAttribute('aria-expanded', 'true')
   await page.evaluate(() => { location.hash = '#embedded-projects' })
   await expect(lab).toHaveAttribute('open', '')
+})
+
+test('direct Lab links work in both languages without depending on 3D', async ({ page }) => {
+  for (const [path, title] of [['/', 'Lab de Embarcados'], ['/en/', 'Embedded Lab']]) {
+    await page.goto(`${path}#embedded-projects`)
+    const lab = page.getByRole('dialog', { name: title, exact: true })
+    await expect(lab).toBeVisible()
+    await expect(lab.locator('[data-project-slug]')).toHaveCount(2)
+    await page.keyboard.press('Escape')
+    await expect(lab).not.toBeVisible()
+    await expect(page).toHaveURL(/#embarcados$/)
+  }
 })
 
 test('refined layout fits both themes, key widths and enlarged text', async ({ page }) => {
@@ -162,10 +193,12 @@ test('refined layout fits both themes, key widths and enlarged text', async ({ p
       await page.evaluate(value => { document.documentElement.dataset.theme = value }, theme)
       expect(await page.evaluate(() => document.documentElement.scrollWidth - innerWidth)).toBe(0)
       await expect(page.locator('[data-lab-close]')).toBeVisible()
+      expect(await page.locator('.lab-portal').evaluate(node => node.scrollWidth - node.clientWidth)).toBe(0)
     }
     await page.evaluate(() => { document.documentElement.style.fontSize = '200%' })
     await page.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))))
     // ResizeObserver reflows the fixed-width carousel panels after text scaling.
     await expect.poll(() => page.evaluate(() => document.documentElement.scrollWidth - innerWidth)).toBe(0)
+    expect(await page.locator('.lab-portal').evaluate(node => node.scrollWidth - node.clientWidth)).toBe(0)
   }
 })

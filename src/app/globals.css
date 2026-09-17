@@ -675,12 +675,37 @@ p, h1, h2, h3, h4 { margin-top: 0; }
 .text-action:focus-visible, .lab-fallback:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
 .lab-trigger { margin-top: 1.8rem; }
 .liquid-glass-button[hidden], .lab-fallback[hidden] { display: none; }
-.lab-trigger[aria-expanded='true'] .lab-chevron { transform: rotate(180deg); }
+.lab-entry-arrow { transition: transform .2s; }
+.lab-trigger:hover .lab-entry-arrow { transform: translate(3px, -3px); }
 .lab-fallback { display: inline-flex; align-items: center; gap: .75rem; margin-top: 1.5rem; padding: .9rem 1.5rem; cursor: pointer; list-style: none; }
 .lab-fallback::-webkit-details-marker { display: none; }
-.lab-close { display: none; margin-top: 1.5rem; }
+.lab-close { display: none; }
 [data-lab-ready='true'] .lab-close { display: inline-flex; }
 [data-lab-ready='true'] .embedded-lab-content { animation: none; }
+.lab-portal { position: fixed; inset: 0; width: 100%; height: 100dvh; max-width: none; max-height: none; margin: 0; padding: 0; border: 0; color: var(--fg); background: var(--solid); overflow: auto; overscroll-behavior: contain; clip-path: inset(0 round 0px); color-scheme: inherit; }
+.lab-portal::backdrop { background: transparent; }
+.lab-portal .embedded-lab-content { min-height: 100%; padding: 0; background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px); background-size: 48px 48px; }
+.lab-portal .embedded-lab-heading { position: sticky; top: 0; z-index: 5; display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: max(1.25rem, env(safe-area-inset-top)) max(2rem, env(safe-area-inset-right)) 1.25rem max(2rem, env(safe-area-inset-left)); border-bottom: 1px solid var(--line-strong); background: var(--solid); }
+.lab-portal .embedded-lab-heading h3 { font-size: clamp(1.35rem, 3vw, 2rem); }
+.lab-portal #lab-title:focus { outline: none; }
+.lab-portal .embedded-lab-heading .section-index { font-size: .8rem; }
+.lab-portal .lab-close { flex-shrink: 0; }
+.lab-workbench { max-width: 78rem; margin-inline: auto; padding: 2.5rem max(2rem, env(safe-area-inset-right)) max(3rem, env(safe-area-inset-bottom)) max(2rem, env(safe-area-inset-left)); }
+.lab-workbench-label { margin: 0; color: var(--accent); font: 500 .8rem/1.5 'IBM Plex Mono', monospace; letter-spacing: .12em; }
+.lab-portal .telemetry-path { margin-top: 1.5rem; }
+.lab-portal .telemetry-path > div { min-width: 0; overflow-wrap: anywhere; background: var(--solid); border: 1px solid var(--line-strong); border-radius: 1rem; padding: 1.5rem; }
+.lab-portal .telemetry-path li { font-size: .875rem; }
+.lab-portal .telemetry-path ol { border-left: 2px solid var(--accent); padding-left: 1.2rem; }
+.lab-portal .embedded-project { background: var(--solid); border-top: 2px solid var(--accent); box-shadow: 0 12px 32px -24px var(--glass-shadow); }
+.lab-portal .embedded-project-top > span { font-size: .8rem; }
+.lab-portal .path-label { font-size: .8rem; }
+@media (max-width: 600px) {
+  .lab-portal .embedded-lab-heading { flex-wrap: wrap; padding: max(1rem, env(safe-area-inset-top)) 1rem 1rem; }
+  .lab-portal .lab-close { padding: .75rem 1rem; min-height: 44px; }
+  .lab-workbench { padding: 1.5rem 1rem max(2rem, env(safe-area-inset-bottom)); }
+  .lab-portal .telemetry-path > div { padding: 1rem; }
+}
+@media (prefers-reduced-motion: reduce) { .lab-entry-arrow { transition: none; } }
 .embedded-project p, .embedded-intro > p:not(.embedded-kicker) { font-size: 1rem; }
 .embedded-facts > span, .embedded-scene-controls > span, .path-label { font-size: .8rem; }
 .project-meta > span, .tech-list span, .project-contribution > strong { font-size: .8rem; line-height: 1.4; }
