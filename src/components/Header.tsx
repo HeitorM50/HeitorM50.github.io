@@ -15,11 +15,11 @@ export function Header({ locale, alternateHref }: HeaderProps) {
   const portugueseHref = locale === 'en' ? alternateHref : '/'
   const englishHref = locale === 'pt' ? alternateHref : '/en/'
   const items = [
-    { label: text.nav.about, href: `${home}#sobre`, icon: UserRound },
     { label: text.nav.work, href: `${home}#projetos`, icon: BriefcaseBusiness },
     { label: locale === 'pt' ? 'Embarcados' : 'Embedded systems', href: `${home}#embarcados`, icon: Cpu },
-    { label: 'Stack', href: `${home}#stack`, icon: Boxes },
+    { label: text.nav.about, href: `${home}#sobre`, icon: UserRound },
     { label: text.nav.experience, href: `${home}#exp`, icon: Milestone },
+    { label: 'Stack', href: `${home}#stack`, icon: Boxes },
     { label: text.nav.contact, href: `${home}#contato`, icon: Mail },
   ]
 

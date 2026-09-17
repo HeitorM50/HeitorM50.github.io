@@ -3,7 +3,7 @@ import { expect, test } from '@playwright/test'
 test('home exposes the recruiter journey', async ({ page }) => {
   await page.goto('/')
   await expect(page.locator('html')).toHaveAttribute('lang', 'pt-BR')
-  await expect(page.getByRole('heading', { level: 1 })).toContainText('Estudante de')
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('Engenharia de Software')
   await expect(page.getByRole('tabpanel', { name: 'Hindsight', exact: true }).getByRole('link', { name: 'Estudo de caso', exact: true })).toHaveAttribute('href', '/projetos/hindsight/')
   await expect(page.getByRole('link', { name: /Baixar CV/i })).toHaveAttribute('href', '/cv.pdf')
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth)
@@ -67,7 +67,8 @@ test('primary calls to action use responsive liquid glass', async ({ page }) => 
   await expect(primary).toHaveAttribute('data-slot', 'liquid-button')
   await expect(primary).toHaveAttribute('data-liquid-ready', 'true')
   await expect(primary).toHaveCSS('backdrop-filter', /blur\(10px\)/)
-  await expect(download).not.toHaveAttribute('data-slot', 'liquid-button')
+  await expect(download).toHaveAttribute('data-slot', 'liquid-button')
+  await expect(download).toHaveClass(/liquid-glass-button--outline/)
   await expect(page.locator('#portfolio-liquid-glass')).toHaveCount(0)
 
   const box = await primary.boundingBox()
@@ -79,11 +80,11 @@ test('primary calls to action use responsive liquid glass', async ({ page }) => 
   await expect.poll(() => primary.evaluate((element) => getComputedStyle(element, '::before').backdropFilter)).toContain('portfolio-liquid-glass')
 })
 
-test('project deck and scroll-driven career timeline work', async ({ page }) => {
+test('single portrait replaces the project deck and career timeline works', async ({ page }) => {
   await page.goto('/')
-  await expect(page.locator('[data-deck-counter]')).toHaveText('01 / 03')
-  await page.locator('[data-deck]').click()
-  await expect(page.locator('[data-deck-counter]')).toHaveText('02 / 03')
+  await expect(page.locator('[data-deck]')).toHaveCount(0)
+  await expect(page.locator('[data-profile-card]')).toHaveCount(1)
+  await expect(page.locator('.hero [data-profile-card]')).toHaveCount(1)
 
   const timeline = page.locator('[data-timeline]')
   const entries = timeline.locator('[data-timeline-entry]')
@@ -125,6 +126,7 @@ test('profile portrait uses fluid holographic depth on pointer devices', async (
 
   await wrapper.scrollIntoViewIfNeeded()
   await expect(wrapper).toBeVisible()
+  await expect(wrapper).toHaveCSS('touch-action', 'pan-y')
   await expect(wrapper).toHaveAttribute('data-profile-ready', 'true')
   await expect(card.getByRole('img', { name: 'Heitor Ricardo' })).toBeVisible()
   await expect(card).toContainText('Engenharia de Software · UnB')
@@ -146,49 +148,26 @@ test('profile portrait uses fluid holographic depth on pointer devices', async (
   await expect(wrapper.locator('.pc-shine')).toHaveCSS('opacity', '0.62')
 })
 
-test('header leaves the viewport and the pinned aurora opens on scroll', async ({ page }) => {
+test('header leaves the viewport and the compact bridge does not pin scrolling', async ({ page, isMobile }) => {
   await page.goto('/')
   const header = page.locator('.site-header')
-  const reveal = page.locator('[data-scroll-video-reveal]')
+  const reveal = page.locator('.discipline-bridge')
   await expect(header).toHaveCSS('position', 'relative')
   await expect(reveal).toHaveCSS('background-color', 'rgba(0, 0, 0, 0)')
   await page.evaluate(() => window.scrollTo(0, 700))
   await expect.poll(() => header.evaluate((element) => element.getBoundingClientRect().bottom)).toBeLessThan(0)
 
-  const track = page.locator('[data-scroll-video-track]')
-  const geometry = await track.evaluate((element) => {
-    const rect = element.getBoundingClientRect()
-    return { start: rect.top + window.scrollY, distance: rect.height - window.innerHeight }
-  })
-  await page.evaluate((start) => window.scrollTo(0, start), geometry.start)
-  await page.waitForTimeout(200)
-  const initialClip = await page.locator('[data-scroll-video-box]').evaluate((element) => getComputedStyle(element).clipPath)
-  await page.evaluate(({ start, distance }) => window.scrollTo(0, start + distance * 0.55), geometry)
-  await page.waitForTimeout(350)
-  const expandedClip = await page.locator('[data-scroll-video-box]').evaluate((element) => getComputedStyle(element).clipPath)
-
-  expect(expandedClip).not.toBe(initialClip)
-  await expect(page.locator('[data-aurora-layer]')).toHaveCount(3)
-  await expect(page.locator('[data-scroll-video-track] video')).toHaveCount(0)
-  await expect(page.locator('.metallic-logo').first()).toBeVisible()
-  const metallicCanvas = page.locator('[data-metallic-paint] canvas')
-  await expect(metallicCanvas).toHaveCount(1)
-  await expect.poll(() => page.locator('[data-metallic-paint]').getAttribute('data-metallic-status')).toMatch(/ready|fallback/)
-  if (await page.locator('[data-metallic-paint]').getAttribute('data-metallic-status') === 'ready') {
-    const beforeMetal = await metallicCanvas.screenshot()
-    await page.waitForTimeout(220)
-    const afterMetal = await metallicCanvas.screenshot()
-    expect(afterMetal.equals(beforeMetal)).toBe(false)
-  }
+  await expect(page.locator('[data-scroll-video-track]')).toHaveCount(0)
+  const height = await reveal.evaluate(element => element.getBoundingClientRect().height)
+  expect(height).toBeLessThanOrEqual(page.viewportSize()!.height * (isMobile ? .4 : .6) + 1)
+  await expect(reveal).toHaveCSS('position', 'relative')
 })
 
-test('metallic mark falls back cleanly when reduced motion is enabled', async ({ page }) => {
+test('compact bridge respects reduced motion', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' })
   await page.goto('/')
-  const paint = page.locator('[data-metallic-paint]')
-  await paint.scrollIntoViewIfNeeded()
-
-  await expect.poll(() => paint.getAttribute('data-metallic-status')).toBe('fallback')
-  await expect(paint.locator('canvas')).toHaveCSS('display', 'none')
-  await expect(paint.locator('.metallic-paint__fallback')).toBeVisible()
+  const bridge = page.locator('.discipline-bridge')
+  await bridge.scrollIntoViewIfNeeded()
+  expect(await bridge.evaluate(element => getComputedStyle(element, '::before').animationName)).toBe('none')
+  await expect(bridge).toContainText('move o mundo físico')
 })

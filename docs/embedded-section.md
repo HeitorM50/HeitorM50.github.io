@@ -21,16 +21,21 @@ toque ou com movimento reduzido, exige um clique. Fora da seção ou com a aba
 oculta, pausa; uma pausa manual persiste até o visitante retomar. Erros de rede,
 ausência de WebGL2 e timeout de 30 segundos mantêm a composição estática.
 
-## Lab e carrosséis
+## Lab e catálogo único
 
-O botão “Conheça o sistema” é o `summary` de um `details` nativo. O Lab começa
-fechado; abrir revela o fluxo de telemetria, os dois projetos e as futuras fotos.
-A animação de entrada respeita `prefers-reduced-motion`. Abrir e fechar também
-funciona por teclado e sem JavaScript.
+O botão liquid glass “Explorar Lab” fica dentro da introdução de Embarcados.
+O controlador `embedded-lab.ts` sincroniza rótulo, `aria-expanded` e o `details`
+nativo, com transição de 250 ms e devolução do foco ao recolher pelo controle
+interno. Sem JavaScript, o `summary` permanece disponível. O Lab começa fechado;
+`#embedded-projects` abre o conteúdo quando o controlador está ativo.
+Movimento reduzido desativa a animação. O 3D permanece independente do Lab.
 
 `src/components/ui/carousel-squeeze.tsx` adapta o carrossel squeeze à tipografia
-local e à exportação estática. Destaques e catálogo usam o mesmo componente,
-com contribuição, contexto, stack e links preservados. O Hindsight é identificado
+local e à exportação estática. Uma única instância contém 15 projetos não
+embarcados, com filtros Destaques (quatro) e Todos. Filtros recebem `id`, `label`,
+`slideIds` e, opcionalmente, `hash`; `defaultFilterId` seleciona o inicial.
+Trocar o filtro volta ao primeiro resultado. `#outros-projetos` ativa Todos.
+Contribuição, contexto, stack e links são preservados. O Hindsight é identificado
 como projeto do hackathon IBM TechXchange.
 
 `src/lib/squeeze-carousel.ts` contém o controlador compartilhado: React o chama

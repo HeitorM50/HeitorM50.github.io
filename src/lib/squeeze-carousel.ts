@@ -3,11 +3,13 @@ const controllers = new WeakMap<HTMLElement, () => void>()
 /** One DOM controller for both React development and static GitHub Pages. */
 export function prepareSqueezeCarousel(host: HTMLElement, onIndexChange?: (index: number) => void) {
   if (controllers.has(host)) return
-  const tabs = Array.from(host.querySelectorAll<HTMLButtonElement>('[data-sq-tab]'))
+  const allTabs = Array.from(host.querySelectorAll<HTMLButtonElement>('[data-sq-tab]'))
+  const filters = Array.from(host.querySelectorAll<HTMLButtonElement>('[data-sq-filter]'))
+  let tabs = allTabs
   const panels = Array.from(host.querySelectorAll<HTMLElement>('[data-sq-panel]'))
   const strip = host.querySelector<HTMLElement>('.sq-strip')
   const counter = host.querySelector<HTMLElement>('[data-sq-counter]')
-  const count = tabs.length
+  let count = tabs.length
   if (!count || !strip) return
   const wrap = (i: number) => ((i % count) + count) % count
   let active = wrap(Number(host.dataset.sqIndex) || 0)
@@ -66,30 +68,58 @@ export function prepareSqueezeCarousel(host: HTMLElement, onIndexChange?: (index
     active = wrap(index)
     hover = -1
     host.dataset.sqIndex = String(active)
-    tabs.forEach((tab, i) => {
-      tab.setAttribute('aria-selected', String(i === active))
-      tab.tabIndex = i === active ? 0 : -1
-      panels[i].hidden = i !== active
-      panels[i].inert = i !== active
+    allTabs.forEach((tab, i) => {
+      const selected = tab === tabs[active]
+      tab.setAttribute('aria-selected', String(selected))
+      tab.tabIndex = selected ? 0 : -1
+      panels[i].hidden = !selected
+      panels[i].inert = !selected
     })
     if (counter) counter.textContent = `${String(active + 1).padStart(2, '0')} / ${String(count).padStart(2, '0')}`
+    host.querySelectorAll<HTMLButtonElement>('[data-sq-prev], [data-sq-next]').forEach(button => { button.disabled = count < 2 })
     layout()
     if (focus) tabs[active].focus({ preventScroll: true })
-    onIndexChange?.(active)
+    onIndexChange?.(allTabs.indexOf(tabs[active]))
     schedule()
   }
 
-  tabs.forEach((tab, i) => {
+  allTabs.forEach(tab => {
     tab.addEventListener('click', event => {
       if (Date.now() < ignoreClickUntil) { event.preventDefault(); return }
-      select(i, true)
+      const index = tabs.indexOf(tab)
+      if (index >= 0) select(index, true)
     }, { signal })
     tab.addEventListener('pointerenter', event => {
       if (host.dataset.sqHover !== 'true' || event.pointerType !== 'mouse') return
-      hover = wrap(i - active)
+      hover = wrap(tabs.indexOf(tab) - active)
       layout()
     }, { signal })
   })
+  function applyFilter(button: HTMLButtonElement) {
+    const members: string[] = JSON.parse(button.dataset.sqMembers || '[]')
+    const selected = allTabs.filter(tab => members.includes(tab.dataset.sqId!))
+    if (!selected.length) return
+    tabs = selected
+    count = tabs.length
+    allTabs.forEach((tab, i) => {
+      const excluded = !tabs.includes(tab)
+      tab.hidden = excluded
+      panels[i].dataset.sqExcluded = String(excluded)
+    })
+    filters.forEach(filter => filter.setAttribute('aria-pressed', String(filter === button)))
+    host.dataset.sqFilter = button.dataset.sqFilter
+    select(0)
+  }
+  filters.forEach(button => {
+    const members: string[] = JSON.parse(button.dataset.sqMembers || '[]')
+    button.disabled = !allTabs.some(tab => members.includes(tab.dataset.sqId!))
+    button.addEventListener('click', () => applyFilter(button), { signal })
+  })
+  function fromHash() {
+    const button = filters.find(filter => filter.dataset.sqHash === location.hash && location.hash)
+    if (button) applyFilter(button)
+  }
+  window.addEventListener('hashchange', fromHash, { signal })
   host.querySelector('[data-sq-prev]')?.addEventListener('click', () => select(active - 1), { signal })
   host.querySelector('[data-sq-next]')?.addEventListener('click', () => select(active + 1), { signal })
   strip.addEventListener('keydown', event => {
@@ -120,7 +150,10 @@ export function prepareSqueezeCarousel(host: HTMLElement, onIndexChange?: (index
   observer.observe(host)
   const visibility = new IntersectionObserver(entries => { visible = entries[0].isIntersecting; schedule() })
   visibility.observe(host)
-  select(active)
+  const initialFilter = filters.find(button => button.dataset.sqFilter === host.dataset.sqDefaultFilter && !button.disabled)
+  if (initialFilter) applyFilter(initialFilter)
+  else select(active)
+  fromHash()
   host.dataset.sqReady = 'true'
   layout()
   const cleanup = () => {
@@ -129,7 +162,8 @@ export function prepareSqueezeCarousel(host: HTMLElement, onIndexChange?: (index
     observer.disconnect()
     visibility.disconnect()
     delete host.dataset.sqReady
-    panels.forEach(panel => { panel.hidden = false; panel.inert = false })
+    panels.forEach(panel => { panel.hidden = false; panel.inert = false; delete panel.dataset.sqExcluded })
+    allTabs.forEach(tab => { tab.hidden = false })
     controllers.delete(host)
   }
   controllers.set(host, cleanup)

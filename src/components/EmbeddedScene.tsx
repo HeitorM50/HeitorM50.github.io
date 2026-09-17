@@ -3,6 +3,7 @@
 import { useEffect, useRef } from 'react'
 import { Cpu } from 'lucide-react'
 import type { Locale } from '@/data/portfolio'
+import { LiquidButton } from './ui/liquid-glass-button'
 
 export function EmbeddedScene({ locale }: { locale: Locale }) {
   const ref = useRef<HTMLDivElement>(null)
@@ -25,7 +26,7 @@ export function EmbeddedScene({ locale }: { locale: Locale }) {
     <div className="embedded-scene-mount" data-scene-mount aria-hidden="true" />
     <div className="embedded-scene-controls">
       <span data-scene-status role="status">{locale === 'pt' ? 'Ilustração interativa · 3D' : 'Interactive illustration · 3D'}</span>
-      <button type="button" className="scene-button" data-scene-toggle>{locale === 'pt' ? 'Ativar 3D' : 'Enable 3D'}</button>
+      <LiquidButton type="button" variant="outline" className="scene-button" data-scene-toggle>{locale === 'pt' ? 'Ativar 3D' : 'Enable 3D'}</LiquidButton>
     </div>
     <noscript>{locale === 'pt' ? 'Ative JavaScript para explorar a ilustração 3D.' : 'Enable JavaScript to explore the 3D illustration.'}</noscript>
   </div>

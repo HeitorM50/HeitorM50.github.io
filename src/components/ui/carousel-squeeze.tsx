@@ -5,6 +5,7 @@ import { useEffect, useId, useRef, type ComponentProps, type CSSProperties, type
 import { ArrowLeft, ArrowRight } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { prepareSqueezeCarousel } from '@/lib/squeeze-carousel'
+import { LiquidButton } from './liquid-glass-button'
 
 export type SqueezeSlide = {
   id?: string | number
@@ -27,6 +28,9 @@ type Size = number | string
 const size = (value: Size) => typeof value === 'number' ? `${value}px` : value
 
 export type SqueezeCarouselProps = {
+  filters?: { id: string; label: string; slideIds: (string | number)[]; hash?: string }[]
+  defaultFilterId?: string
+  filterLabel?: string
   slides: SqueezeSlide[]
   defaultIndex?: number
   onIndexChange?: (index: number) => void
@@ -53,6 +57,7 @@ export type SqueezeCarouselProps = {
  * Without JavaScript every project and its links remain readable.
  */
 export function SqueezeCarousel({
+  filters = [], defaultFilterId, filterLabel = 'Filter projects',
   slides, defaultIndex = 0, onIndexChange,
   height = 'clamp(190px, 32cqi, 340px)', slatWidth = 8, slatGap = 8, gap = 16,
   radius = 12, duration = 700, hoverGrow = true, autoplay = false, interval = 6000,
@@ -66,14 +71,20 @@ export function SqueezeCarousel({
   useEffect(() => {
     if (!ref.current) return
     return prepareSqueezeCarousel(ref.current, onIndexChange)
-  }, [slides, defaultIndex, onIndexChange, duration, hoverGrow, autoplay, interval, slatWidth, slatGap, gap])
+  }, [slides, filters, defaultFilterId, defaultIndex, onIndexChange, duration, hoverGrow, autoplay, interval, slatWidth, slatGap, gap])
   if (!slides.length) return null
   return <div {...props} ref={ref} className={cn('squeeze-carousel', className)}
     role="region" aria-roledescription="carousel" aria-label={label}
     data-squeeze-carousel data-sq-index={initial} data-sq-duration={duration}
+    data-sq-default-filter={defaultFilterId ?? filters[0]?.id}
     data-sq-hover={hoverGrow} data-sq-autoplay={autoplay} data-sq-interval={interval}
     data-sq-gap={gap} data-sq-slat={slatWidth} data-sq-slat-gap={slatGap}
     style={{ '--sq-height': size(height), '--sq-radius': size(radius), '--sq-duration': `${duration}ms`, '--sq-fill': accent, '--sq-on-fill': accentForeground, ...style } as CSSProperties}>
+    {filters.length > 0 && <div className="sq-filters" role="group" aria-label={filterLabel}>
+      {filters.map(filter => <LiquidButton key={filter.id} type="button" variant="outline" data-sq-filter={filter.id}
+        data-sq-members={JSON.stringify(filter.slideIds.map(String))} data-sq-hash={filter.hash}
+        aria-pressed={filter.id === (defaultFilterId ?? filters[0]?.id)} aria-controls={`${id}-panels`}>{filter.label}</LiquidButton>)}
+    </div>}
     <div className="sq-toolbar">
       <p className="sq-counter" data-sq-counter aria-live="polite" aria-atomic="true">{String(initial + 1).padStart(2, '0')} / {String(slides.length).padStart(2, '0')}</p>
       {controls && slides.length > 1 && <div className="sq-arrows">
@@ -85,7 +96,7 @@ export function SqueezeCarousel({
       <div className="sq-strip" role="tablist" aria-label={label} aria-orientation="horizontal">
         {slides.map((slide, i) => <button key={slide.id ?? i} type="button" role="tab"
           id={`${id}-tab-${i}`} aria-selected={i === initial} aria-controls={`${id}-panel-${i}`}
-          aria-label={slide.title} tabIndex={i === initial ? 0 : -1} data-sq-tab={i}
+          aria-label={slide.title} tabIndex={i === initial ? 0 : -1} data-sq-tab={i} data-sq-id={String(slide.id ?? i)}
           className={cn('sq-card', panelClassName)} style={{ background: slide.background }}>
           {slide.image && <img src={slide.image} alt={slide.imageAlt ?? ''} width={slide.imageWidth ?? 1400} height={slide.imageHeight ?? 875} loading="lazy" decoding="async" draggable={false} />}
           <span className="sq-overlay" aria-hidden="true">{slide.overlay ?? slide.title}</span>

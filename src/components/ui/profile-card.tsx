@@ -1,6 +1,7 @@
 import type { CSSProperties } from 'react'
 
 export interface ProfileCardProps {
+  eager?: boolean
   avatarUrl: string
   avatarAvifUrl?: string
   iconUrl?: string
@@ -21,6 +22,7 @@ const DEFAULT_INNER_GRADIENT =
   'linear-gradient(145deg, rgba(190,155,255,.22) 0%, rgba(73,211,156,.12) 48%, rgba(4,5,8,.82) 100%)'
 
 export default function ProfileCard({
+  eager = false,
   avatarUrl,
   avatarAvifUrl,
   iconUrl = '/media/logo-metal-mask.svg',
@@ -56,7 +58,7 @@ export default function ProfileCard({
           <div className="pc-inside" aria-hidden="true" />
           <picture className="pc-avatar-content">
             {avatarAvifUrl && <source srcSet={avatarAvifUrl} type="image/avif" />}
-            <img className="pc-avatar" src={avatarUrl} alt={name} width={1024} height={1024} loading="lazy" decoding="async" />
+            <img className="pc-avatar" src={avatarUrl} alt={name} width={1024} height={1024} loading={eager ? 'eager' : 'lazy'} fetchPriority={eager ? 'high' : 'auto'} decoding="async" />
           </picture>
           <div className="pc-tone" aria-hidden="true" />
           <div className="pc-shine" aria-hidden="true" />

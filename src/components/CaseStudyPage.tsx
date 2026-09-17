@@ -30,7 +30,7 @@ export function CaseStudyPage({ project, locale, children }: { project: Project;
           </header>
           {project.cover && <div className="case-cover shell"><Picture name={project.cover} alt={`${project.title} — screenshot`} width={project.coverWidth ?? 1400} height={project.coverHeight ?? 875} eager /></div>}
           <div className="case-body shell">{children}</div>
-          {(project.links.live || project.links.source) && <aside className="case-links shell"><p className="kicker">{text.projectLinks}</p><div>{project.links.live && <LiquidButton asChild><a href={project.links.live} target="_blank" rel="noreferrer">{text.liveCta}<span aria-hidden="true">↗</span></a></LiquidButton>}{project.links.source && <a className="button button-secondary" href={project.links.source} target="_blank" rel="noreferrer">{text.sourceCta}<span aria-hidden="true">↗</span></a>}</div></aside>}
+          {(project.links.live || project.links.source) && <aside className="case-links shell"><p className="kicker">{text.projectLinks}</p><div>{project.links.live && <LiquidButton asChild><a href={project.links.live} target="_blank" rel="noreferrer">{text.liveCta}<span aria-hidden="true">↗</span></a></LiquidButton>}{project.links.source && <a className="text-action" href={project.links.source} target="_blank" rel="noreferrer">{text.sourceCta}<span aria-hidden="true">↗</span></a>}</div></aside>}
         </article>
       </main>
       <footer className="site-footer"><div className="shell"><p>© {new Date().getFullYear()} {site.name}</p><p>{text.footer}</p></div></footer>

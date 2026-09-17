@@ -4,24 +4,27 @@ import { benchPhotos, projects, type Locale } from '@/data/portfolio'
 import { EmbeddedScene } from './EmbeddedScene'
 import { Picture } from './Picture'
 import { ProjectMeta } from './ProjectMeta'
+import { EmbeddedLabTrigger } from './EmbeddedLabTrigger'
+import { LiquidButton } from './ui/liquid-glass-button'
 
 export function EmbeddedSection({ locale }: { locale: Locale }) {
   const pt = locale === 'pt'
   const embedded = projects.filter(project => project.category === 'embedded')
   return <section className="legacy-section embedded-section" id="embarcados" aria-labelledby="embedded-title">
     <div className="content-shell">
-      <p className="section-index">03 — {pt ? 'EMBARCADOS' : 'EMBEDDED SYSTEMS'}</p>
+      <p className="section-index">02 — {pt ? 'EMBARCADOS' : 'EMBEDDED SYSTEMS'}</p>
       <Card className="embedded-hero">
         <div className="embedded-intro">
           <p className="embedded-kicker"><span /> UNBAJA SAE · UnB</p>
           <h2 id="embedded-title">{pt ? <>Do sensor<br />ao <span>software.</span></> : <>From sensor<br />to <span>software.</span></>}</h2>
           <p>{pt ? 'No Baja, o código encontra o mundo físico. Sensores, comunicação e decisões técnicas precisam funcionar juntos — na bancada e dentro do carro.' : 'In Baja, code meets the physical world. Sensors, communication and technical decisions need to work together — on the bench and inside the car.'}</p>
           <div className="embedded-facts"><span><strong>4</strong> {pt ? 'nós ECU' : 'ECU nodes'}</span><span><strong>CAN</strong> {pt ? 'comunicação' : 'communication'}</span><span><strong>TFT</strong> {pt ? 'interface de bordo' : 'on-board interface'}</span></div>
+          <EmbeddedLabTrigger locale={locale} />
         </div>
         <EmbeddedScene locale={locale} />
       </Card>
       <details className="embedded-lab" id="embedded-projects">
-        <summary className="embedded-jump"><Cpu size={22} aria-hidden="true" /><span>{pt ? 'Conheça o sistema' : 'Explore the system'}<small>{pt ? 'ABRIR LAB DE EMBARCADOS' : 'OPEN EMBEDDED LAB'}</small></span><ChevronDown className="lab-chevron" size={22} aria-hidden="true" /></summary>
+        <summary className="lab-fallback liquid-glass-button liquid-glass-button--default" data-liquid-glass><Cpu size={22} aria-hidden="true" /><span>{pt ? 'Explorar Lab' : 'Explore Lab'}</span><ChevronDown className="lab-chevron" size={22} aria-hidden="true" /></summary>
         <div className="embedded-lab-content">
           <header className="embedded-lab-heading"><p className="section-index">HARDWARE / FIRMWARE / BACKEND</p><h3>{pt ? 'Lab de Embarcados' : 'Embedded Lab'}</h3></header>
       <div className="telemetry-path" aria-label={pt ? 'Caminho dos dados de telemetria' : 'Telemetry data flow'}>
@@ -38,10 +41,11 @@ export function EmbeddedSection({ locale }: { locale: Locale }) {
           <p className="project-contribution"><strong>{pt ? 'Minha contribuição' : 'My contribution'}</strong>{project.role[locale]}</p>
           {index === 1 && <p className="embedded-progress">{pt ? 'Já implementado: esqueleto da API e ingestão inicial. Próximas etapas: decodificação, persistência temporal e consultas.' : 'Implemented: API foundation and initial ingestion. Next steps: decoding, time-series persistence and queries.'}</p>}
           <div className="tech-list">{project.stack.map(item => <span key={item}>{item}</span>)}</div>
-          {project.links.source && <a className="embedded-source" href={project.links.source} target="_blank" rel="noreferrer">{pt ? 'Explorar código e documentação' : 'Explore code and documentation'} <ArrowUpRight size={17} aria-hidden="true" /></a>}
+          {project.links.source && <a className="embedded-source text-action" href={project.links.source} target="_blank" rel="noreferrer">{pt ? 'Código e documentação' : 'Code and documentation'} <ArrowUpRight size={17} aria-hidden="true" /></a>}
         </article>
       })}</div>
       {benchPhotos.length > 0 && <div className="bench-gallery"><h3>{pt ? 'Na bancada de testes' : 'On the test bench'}</h3><div>{benchPhotos.map(photo => <figure key={photo.name}><Picture name={photo.name} width={photo.width} height={photo.height} alt={photo.alt[locale]} /><figcaption>{photo.caption[locale]}</figcaption></figure>)}</div></div>}
+          <LiquidButton type="button" variant="outline" data-lab-close className="lab-close">{pt ? 'Recolher Lab' : 'Close Lab'}</LiquidButton>
         </div>
       </details>
     </div>

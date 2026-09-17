@@ -16,8 +16,8 @@ test('curated projects and embedded navigation are bilingual and indexable', asy
   for (const [path, nav, contribution] of [['/', 'Embarcados', 'Minha contribuição'], ['/en/', 'Embedded systems', 'My contribution']]) {
     await page.goto(path)
     await expect(page.getByRole('link', { name: nav, exact: true })).toHaveAttribute('href', `${path}#embarcados`)
-    await expect(page.locator('.hero-stats')).toContainText('17')
-    await expect(page.locator('[data-squeeze-carousel]')).toHaveCount(2)
+    await expect(page.locator('.hero-stats')).toHaveCount(0)
+    await expect(page.locator('[data-squeeze-carousel]')).toHaveCount(1)
     for (const slug of ['omapkdex', 'omarchy-gcal', 'ia2-bloodmnist', 'pmi-sleep-5']) {
       await expect(page.locator(`[data-project-slug="${slug}"]`)).toContainText(contribution)
     }
