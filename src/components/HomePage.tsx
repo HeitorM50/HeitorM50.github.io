@@ -54,13 +54,14 @@ export function HomePage({ locale }: { locale: Locale }) {
     <NeuralBackground className="fixed inset-0 -z-10" />
     <Header locale={locale} alternateHref={pt ? '/en/' : '/'} />
     <main>
-      <section className="hero legacy-section" aria-labelledby="hero-title">
+      <section className="hero legacy-section" id="sobre" aria-labelledby="hero-title">
         <div className="wide-shell hero-grid">
           <div className="hero-copy">
             <p className="eyebrow">{pt ? 'ABERTO A ESTÁGIO · BRASÍLIA OU REMOTO' : 'OPEN TO INTERNSHIPS · BRASÍLIA OR REMOTE'}</p>
             <p className="hero-name">Heitor Ricardo</p>
             <h1 id="hero-title">{pt ? <>Engenharia de Software.<br />Entre código e <span className="shine-text">mundo real.</span></> : <>Software Engineering.<br />Between code and the <span className="shine-text">real world.</span></>}</h1>
             <p className="hero-intro">{pt ? 'Estudante na UnB. Desenvolvo backend, soluções de dados e sistemas embarcados com Python, TypeScript, C++ e Rust.' : 'Student at UnB. I build backends, data solutions and embedded systems with Python, TypeScript, C++ and Rust.'}</p>
+            <p className="hero-bio">{pt ? 'Curso Engenharia de Software na UnB, com conclusão prevista para março de 2029, e Análise e Desenvolvimento de Sistemas no GRAN. Minha formação conecta desenvolvimento de software, pesquisa e trabalho em equipe.' : 'I study Software Engineering at UnB, with graduation expected in March 2029, and Systems Analysis and Development at GRAN. My education connects software development, research and teamwork.'}</p>
             <div className="hero-actions">
               <LiquidButton asChild size="xl"><a href="#projetos">{pt ? 'Ver projetos' : 'See my work'}</a></LiquidButton>
               <LiquidButton asChild variant="outline" size="xl"><a href={site.cv} target="_blank" rel="noreferrer">{pt ? 'Baixar CV' : 'Download CV'}<small>PDF</small></a></LiquidButton>
@@ -92,32 +93,21 @@ export function HomePage({ locale }: { locale: Locale }) {
         </div>
       </section>
 
-      <section className="discipline-bridge" aria-label={pt ? 'Software e hardware' : 'Software and hardware'}>
-        <div className="content-shell"><span aria-hidden="true">SOFTWARE / DATA / EMBEDDED</span><p>{pt ? <>O código também<br /><em>move o mundo físico.</em></> : <>Code also<br /><em>moves the physical world.</em></>}</p></div>
-      </section>
-
       <EmbeddedSection locale={locale} />
 
-      <section className="legacy-section about-section" id="sobre" aria-labelledby="about-title">
-        <div className="content-shell about-editorial">
-          <div><p className="section-index">03 — {pt ? 'SOBRE MIM' : 'ABOUT ME'}</p><h2 className="section-title" id="about-title">{pt ? 'Curiosidade que vira prática.' : 'Curiosity put into practice.'}</h2></div>
-          <div className="about-copy"><p>{pt ? 'Curso Engenharia de Software na UnB, com conclusão prevista para março de 2029, e Análise e Desenvolvimento de Sistemas no GRAN. Minha formação conecta desenvolvimento de software, pesquisa e trabalho em equipe.' : 'I study Software Engineering at UnB, graduating in March 2029, and Systems Analysis and Development at GRAN. My education connects software development, research and teamwork.'}</p><p>{pt ? 'Moro em Brasília e procuro estágio em backend, dados ou sistemas embarcados, presencialmente ou remoto. Quero aprender com problemas reais e assumir responsabilidade pelas entregas.' : 'Based in Brasília, I am looking for an internship in backend, data or embedded systems, on-site or remotely. I want to learn through real problems and take responsibility for what I deliver.'}</p></div>
-        </div>
-      </section>
-
       <section className="legacy-section timeline-section" id="exp" aria-labelledby="timeline-title">
-        <div className="content-shell"><p className="section-index">04 — {pt ? 'TRAJETÓRIA' : 'TIMELINE'}</p><Timeline data={timelineData} heading={pt ? 'Linha do tempo' : 'Career timeline'} description={pt ? 'Da formação às experiências em que assumi mais responsabilidade.' : 'From education to experiences with growing responsibility.'} /></div>
+        <div className="content-shell"><p className="section-index">03 — {pt ? 'TRAJETÓRIA' : 'TIMELINE'}</p><Timeline data={timelineData} heading={pt ? 'Linha do tempo' : 'Career timeline'} description={pt ? 'Da formação às experiências em que assumi mais responsabilidade.' : 'From education to experiences with growing responsibility.'} /></div>
       </section>
 
       <section className="legacy-section" id="stack" aria-labelledby="stack-title">
         <div className="content-shell">
-          <div className="split-heading"><div><p className="section-index">05 — STACK</p><h2 className="section-title" id="stack-title">{pt ? 'Ferramentas do dia a dia' : 'Everyday tools'}</h2></div><p className="regular-note">{pt ? 'Tecnologias usadas nos projetos e experiências acima.' : 'Technologies used in the projects and experiences above.'}</p></div>
+          <div className="split-heading"><div><p className="section-index">04 — STACK</p><h2 className="section-title" id="stack-title">{pt ? 'Ferramentas do dia a dia' : 'Everyday tools'}</h2></div><p className="regular-note">{pt ? 'Tecnologias usadas nos projetos e experiências acima.' : 'Technologies used in the projects and experiences above.'}</p></div>
           <div className="stack-grid">{stackGroups.map((group, groupIndex) => <article className="stack-card" key={group.en}><header><span style={{ '--dot-hue': `${285 + groupIndex * 55}` } as CSSProperties} />{group[locale]}<small>{String(group.items.length).padStart(2, '0')}</small></header><div>{group.items.map(item => <span className="stack-chip" key={item}>{stackIcons[item] && <img src={`/assets/icons/ic_${stackIcons[item]}.svg`} alt="" loading="lazy" decoding="async" />} {item}</span>)}</div></article>)}</div>
         </div>
       </section>
 
       <section className="legacy-section contact-section" id="contato" aria-labelledby="contact-title">
-        <div className="contact-shell"><p className="section-index">06 — {pt ? 'CONTATO' : 'CONTACT'}</p><h2 className="shine-text" id="contact-title">{pt ? 'Vamos conversar?' : 'Let’s talk.'}</h2><p>{pt ? 'Para oportunidades de estágio, projetos e boas conversas sobre tecnologia.' : 'For internship opportunities, projects and good conversations about technology.'}</p><LiquidButton asChild size="xl" className="email-liquid-button"><a href={`mailto:${site.email}`}>{site.email}</a></LiquidButton><div><a href={site.github} target="_blank" rel="noreferrer">GITHUB</a><a href={site.linkedin} target="_blank" rel="noreferrer">LINKEDIN</a><a href={site.cv} target="_blank" rel="noreferrer">CV · PDF</a></div></div>
+        <div className="contact-shell"><p className="section-index">05 — {pt ? 'CONTATO' : 'CONTACT'}</p><h2 className="shine-text" id="contact-title">{pt ? 'Vamos conversar?' : 'Let’s talk.'}</h2><p>{pt ? 'Para oportunidades de estágio, projetos e boas conversas sobre tecnologia.' : 'For internship opportunities, projects and good conversations about technology.'}</p><LiquidButton asChild size="xl" className="email-liquid-button"><a href={`mailto:${site.email}`}>{site.email}</a></LiquidButton><div><a href={site.github} target="_blank" rel="noreferrer">GITHUB</a><a href={site.linkedin} target="_blank" rel="noreferrer">LINKEDIN</a><a href={site.cv} target="_blank" rel="noreferrer">CV · PDF</a></div></div>
       </section>
     </main>
     <footer className="site-footer"><span>© {new Date().getFullYear()} {site.name}</span><span>REACT · NEXT.JS · NEXTRA · BRASÍLIA</span></footer>

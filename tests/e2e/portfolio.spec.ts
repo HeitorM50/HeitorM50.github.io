@@ -148,26 +148,28 @@ test('profile portrait uses fluid holographic depth on pointer devices', async (
   await expect(wrapper.locator('.pc-shine')).toHaveCSS('opacity', '0.62')
 })
 
-test('header leaves the viewport and the compact bridge does not pin scrolling', async ({ page, isMobile }) => {
+test('header leaves the viewport and projects lead directly to the Lab', async ({ page }) => {
   await page.goto('/')
   const header = page.locator('.site-header')
-  const reveal = page.locator('.discipline-bridge')
   await expect(header).toHaveCSS('position', 'relative')
-  await expect(reveal).toHaveCSS('background-color', 'rgba(0, 0, 0, 0)')
   await page.evaluate(() => window.scrollTo(0, 700))
   await expect.poll(() => header.evaluate((element) => element.getBoundingClientRect().bottom)).toBeLessThan(0)
 
   await expect(page.locator('[data-scroll-video-track]')).toHaveCount(0)
-  const height = await reveal.evaluate(element => element.getBoundingClientRect().height)
-  expect(height).toBeLessThanOrEqual(page.viewportSize()!.height * (isMobile ? .4 : .6) + 1)
-  await expect(reveal).toHaveCSS('position', 'relative')
+  await expect(page.locator('.discipline-bridge')).toHaveCount(0)
+  await expect(page.locator('#projetos + #embarcados')).toHaveCount(1)
 })
 
-test('compact bridge respects reduced motion', async ({ page }) => {
-  await page.emulateMedia({ reducedMotion: 'reduce' })
-  await page.goto('/')
-  const bridge = page.locator('.discipline-bridge')
-  await bridge.scrollIntoViewIfNeeded()
-  expect(await bridge.evaluate(element => getComputedStyle(element, '::before').animationName)).toBe('none')
-  await expect(bridge).toContainText('move o mundo físico')
+test('education appears only in the Hero alongside the portrait in both languages', async ({ page }) => {
+  const biographies = [
+    ['/', 'Curso Engenharia de Software na UnB, com conclusão prevista para março de 2029, e Análise e Desenvolvimento de Sistemas no GRAN. Minha formação conecta desenvolvimento de software, pesquisa e trabalho em equipe.'],
+    ['/en/', 'I study Software Engineering at UnB, with graduation expected in March 2029, and Systems Analysis and Development at GRAN. My education connects software development, research and teamwork.'],
+  ]
+  for (const [path, biography] of biographies) {
+    await page.goto(path)
+    await expect(page.locator('.hero#sobre .hero-copy .hero-bio')).toHaveText(biography)
+    await expect(page.getByText(biography, { exact: true })).toHaveCount(1)
+    await expect(page.locator('.hero#sobre .hero-portrait')).toHaveCount(1)
+    await expect(page.locator('.about-section, #about-title, .discipline-bridge')).toHaveCount(0)
+  }
 })
