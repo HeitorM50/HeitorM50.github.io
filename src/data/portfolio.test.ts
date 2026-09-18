@@ -3,6 +3,9 @@ import { caseHref, copy, projects, projectGroups, benchPhotos, experiences } fro
 import { existsSync } from 'node:fs'
 
 describe('portfolio data', () => {
+  it('orders the shared bilingual timeline from oldest to newest', () => {
+    expect(experiences.map(experience => experience.logo)).toEqual(['BAJA', 'MCTI', 'UnB', 'IBM', 'PMI'])
+  })
   it('keeps project slugs unique', () => {
     const slugs = projects.map(({ slug }) => slug)
     expect(new Set(slugs).size).toBe(slugs.length)
@@ -37,7 +40,7 @@ describe('portfolio data', () => {
     expect(project.collaboration).toBe('team')
     expect(project.recognition?.pt).toContain('Avaliação técnica independente')
     expect(project.recognition?.en).toContain('Independent IBM technical evaluation')
-    expect(experiences[0].detail.pt).toContain('pitch e Project Canvas não foram considerados')
+    expect(experiences.find(experience => experience.logo === 'PMI')?.detail.pt).toContain('pitch e Project Canvas não foram considerados')
     for (const locale of ['pt', 'en'] as const) {
       expect(existsSync(`content/${locale === 'pt' ? 'projetos' : 'en/projects'}/pmi-sleep-5.mdx`)).toBe(true)
     }

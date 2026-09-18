@@ -317,17 +317,6 @@ export const benchPhotos: BenchPhoto[] = []
 
 export const experiences: Experience[] = [
   {
-    period: { pt: '2026 · PÓS-HACKATHON', en: '2026 · POST-HACKATHON' },
-    role: { pt: '1º lugar · Avaliação técnica independente da IBM', en: '1st place · Independent IBM technical evaluation' },
-    logo: 'PMI', company: 'Sleep 5 · Desafio com IBM Bob · Hackathon PMI-DF',
-    summary: { pt: 'Nossa equipe Sleep 5 ficou em primeiro lugar na avaliação técnica independente da IBM, baseada nos repositórios entregues para o desafio de risco de crédito no agronegócio da Krill Tech.', en: 'Our Sleep 5 team placed first in IBM’s independent technical evaluation of the repositories submitted for Krill Tech’s agricultural credit-risk challenge.' },
-    detail: { pt: 'Parecer emitido após o hackathon, com critérios próprios: pitch e Project Canvas não foram considerados.', en: 'The review was issued after the hackathon, using separate criteria: the pitch and Project Canvas were not considered.' },
-    highlight: { pt: 'Destaque do parecer: melhor rigor técnico e científico, com testes automatizados, scoring fundamentado e transparência sobre as limitações.', en: 'Review highlight: strongest technical and scientific rigor, with automated tests, grounded scoring and transparency about limitations.' },
-    metricValue: { pt: '1º lugar', en: '1st place' },
-    metric: { pt: 'Resultado da equipe na avaliação técnica da IBM — independente da classificação do hackathon.', en: 'Team result in IBM’s technical evaluation — separate from the hackathon ranking.' },
-    stack: ['React', 'TypeScript', 'Python', 'Vitest', 'Playwright']
-  },
-  {
     period: { pt: '2024 — ATUAL', en: '2024 — NOW' },
     role: { pt: 'Líder de Eletrônica (Sistemas Embarcados)', en: 'Electronics Lead (Embedded Systems)' },
     logo: 'BAJA', company: 'UnBaja — Equipe Baja SAE UnB · Brasília, DF',
@@ -337,6 +326,17 @@ export const experiences: Experience[] = [
     metricValue: { pt: '4 ECUs', en: '4 ECUs' },
     metric: { pt: 'Nós independentes trocando dados em tempo real por barramento CAN.', en: 'Independent nodes exchanging data in real time over a CAN bus.' },
     stack: ['ESP32', 'Arduino', 'CAN', 'C++']
+  },
+  {
+    period: { pt: '2025 — 2026', en: '2025 — 2026' },
+    role: { pt: 'Estágio no MCTI — Product Owner Jr.', en: 'Internship at MCTI — Junior Product Owner' },
+    logo: 'MCTI', company: 'Ministério da Ciência, Tecnologia e Inovação · Brasília, DF',
+    summary: { pt: 'Estágio no MCTI como Product Owner Jr. do NOVO SIGPLANI, plataforma que atende ao programa PADIS. O papel vinha da participação no Scrum semanal do produto.', en: "Internship at MCTI as Junior Product Owner for NOVO SIGPLANI, the platform serving the PADIS programme. The role came from taking part in the product's weekly Scrum." },
+    detail: { pt: 'Refinamento de regras de negócio, reporte de erros e priorização junto ao Product Owner.', en: 'Business-rule refinement, bug reporting and prioritisation with the Product Owner.' },
+    highlight: { pt: 'Por iniciativa própria, desenvolvi sozinho o ExtracaoRDA, automação em Python que lê PDFs de RDA e gera planilhas Excel.', en: 'On my own initiative, I single-handedly built ExtracaoRDA, a Python automation that reads RDA PDFs and generates Excel spreadsheets.' },
+    metricValue: { pt: '0 manual', en: '0 manual' },
+    metric: { pt: 'A transcrição manual dos relatórios saiu do fluxo dos analistas.', en: "Manual transcription of the reports left the analysts' workflow." },
+    stack: ['Scrum', 'Python', 'regex', 'Excel']
   },
   {
     period: { pt: '2026 — ATUAL', en: '2026 — NOW' },
@@ -361,15 +361,15 @@ export const experiences: Experience[] = [
     stack: ['TypeScript', 'React', 'Vite', 'Vitest']
   },
   {
-    period: { pt: '2025 — 2026', en: '2025 — 2026' },
-    role: { pt: 'Estágio no MCTI — Product Owner Jr.', en: 'Internship at MCTI — Junior Product Owner' },
-    logo: 'MCTI', company: 'Ministério da Ciência, Tecnologia e Inovação · Brasília, DF',
-    summary: { pt: 'Estágio no MCTI como Product Owner Jr. do NOVO SIGPLANI, plataforma que atende ao programa PADIS. O papel vinha da participação no Scrum semanal do produto.', en: "Internship at MCTI as Junior Product Owner for NOVO SIGPLANI, the platform serving the PADIS programme. The role came from taking part in the product's weekly Scrum." },
-    detail: { pt: 'Refinamento de regras de negócio, reporte de erros e priorização junto ao Product Owner.', en: 'Business-rule refinement, bug reporting and prioritisation with the Product Owner.' },
-    highlight: { pt: 'Por iniciativa própria, desenvolvi sozinho o ExtracaoRDA, automação em Python que lê PDFs de RDA e gera planilhas Excel.', en: 'On my own initiative, I single-handedly built ExtracaoRDA, a Python automation that reads RDA PDFs and generates Excel spreadsheets.' },
-    metricValue: { pt: '0 manual', en: '0 manual' },
-    metric: { pt: 'A transcrição manual dos relatórios saiu do fluxo dos analistas.', en: "Manual transcription of the reports left the analysts' workflow." },
-    stack: ['Scrum', 'Python', 'regex', 'Excel']
+    period: { pt: '2026 · PÓS-HACKATHON', en: '2026 · POST-HACKATHON' },
+    role: { pt: '1º lugar · Avaliação técnica independente da IBM', en: '1st place · Independent IBM technical evaluation' },
+    logo: 'PMI', company: 'Sleep 5 · Desafio com IBM Bob · Hackathon PMI-DF',
+    summary: { pt: 'Nossa equipe Sleep 5 ficou em primeiro lugar na avaliação técnica independente da IBM, baseada nos repositórios entregues para o desafio de risco de crédito no agronegócio da Krill Tech.', en: 'Our Sleep 5 team placed first in IBM’s independent technical evaluation of the repositories submitted for Krill Tech’s agricultural credit-risk challenge.' },
+    detail: { pt: 'Parecer emitido após o hackathon, com critérios próprios: pitch e Project Canvas não foram considerados.', en: 'The review was issued after the hackathon, using separate criteria: the pitch and Project Canvas were not considered.' },
+    highlight: { pt: 'Destaque do parecer: melhor rigor técnico e científico, com testes automatizados, scoring fundamentado e transparência sobre as limitações.', en: 'Review highlight: strongest technical and scientific rigor, with automated tests, grounded scoring and transparency about limitations.' },
+    metricValue: { pt: '1º lugar', en: '1st place' },
+    metric: { pt: 'Resultado da equipe na avaliação técnica da IBM — independente da classificação do hackathon.', en: 'Team result in IBM’s technical evaluation — separate from the hackathon ranking.' },
+    stack: ['React', 'TypeScript', 'Python', 'Vitest', 'Playwright']
   }
 ]
 
