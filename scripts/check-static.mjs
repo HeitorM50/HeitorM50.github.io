@@ -10,7 +10,9 @@ const required = [
   'media/logo-metallic.png', 'vendor/metallic-paint.js', 'vendor/gsap.min.js',
   'vendor/ScrollTrigger.min.js', 'vendor/SplitText.min.js', 'vendor/profile-card.css',
   'vendor/embedded/loader.js', 'vendor/embedded/portfolio-ui.js', 'media/pmi-workspace.webp', 'media/pmi-workspace.avif',
-  'media/omapkdex.webp', 'media/omapkdex.avif'
+  'media/omapkdex.webp', 'media/omapkdex.avif',
+  'projetos/pmi-sleep-5/index.html', 'en/projects/pmi-sleep-5/index.html',
+  'media/pmi-ibm-podium.png', 'media/pmi-ibm-review.png', 'media/pmi-ibm-feedback.png'
 ]
 const forbidden = ['media/scroll-reveal.mp4', 'media/logo.webp', 'media/logo.avif']
 

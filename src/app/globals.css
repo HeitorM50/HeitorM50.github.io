@@ -154,6 +154,11 @@ p, h1, h2, h3, h4 { margin-top: 0; }
 .shine-text { background: linear-gradient(100deg, currentColor 20%, oklch(0.83 0.15 300) 48%, currentColor 76%); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 .hero-intro { max-width: 27.5rem; margin: 1.75rem 0 0; color: var(--muted-strong); font-size: 1.03rem; line-height: 1.65; text-wrap: pretty; }
 .hero-bio { max-width: 38rem; margin: 1rem 0 0; color: var(--muted-strong); font-size: 1.03rem; line-height: 1.65; text-wrap: pretty; }
+.project-meta > .project-recognition { display: inline-flex; align-items: center; gap: .5rem; color: var(--accent); border-color: var(--accent); }
+.project-recognition svg { flex-shrink: 0; }
+.review-evidence { margin: 2rem 0; }
+.review-evidence img { display: block; max-width: 100%; height: auto; border: 1px solid var(--line); border-radius: .75rem; }
+.review-evidence figcaption { margin-top: .75rem; color: var(--muted-strong); font-size: .875rem; line-height: 1.6; }
 .hero-name { margin: 0 0 1rem; color: var(--accent); font-size: 1.1rem; font-weight: 500; }
 .hero-stats { display: flex; gap: 2.25rem; margin-top: 2.1rem; color: var(--muted); font: 500 .68rem/1.5 'IBM Plex Mono', monospace; }
 .hero-stats div { display: grid; gap: .35rem; }
@@ -606,7 +611,7 @@ p, h1, h2, h3, h4 { margin-top: 0; }
 .stack-chip:hover { transform: translateY(-2px); border-color: var(--line-strong); }
 .stack-chip img { width: 1.1rem; height: 1.1rem; object-fit: contain; border-radius: .2rem; }
 
-.timeline-section { overflow: clip; content-visibility: auto; contain-intrinsic-size: auto 120rem; }
+.timeline-section { overflow: clip; }
 .timeline-heading { display: flex; justify-content: space-between; align-items: end; gap: 2rem; margin-top: .65rem; }
 .timeline-heading h2 { margin: 0; font-size: clamp(2.35rem, 5vw, 4.2rem); font-weight: 600; line-height: 1; letter-spacing: -.045em; }
 .timeline-heading > p { max-width: 30rem; margin: 0 0 .25rem; color: var(--muted-strong); font-size: 1rem; line-height: 1.6; text-wrap: pretty; }

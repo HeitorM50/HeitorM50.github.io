@@ -21,6 +21,7 @@ export type Project = {
   category: 'personal' | 'academic' | 'team' | 'embedded'
   collaboration?: 'solo' | 'pair' | 'team'
   status?: LocalizedText
+  recognition?: LocalizedText
   metrics?: LocalizedText[]
 }
 
@@ -144,6 +145,16 @@ export const projects: Project[] = [
     ]
   },
   {
+    slug: 'pmi-sleep-5', title: 'PMI Sleep 5 · Krilltech', year: '2026', featured: true,
+    category: 'team', collaboration: 'team', status: { pt: 'Hackathon · PMI-DF', en: 'Hackathon · PMI-DF' },
+    recognition: { pt: '1º lugar · Avaliação técnica independente IBM', en: '1st place · Independent IBM technical evaluation' },
+    summary: { pt: 'Workspace de análise de crédito que reúne cliente, operação e evidências para apoiar a revisão humana. 1º lugar na avaliação técnica independente da IBM, realizada após o hackathon. Demonstração com dados simulados.', en: 'A credit analysis workspace bringing together customers, operations and evidence to support human review. 1st place in IBM’s independent technical evaluation, held after the hackathon. Demonstration with simulated data.' },
+    role: { pt: 'Concepção do produto e das regras de negócio, Product Model Canvas e roteiro do pitch, com participação na implementação em equipe.', en: 'Product concept and business rules, Product Model Canvas and pitch script, with contributions to implementation alongside the team.' },
+    stack: ['Product Model Canvas', 'React', 'TypeScript', 'Python'],
+    cover: 'pmi-workspace', coverWidth: 1536, coverHeight: 1616,
+    links: { source: 'https://github.com/guxvr/PMI-Sleep-5' }
+  },
+  {
     slug: 'crianex-hub', title: 'Crianex Hub', year: '2026', featured: true,
     category: 'team', collaboration: 'team',
     summary: {
@@ -264,15 +275,6 @@ export const projects: Project[] = [
     links: { source: 'https://github.com/UnBajaSAE/baja-telemetry-api' }
   },
   {
-    slug: 'pmi-sleep-5', title: 'PMI Sleep 5 · Krilltech', year: '2026', featured: false,
-    category: 'team', collaboration: 'team', status: { pt: 'Hackathon · demonstração', en: 'Hackathon · demo' },
-    summary: { pt: 'Workspace de análise de crédito que reúne cliente, operação e evidências para apoiar a revisão humana. Demonstração com dados simulados.', en: 'A credit analysis workspace bringing together customers, operations and evidence to support human review. Demonstration with simulated data.' },
-    role: { pt: 'Concepção do produto e das regras de negócio, Product Model Canvas e roteiro do pitch, orientando a implementação pela equipe.', en: 'Product concept and business rules, Product Model Canvas and pitch script, guiding the team’s implementation.' },
-    stack: ['Product Model Canvas', 'React', 'TypeScript', 'Python'],
-    cover: 'pmi-workspace', coverWidth: 1536, coverHeight: 1616,
-    links: { source: 'https://github.com/guxvr/PMI-Sleep-5' }
-  },
-  {
     slug: 'omapkdex', title: 'OmaPkDex', year: '2026', featured: false,
     category: 'personal', collaboration: 'solo',
     summary: { pt: 'Um companheiro virtual na barra do Omarchy que evolui com o uso de tokens, com coleção, histórico e progressão persistente.', en: 'A virtual companion in the Omarchy bar that evolves with token usage, with a collection, history and persistent progression.' },
@@ -314,6 +316,17 @@ export type BenchPhoto = { name: string; width: number; height: number; alt: Loc
 export const benchPhotos: BenchPhoto[] = []
 
 export const experiences: Experience[] = [
+  {
+    period: { pt: '2026 · PÓS-HACKATHON', en: '2026 · POST-HACKATHON' },
+    role: { pt: '1º lugar · Avaliação técnica independente da IBM', en: '1st place · Independent IBM technical evaluation' },
+    logo: 'PMI', company: 'Sleep 5 · Desafio com IBM Bob · Hackathon PMI-DF',
+    summary: { pt: 'Nossa equipe Sleep 5 ficou em primeiro lugar na avaliação técnica independente da IBM, baseada nos repositórios entregues para o desafio de risco de crédito no agronegócio da Krill Tech.', en: 'Our Sleep 5 team placed first in IBM’s independent technical evaluation of the repositories submitted for Krill Tech’s agricultural credit-risk challenge.' },
+    detail: { pt: 'Parecer emitido após o hackathon, com critérios próprios: pitch e Project Canvas não foram considerados.', en: 'The review was issued after the hackathon, using separate criteria: the pitch and Project Canvas were not considered.' },
+    highlight: { pt: 'Destaque do parecer: melhor rigor técnico e científico, com testes automatizados, scoring fundamentado e transparência sobre as limitações.', en: 'Review highlight: strongest technical and scientific rigor, with automated tests, grounded scoring and transparency about limitations.' },
+    metricValue: { pt: '1º lugar', en: '1st place' },
+    metric: { pt: 'Resultado da equipe na avaliação técnica da IBM — independente da classificação do hackathon.', en: 'Team result in IBM’s technical evaluation — separate from the hackathon ranking.' },
+    stack: ['React', 'TypeScript', 'Python', 'Vitest', 'Playwright']
+  },
   {
     period: { pt: '2024 — ATUAL', en: '2024 — NOW' },
     role: { pt: 'Líder de Eletrônica (Sistemas Embarcados)', en: 'Electronics Lead (Embedded Systems)' },

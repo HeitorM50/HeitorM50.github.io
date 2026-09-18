@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { caseHref, copy, projects, projectGroups, benchPhotos } from './portfolio'
+import { caseHref, copy, projects, projectGroups, benchPhotos, experiences } from './portfolio'
 import { existsSync } from 'node:fs'
 
 describe('portfolio data', () => {
@@ -29,6 +29,19 @@ describe('portfolio data', () => {
 
   it('keeps both language dictionaries aligned', () => {
     expect(Object.keys(copy.pt)).toEqual(Object.keys(copy.en))
+  })
+
+  it('highlights the team’s independent IBM evaluation without claiming the hackathon title', () => {
+    const project = projects.find(project => project.slug === 'pmi-sleep-5')!
+    expect(project.featured).toBe(true)
+    expect(project.collaboration).toBe('team')
+    expect(project.recognition?.pt).toContain('Avaliação técnica independente')
+    expect(project.recognition?.en).toContain('Independent IBM technical evaluation')
+    expect(experiences[0].detail.pt).toContain('pitch e Project Canvas não foram considerados')
+    for (const locale of ['pt', 'en'] as const) {
+      expect(existsSync(`content/${locale === 'pt' ? 'projetos' : 'en/projects'}/pmi-sleep-5.mdx`)).toBe(true)
+    }
+    for (const image of ['podium', 'review', 'feedback']) expect(existsSync(`public/media/pmi-ibm-${image}.png`)).toBe(true)
   })
 
   it('identifies Hindsight as a hackathon without changing authorship', () => {

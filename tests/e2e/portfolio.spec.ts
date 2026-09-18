@@ -1,5 +1,26 @@
 import { expect, test } from '@playwright/test'
 
+test('PMI team recognition is featured and its bilingual cases preserve the evaluation context', async ({ page }) => {
+  for (const [home, casePath, ranking] of [
+    ['/', '/projetos/pmi-sleep-5/', '1º lugar · Avaliação técnica independente IBM'],
+    ['/en/', '/en/projects/pmi-sleep-5/', '1st place · Independent IBM technical evaluation'],
+  ]) {
+    await page.goto(home)
+    const carousel = page.locator('[data-squeeze-carousel]')
+    await carousel.locator('[data-sq-next]').click()
+    await expect(carousel.getByRole('tabpanel')).toHaveAttribute('data-project-slug', 'pmi-sleep-5')
+    await expect(carousel.getByRole('tabpanel')).toContainText(ranking)
+    await page.goto(casePath)
+    await expect(page.locator('h1')).toHaveText('PMI Sleep 5 · Krilltech')
+    await expect(page.locator('.case-body')).toContainText('Project Canvas')
+    await expect(page.locator('.review-evidence img')).toHaveCount(3)
+    for (const img of await page.locator('.review-evidence img').all()) {
+      await expect(img).toHaveAttribute('width', /\d+/)
+      await expect(img).toHaveAttribute('alt', /.+/)
+    }
+  }
+})
+
 test('home exposes the recruiter journey', async ({ page }) => {
   await page.goto('/')
   await expect(page.locator('html')).toHaveAttribute('lang', 'pt-BR')
@@ -91,7 +112,8 @@ test('single portrait replaces the project deck and career timeline works', asyn
   const progress = timeline.locator('[data-timeline-progress]')
   await timeline.scrollIntoViewIfNeeded()
   await expect(timeline).toHaveAttribute('data-timeline-ready', 'true')
-  await expect(entries).toHaveCount(4)
+  await expect(entries).toHaveCount(5)
+  await expect(timeline).toContainText('1º lugar · Avaliação técnica independente da IBM')
   await expect(timeline).toContainText('IBM TechXchange 2026')
 
   const before = await progress.evaluate((element) => getComputedStyle(element).transform)
