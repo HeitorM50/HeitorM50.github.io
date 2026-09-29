@@ -1,3 +1,6 @@
+import type { OrganizationId } from './organizations'
+import type { ContributorId } from './contributors'
+
 export type Locale = 'pt' | 'en'
 export type LocalizedText = Record<Locale, string>
 
@@ -7,6 +10,7 @@ export type ProjectLink = {
 }
 
 export type Project = {
+  organizationId?: OrganizationId
   slug: string
   title: string
   year: string
@@ -20,6 +24,7 @@ export type Project = {
   featured: boolean
   category: 'personal' | 'academic' | 'team' | 'embedded'
   collaboration?: 'solo' | 'pair' | 'team'
+  contributors?: ContributorId[]
   status?: LocalizedText
   recognition?: LocalizedText
   metrics?: LocalizedText[]
@@ -29,6 +34,7 @@ export type Experience = {
   period: LocalizedText
   role: LocalizedText
   logo: string
+  organizationId: OrganizationId
   company: string
   summary: LocalizedText
   detail: LocalizedText
@@ -125,7 +131,9 @@ export const copy = {
 
 export const projects: Project[] = [
   {
-    slug: 'hindsight', title: 'Hindsight', year: '2026', featured: true,
+    slug: 'hindsight', organizationId: 'ibm', title: 'Hindsight', year: '2026', featured: true,
+    contributors: ['guxvr', 'HeitorM50', 'HugoFreitass', 'PedroGTG', 'Phill-Chill'],
+    recognition: { pt: '1º lugar · IBM TechXchange 2026', en: '1st place · IBM TechXchange 2026' },
     category: 'team', collaboration: 'team', status: { pt: 'Hackathon · IBM TechXchange', en: 'Hackathon · IBM TechXchange' },
     summary: {
       pt: 'Analisa sessões do IBM Bob, encontra desperdício de contexto e gera uma configuração corrigida para comparação A/B.',
@@ -145,7 +153,8 @@ export const projects: Project[] = [
     ]
   },
   {
-    slug: 'pmi-sleep-5', title: 'PMI Sleep 5 · Krilltech', year: '2026', featured: true,
+    slug: 'pmi-sleep-5', organizationId: 'pmi-df', title: 'PMI Sleep 5 · Krilltech', year: '2026', featured: true,
+    contributors: ['Edupizzol', 'guxvr', 'HeitorM50', 'Bappoz', 'pedruck'],
     category: 'team', collaboration: 'team', status: { pt: 'Hackathon · PMI-DF', en: 'Hackathon · PMI-DF' },
     recognition: { pt: '1º lugar · Avaliação técnica independente IBM', en: '1st place · Independent IBM technical evaluation' },
     summary: { pt: 'Workspace de análise de crédito que reúne cliente, operação e evidências para apoiar a revisão humana. 1º lugar na avaliação técnica independente da IBM, realizada após o hackathon. Demonstração com dados simulados.', en: 'A credit analysis workspace bringing together customers, operations and evidence to support human review. 1st place in IBM’s independent technical evaluation, held after the hackathon. Demonstration with simulated data.' },
@@ -156,6 +165,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'crianex-hub', title: 'Crianex Hub', year: '2026', featured: true,
+    contributors: ['Camile0318', 'HeitorM50', 'HugoFreitass', 'LeoFacB', 'Bappoz', 'Phill-Chill'],
     category: 'team', collaboration: 'team',
     summary: {
       pt: 'Plataforma administrativa e vitrine bilíngue entregue para uma software house e colocada em produção.',
@@ -172,6 +182,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'coops', title: 'CoOps', year: '2025', featured: true,
+    contributors: ['cadumotta', 'guxvr', 'HeitorM50', 'pedruck', 'pedrogrocha13'],
     category: 'team', collaboration: 'team',
     summary: {
       pt: 'Plataforma de métricas de colaboração no GitHub, com dashboards em D3 e síntese dos dados por IA.',
@@ -187,7 +198,8 @@ export const projects: Project[] = [
     metrics: [{ pt: 'Pipeline: 4 h → 30 s', en: 'Pipeline: 4 h → 30 s' }, { pt: '47 commits meus', en: '47 commits by me' }]
   },
   {
-    slug: 'extracao-rda', title: 'ExtracaoRDA', year: '2025', featured: true,
+    slug: 'extracao-rda', organizationId: 'mcti', title: 'ExtracaoRDA', year: '2025', featured: true,
+    contributors: ['HeitorM50'],
     category: 'personal', collaboration: 'solo',
     summary: {
       pt: 'Aplicação desktop que transforma relatórios PADIS em planilhas validadas e remove a transcrição manual do fluxo.',
@@ -203,7 +215,7 @@ export const projects: Project[] = [
     metrics: [{ pt: '0 transcrição manual', en: '0 manual transcription' }, { pt: 'Validação cruzada', en: 'Cross-validation' }]
   },
   {
-    slug: 'pibic-dinamica-veicular', title: 'PIBIC · Dinâmica Veicular', year: '2026', featured: false,
+    slug: 'pibic-dinamica-veicular', organizationId: 'unb', title: 'PIBIC · Dinâmica Veicular', year: '2026', featured: false,
     category: 'academic',
     summary: { pt: 'Modelo multicorpo em C++ validado contra o Project Chrono, com sandbox em Godot.', en: 'A C++ multibody model validated against Project Chrono, with a Godot sandbox.' },
     role: { pt: 'Pesquisa, implementação e documentação técnica por sprint.', en: 'Research, implementation and technical documentation by sprint.' },
@@ -212,6 +224,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'dev-second-brain', title: 'dev-second-brain', year: '2026', featured: false,
+    contributors: ['HeitorM50'],
     category: 'personal', collaboration: 'solo',
     summary: { pt: 'Servidor MCP local que consulta notas e recupera decisões passadas de projeto.', en: 'A local MCP server that queries notes and retrieves past project decisions.' },
     role: { pt: 'Projeto pessoal, com busca e embeddings locais e sem chave de API.', en: 'Personal project with local search and embeddings and no API key.' },
@@ -220,6 +233,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'rbtree-db', title: 'rbtree-db', year: '2026', featured: false,
+    contributors: ['HeitorM50', 'Bappoz'],
     category: 'academic', collaboration: 'pair',
     summary: { pt: 'Banco chave-valor em Rust sobre árvore Rubro-Negra, com range queries e REPL.', en: 'A Rust key-value store built on a Red-Black tree, with range queries and a REPL.' },
     role: { pt: 'Projeto em dupla com benchmarks Criterion.', en: 'Pair project with Criterion benchmarks.' },
@@ -228,6 +242,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'rusty-explorer', title: 'Rusty Explorer', year: '2026', featured: false,
+    contributors: ['HeitorM50', 'Bappoz'],
     category: 'academic', collaboration: 'pair',
     summary: { pt: 'Explorador de arquivos usado para comparar algoritmos de ordenação e busca em cenários reais.', en: 'A file explorer used to compare sorting and search algorithms in real scenarios.' },
     role: { pt: 'Implementação e relatório em dupla.', en: 'Pair implementation and report.' },
@@ -236,6 +251,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'quadtree-compressor', title: 'Quadtree Compressor', year: '2026', featured: false,
+    contributors: ['HeitorM50', 'Bappoz'],
     category: 'academic', collaboration: 'pair',
     summary: { pt: 'Compressor de imagens em tons de cinza com Quadtree e formato binário próprio.', en: 'A grayscale image compressor using a Quadtree and a custom binary format.' },
     role: { pt: 'Projeto em dupla com avaliação de compressão e PSNR.', en: 'Pair project evaluating compression and PSNR.' },
@@ -244,6 +260,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'crypto-arbitrage-graph', title: 'CryptoArbitrageGraph', year: '2026', featured: false,
+    contributors: ['HeitorM50', 'Bappoz'],
     category: 'academic', collaboration: 'team',
     summary: { pt: 'Detecção de arbitragem triangular em cripto com Bellman-Ford e visualização interativa.', en: 'Triangular crypto arbitrage detection with Bellman-Ford and an interactive visualisation.' },
     role: { pt: 'Projeto acadêmico em equipe.', en: 'Academic team project.' },
@@ -258,7 +275,7 @@ export const projects: Project[] = [
     stack: ['Next.js', 'TypeScript', 'Node.js'], links: {}
   },
   {
-    slug: 'unbaja-telemetria', title: 'UnBaja · Telemetria embarcada', year: '2024 — 2026', featured: false,
+    slug: 'unbaja-telemetria', organizationId: 'unbaja', title: 'UnBaja · Telemetria embarcada', year: '2024 — 2026', featured: false,
     category: 'embedded', collaboration: 'team',
     status: { pt: 'Sistema embarcado construído', en: 'Embedded system built' },
     summary: { pt: 'Quatro nós ECU em barramento CAN levam os dados dos sensores até o display TFT do piloto.', en: 'Four ECU nodes on a CAN bus carry sensor data to the driver’s TFT display.' },
@@ -266,7 +283,8 @@ export const projects: Project[] = [
     stack: ['C++', 'ESP32', 'Arduino', 'CAN', 'TFT'], links: {}
   },
   {
-    slug: 'baja-telemetry-api', title: 'baja-telemetry-api', year: '2026', featured: false,
+    slug: 'baja-telemetry-api', organizationId: 'unbaja', title: 'baja-telemetry-api', year: '2026', featured: false,
+    contributors: ['HeitorM50'],
     category: 'embedded', collaboration: 'solo',
     status: { pt: 'Em desenvolvimento', en: 'In development' },
     summary: { pt: 'A próxima etapa da telemetria: guardar o que hoje passa pelo display e permitir a análise após cada teste.', en: 'The next step for telemetry: retain what currently passes through the display and enable analysis after each test.' },
@@ -276,6 +294,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'omapkdex', title: 'OmaPkDex', year: '2026', featured: false,
+    contributors: ['HeitorM50'],
     category: 'personal', collaboration: 'solo',
     summary: { pt: 'Um companheiro virtual na barra do Omarchy que evolui com o uso de tokens, com coleção, histórico e progressão persistente.', en: 'A virtual companion in the Omarchy bar that evolves with token usage, with a collection, history and persistent progression.' },
     role: { pt: 'Implementação para Linux em Python e QML, lendo os registros locais de uso. Inspirado no PokeTokenBar.', en: 'Linux implementation in Python and QML, reading local usage records. Inspired by PokeTokenBar.' },
@@ -284,6 +303,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'omarchy-gcal', title: 'omarchy-gcal', year: '2026', featured: false,
+    contributors: ['HeitorM50'],
     category: 'personal', collaboration: 'solo',
     summary: { pt: 'Google Calendar integrado à barra do desktop, com agenda, cache offline e lembretes nativos.', en: 'Google Calendar integrated into the desktop bar, with an agenda, offline cache and native reminders.' },
     role: { pt: 'Interface QML, autenticação OAuth, sincronização em Python e agendamento de lembretes com systemd.', en: 'QML interface, OAuth authentication, Python synchronization and reminder scheduling with systemd.' },
@@ -292,6 +312,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'ia2-bloodmnist', title: 'IA2 · BloodMNIST', year: '2026', featured: false,
+    contributors: ['guxvr', 'HeitorM50'],
     category: 'academic', collaboration: 'pair', status: { pt: 'Pesquisa acadêmica', en: 'Academic research' },
     summary: { pt: 'Comparação de regressão logística, CNN compacta e ResNet18 na classificação de células sanguíneas, sob o mesmo protocolo experimental.', en: 'Comparison of logistic regression, a compact CNN and ResNet18 for blood cell classification under the same experimental protocol.' },
     role: { pt: 'Pipeline de dados, linha de base e transfer learning; Metodologia, Resumo e Conclusão do artigo escrito em dupla.', en: 'Data pipeline, baseline and transfer learning; Methodology, Abstract and Conclusion of the paper written as a pair.' },
@@ -319,7 +340,7 @@ export const experiences: Experience[] = [
   {
     period: { pt: '2024 — ATUAL', en: '2024 — NOW' },
     role: { pt: 'Líder de Eletrônica (Sistemas Embarcados)', en: 'Electronics Lead (Embedded Systems)' },
-    logo: 'BAJA', company: 'UnBaja — Equipe Baja SAE UnB · Brasília, DF',
+    logo: 'BAJA', organizationId: 'unbaja', company: 'UnBaja — Equipe Baja SAE UnB · Brasília, DF',
     summary: { pt: 'Desenvolvi o sistema de telemetria embarcado do Baja SAE Nacional 2026. São quatro nós ECU, dois Arduinos e um ESP32, comunicando por barramento CAN, com os dados exibidos ao piloto em tempo real num display TFT.', en: 'I built the embedded telemetry system for Baja SAE Nacional 2026. It has four ECU nodes, two Arduinos and one ESP32, communicating over a CAN bus, with data shown to the driver in real time on a TFT display.' },
     detail: { pt: 'Cuidei da cadeia inteira: leitura dos sensores, protocolo entre os nós, tratamento dos dados e a interface de bordo.', en: 'I handled the whole chain: sensor reading, the protocol between nodes, data processing and the on-board interface.' },
     highlight: { pt: 'Lidero quatro integrantes do subsistema de eletrônica, com distribuição de tarefas, planejamento técnico e prestação de contas à universidade.', en: 'I lead four members of the electronics subsystem, handling task distribution, technical planning and accountability to the university.' },
@@ -330,7 +351,7 @@ export const experiences: Experience[] = [
   {
     period: { pt: '2025 — 2026', en: '2025 — 2026' },
     role: { pt: 'Estágio no MCTI — Product Owner Jr.', en: 'Internship at MCTI — Junior Product Owner' },
-    logo: 'MCTI', company: 'Ministério da Ciência, Tecnologia e Inovação · Brasília, DF',
+    logo: 'MCTI', organizationId: 'mcti', company: 'Ministério da Ciência, Tecnologia e Inovação · Brasília, DF',
     summary: { pt: 'Estágio no MCTI como Product Owner Jr. do NOVO SIGPLANI, plataforma que atende ao programa PADIS. O papel vinha da participação no Scrum semanal do produto.', en: "Internship at MCTI as Junior Product Owner for NOVO SIGPLANI, the platform serving the PADIS programme. The role came from taking part in the product's weekly Scrum." },
     detail: { pt: 'Refinamento de regras de negócio, reporte de erros e priorização junto ao Product Owner.', en: 'Business-rule refinement, bug reporting and prioritisation with the Product Owner.' },
     highlight: { pt: 'Por iniciativa própria, desenvolvi sozinho o ExtracaoRDA, automação em Python que lê PDFs de RDA e gera planilhas Excel.', en: 'On my own initiative, I single-handedly built ExtracaoRDA, a Python automation that reads RDA PDFs and generates Excel spreadsheets.' },
@@ -341,7 +362,7 @@ export const experiences: Experience[] = [
   {
     period: { pt: '2026 — ATUAL', en: '2026 — NOW' },
     role: { pt: 'Pesquisador — Iniciação Científica', en: 'Undergraduate Researcher' },
-    logo: 'UnB', company: 'Universidade de Brasília (UnB) · Brasília, DF',
+    logo: 'UnB', organizationId: 'unb', company: 'Universidade de Brasília (UnB) · Brasília, DF',
     summary: { pt: 'Pesquisa em dinâmica veicular. Modelo multicorpo em C++ validado contra o Project Chrono, com um sandbox na engine Godot para estudar powertrain, torque e suspensão. A entrega prevista inclui um artigo científico.', en: 'Research in vehicle dynamics. C++ multibody model validated against Project Chrono, with a sandbox in the Godot engine to study powertrain, torque and suspension. Deliverables include a scientific paper.' },
     detail: { pt: 'Modelagem da movimentação do veículo em terreno irregular, em C++ sobre a engine Godot.', en: 'Modelling vehicle movement over irregular terrain, in C++ on the Godot engine.' },
     highlight: { pt: 'Documentação técnica publicada em Docusaurus e atualizada a cada sprint semanal.', en: 'Technical documentation published in Docusaurus and updated each weekly sprint.' },
@@ -351,19 +372,19 @@ export const experiences: Experience[] = [
   },
   {
     period: { pt: 'AGO 2026', en: 'AUG 2026' },
-    role: { pt: 'Hackathon IBM TechXchange 2026', en: 'IBM TechXchange 2026 Hackathon' },
-    logo: 'IBM', company: 'IBM TechXchange 2026 · Pre-conference Dev Day Hackathon',
-    summary: { pt: 'Num time de cinco, construí o Hindsight: uma ferramenta que lê o export de uma sessão do IBM Bob e mostra onde a configuração do agente desperdiça contexto e dinheiro.', en: 'In a team of five, I built Hindsight: a tool that reads an IBM Bob session export and shows where the agent configuration wastes context and money.' },
-    detail: { pt: 'Executei o experimento A/B: mesma tarefa, mesmo commit e mesmo prompt, mudando apenas a configuração do agente.', en: 'I ran the A/B experiment: same task, same commit and same prompt, changing only the agent configuration.' },
+    role: { pt: '1º lugar · Hackathon IBM TechXchange 2026', en: '1st place · IBM TechXchange 2026 Hackathon' },
+    logo: 'IBM', organizationId: 'ibm', company: 'IBM TechXchange 2026 · Pre-conference Dev Day Hackathon',
+    summary: { pt: 'Com a equipe OsBiruBob, de cinco integrantes, conquistei o 1º lugar com o Hindsight: uma ferramenta que analisa sessões do IBM Bob e identifica desperdício de contexto e custo.', en: 'With the five-person OsBiruBob team, I won 1st place with Hindsight: a tool that analyses IBM Bob sessions and identifies wasted context and cost.' },
+    detail: { pt: 'Executei o experimento A/B com a mesma tarefa, commit e prompt: 25,9% menos overhead fixo e 19,7% menos custo de API ao mudar a configuração do agente.', en: 'I ran the A/B experiment with the same task, commit and prompt: 25.9% less fixed overhead and 19.7% lower API cost after changing the agent configuration.' },
     highlight: { pt: 'Também entreguei o esqueleto React com Vite, três detectores de desperdício e o deploy estático com CI.', en: 'I also delivered the React skeleton with Vite, three waste detectors and the static CI deployment.' },
-    metricValue: { pt: '−25,9%', en: '−25.9%' },
-    metric: { pt: 'Queda no overhead fixo, com 19,7% a menos de custo de API.', en: 'Drop in fixed overhead, with 19.7% lower API cost.' },
+    metricValue: { pt: '1º lugar', en: '1st place' },
+    metric: { pt: 'Equipe OsBiruBob · IBM TechXchange 2026 Pre-conference Dev Day Hackathon.', en: 'OsBiruBob team · IBM TechXchange 2026 Pre-conference Dev Day Hackathon.' },
     stack: ['TypeScript', 'React', 'Vite', 'Vitest']
   },
   {
     period: { pt: '2026 · PÓS-HACKATHON', en: '2026 · POST-HACKATHON' },
     role: { pt: '1º lugar · Avaliação técnica independente da IBM', en: '1st place · Independent IBM technical evaluation' },
-    logo: 'PMI', company: 'Sleep 5 · Desafio com IBM Bob · Hackathon PMI-DF',
+    logo: 'PMI', organizationId: 'pmi-df', company: 'Sleep 5 · Desafio com IBM Bob · Hackathon PMI-DF',
     summary: { pt: 'Nossa equipe Sleep 5 ficou em primeiro lugar na avaliação técnica independente da IBM, baseada nos repositórios entregues para o desafio de risco de crédito no agronegócio da Krill Tech.', en: 'Our Sleep 5 team placed first in IBM’s independent technical evaluation of the repositories submitted for Krill Tech’s agricultural credit-risk challenge.' },
     detail: { pt: 'Parecer emitido após o hackathon, com critérios próprios: pitch e Project Canvas não foram considerados.', en: 'The review was issued after the hackathon, using separate criteria: the pitch and Project Canvas were not considered.' },
     highlight: { pt: 'Destaque do parecer: melhor rigor técnico e científico, com testes automatizados, scoring fundamentado e transparência sobre as limitações.', en: 'Review highlight: strongest technical and scientific rigor, with automated tests, grounded scoring and transparency about limitations.' },

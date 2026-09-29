@@ -105,7 +105,7 @@ test('all projects and the Lab remain usable without JavaScript', async ({ brows
   for (const panel of await page.locator('[data-sq-panel]').all()) await expect(panel).toBeVisible()
   await page.locator('.embedded-lab summary').click()
   await expect(page.locator('.telemetry-path')).toBeVisible()
-  await expect(page.locator('[data-project-slug="baja-telemetry-api"] a')).toHaveAttribute('href', 'https://github.com/UnBajaSAE/baja-telemetry-api')
+  await expect(page.locator('[data-project-slug="baja-telemetry-api"]').getByRole('link', { name: 'Código e documentação' })).toHaveAttribute('href', 'https://github.com/UnBajaSAE/baja-telemetry-api')
   await context.close()
 })
 

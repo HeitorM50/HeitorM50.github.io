@@ -12,7 +12,10 @@ const required = [
   'vendor/embedded/loader.js', 'vendor/embedded/portfolio-ui.js', 'media/pmi-workspace.webp', 'media/pmi-workspace.avif',
   'media/omapkdex.webp', 'media/omapkdex.avif',
   'projetos/pmi-sleep-5/index.html', 'en/projects/pmi-sleep-5/index.html',
-  'media/pmi-ibm-podium.png', 'media/pmi-ibm-review.png', 'media/pmi-ibm-feedback.png'
+  'media/pmi-ibm-podium.png', 'media/pmi-ibm-review.png', 'media/pmi-ibm-feedback.png',
+  'media/hindsight-winner.webp', 'media/hindsight-winner.avif',
+  'certificates/ibm-dev-day-bob-in-action.pdf', 'certificates/hackathon-pmi-df-2026.pdf',
+  'certificates/ifood-camp.pdf'
 ]
 const forbidden = ['media/scroll-reveal.mp4', 'media/logo.webp', 'media/logo.avif']
 

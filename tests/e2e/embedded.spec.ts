@@ -13,9 +13,8 @@ async function stubScene(page: Page) {
 }
 
 test('curated projects and embedded navigation are bilingual and indexable', async ({ page }) => {
-  for (const [path, nav, contribution] of [['/', 'Embarcados', 'Minha contribuição'], ['/en/', 'Embedded systems', 'My contribution']]) {
+  for (const [path, contribution] of [['/', 'Minha contribuição'], ['/en/', 'My contribution']]) {
     await page.goto(path)
-    await expect(page.getByRole('link', { name: nav, exact: true })).toHaveAttribute('href', `${path}#embarcados`)
     await expect(page.locator('.hero-stats')).toHaveCount(0)
     await expect(page.locator('[data-squeeze-carousel]')).toHaveCount(1)
     for (const slug of ['omapkdex', 'omarchy-gcal', 'ia2-bloodmnist', 'pmi-sleep-5']) {
@@ -82,7 +81,7 @@ test('reduced motion requires an explicit choice and network failures have a fal
   await expect(host.getByRole('status')).toContainText('3D is unavailable')
   await expect(host.getByRole('button', { name: 'Try again' })).toBeEnabled()
   await expect(host.locator('.embedded-circuit')).toHaveCSS('opacity', '1')
-  await expect(page.locator('[data-project-slug="baja-telemetry-api"] a')).toHaveAttribute('href', 'https://github.com/UnBajaSAE/baja-telemetry-api')
+  await expect(page.locator('[data-project-slug="baja-telemetry-api"]').getByRole('link', { name: 'Code and documentation', includeHidden: true })).toHaveAttribute('href', 'https://github.com/UnBajaSAE/baja-telemetry-api')
 })
 
 test('missing WebGL preserves the static composition and project content', async ({ page }) => {
@@ -106,7 +105,7 @@ test('small screens keep the navigation and embedded content within the viewport
   await page.emulateMedia({ reducedMotion: 'reduce' })
   await page.setViewportSize({ width: 320, height: 720 })
   await page.goto('/')
-  const dock = await page.locator('[data-dock-panel]').boundingBox()
+  const dock = await page.locator('.header-controls').boundingBox()
   expect(dock!.x).toBeGreaterThanOrEqual(0)
   expect(dock!.x + dock!.width).toBeLessThanOrEqual(320)
   await page.locator('#embarcados').scrollIntoViewIfNeeded()

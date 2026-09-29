@@ -1,9 +1,11 @@
+import { OrganizationMark } from './OrganizationMark'
 import { ArrowLeft, ArrowUpRight, ChevronDown, Cpu, Radio, Server } from 'lucide-react'
 import { Card } from '@/components/ui/card'
 import { benchPhotos, projects, type Locale } from '@/data/portfolio'
 import { EmbeddedScene } from './EmbeddedScene'
 import { Picture } from './Picture'
 import { ProjectMeta } from './ProjectMeta'
+import { ProjectContributors } from './ProjectContributors'
 import { EmbeddedLabTrigger } from './EmbeddedLabTrigger'
 import { LiquidButton } from './ui/liquid-glass-button'
 
@@ -15,7 +17,7 @@ export function EmbeddedSection({ locale }: { locale: Locale }) {
       <p className="section-index">02 — {pt ? 'EMBARCADOS' : 'EMBEDDED SYSTEMS'}</p>
       <Card className="embedded-hero">
         <div className="embedded-intro">
-          <p className="embedded-kicker"><span /> UNBAJA SAE · UnB</p>
+          <p className="embedded-kicker"><OrganizationMark id="unbaja" /> UNBAJA SAE · UnB</p>
           <h2 id="embedded-title">{pt ? <>Do sensor<br />ao <span>software.</span></> : <>From sensor<br />to <span>software.</span></>}</h2>
           <p>{pt ? 'No Baja, o código encontra o mundo físico. Sensores, comunicação e decisões técnicas precisam funcionar juntos — na bancada e dentro do carro.' : 'In Baja, code meets the physical world. Sensors, communication and technical decisions need to work together — on the bench and inside the car.'}</p>
           <div className="embedded-facts"><span><strong>4</strong> {pt ? 'nós ECU' : 'ECU nodes'}</span><span><strong>CAN</strong> {pt ? 'comunicação' : 'communication'}</span><span><strong>TFT</strong> {pt ? 'interface de bordo' : 'on-board interface'}</span></div>
@@ -46,6 +48,7 @@ export function EmbeddedSection({ locale }: { locale: Locale }) {
           <p className="project-contribution"><strong>{pt ? 'Minha contribuição' : 'My contribution'}</strong>{project.role[locale]}</p>
           {index === 1 && <p className="embedded-progress">{pt ? 'Já implementado: esqueleto da API e ingestão inicial. Próximas etapas: decodificação, persistência temporal e consultas.' : 'Implemented: API foundation and initial ingestion. Next steps: decoding, time-series persistence and queries.'}</p>}
           <div className="tech-list">{project.stack.map(item => <span key={item}>{item}</span>)}</div>
+          <ProjectContributors project={project} locale={locale} />
           {project.links.source && <a className="embedded-source text-action" href={project.links.source} target="_blank" rel="noreferrer">{pt ? 'Código e documentação' : 'Code and documentation'} <ArrowUpRight size={17} aria-hidden="true" /></a>}
         </article>
       })}</div>

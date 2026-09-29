@@ -1,9 +1,12 @@
+import { OrganizationMark } from './OrganizationMark'
 /* eslint-disable @next/next/no-img-element */
 import Link from 'next/link'
-import type { CSSProperties } from 'react'
 import { Header } from './Header'
 import { EmbeddedSection } from './EmbeddedSection'
 import { ProjectMeta } from './ProjectMeta'
+import { ProjectContributors } from './ProjectContributors'
+import { CertificatesSection } from './CertificatesSection'
+import { Trophy, ArrowUpRight } from 'lucide-react'
 import { SqueezeCarousel } from '@/components/ui/carousel-squeeze'
 import NeuralBackground from '@/components/ui/flow-field-background'
 import ProfileCard from '@/components/ui/profile-card'
@@ -34,7 +37,7 @@ export function HomePage({ locale }: { locale: Locale }) {
     title: experience.period[locale],
     content: <article className="experience-card">
       <div className="experience-main">
-        <header><span>{experience.logo}</span><div><h4>{experience.role[locale]}</h4><p>{experience.company}</p></div></header>
+        <header><OrganizationMark id={experience.organizationId} context="timeline" /><div><h4>{experience.role[locale]}</h4><p>{experience.company}</p></div></header>
         <p>{experience.summary[locale]}</p>
         <ul><li>{experience.detail[locale]}</li><li>{experience.highlight[locale]}</li></ul>
       </div>
@@ -61,6 +64,11 @@ export function HomePage({ locale }: { locale: Locale }) {
             <p className="hero-name">Heitor Ricardo</p>
             <h1 id="hero-title">{pt ? <>Engenharia de Software.<br />Entre código e <span className="shine-text">mundo real.</span></> : <>Software Engineering.<br />Between code and the <span className="shine-text">real world.</span></>}</h1>
             <p className="hero-intro">{pt ? 'Estudante na UnB. Desenvolvo backend, soluções de dados e sistemas embarcados com Python, TypeScript, C++ e Rust.' : 'Student at UnB. I build backends, data solutions and embedded systems with Python, TypeScript, C++ and Rust.'}</p>
+            <Link className="hero-award" href={pt ? '/projetos/hindsight/' : '/en/projects/hindsight/'}>
+              <Trophy size={24} aria-hidden="true" />
+              <span><strong>{pt ? '1º lugar · IBM TechXchange 2026' : '1st place · IBM TechXchange 2026'}</strong><small>Hindsight · {pt ? 'Equipe OsBiruBob' : 'OsBiruBob team'}</small></span>
+              <ArrowUpRight size={20} aria-hidden="true" />
+            </Link>
             <p className="hero-bio">{pt ? 'Curso Engenharia de Software na UnB, com conclusão prevista para março de 2029, e Análise e Desenvolvimento de Sistemas no GRAN. Minha formação conecta desenvolvimento de software, pesquisa e trabalho em equipe.' : 'I study Software Engineering at UnB, with graduation expected in March 2029, and Systems Analysis and Development at GRAN. My education connects software development, research and teamwork.'}</p>
             <div className="hero-actions">
               <LiquidButton asChild size="xl"><a href="#projetos">{pt ? 'Ver projetos' : 'See my work'}</a></LiquidButton>
@@ -87,7 +95,7 @@ export function HomePage({ locale }: { locale: Locale }) {
               imageWidth: project.coverWidth, imageHeight: project.coverHeight,
               imageAlt: `${project.title} — ${pt ? 'captura do projeto' : 'project screenshot'}`,
               background: 'linear-gradient(135deg, var(--solid), color-mix(in oklab, var(--accent) 24%, var(--solid)))',
-              content: <><div className="sq-context">{projectGroups.find(group => group.id === project.category)?.[locale]} <span>/ {project.year}</span></div><ProjectMeta project={project} locale={locale} /><p className="project-contribution"><strong>{pt ? 'Minha contribuição' : 'My contribution'}</strong>{project.role[locale]}</p><div className="tech-list">{project.stack.map(item => <span key={item}>{item}</span>)}</div><ProjectButtons project={project} locale={locale} /></>
+              content: <><div className="sq-context">{projectGroups.find(group => group.id === project.category)?.[locale]} <span>/ {project.year}</span></div><ProjectMeta project={project} locale={locale} /><p className="project-contribution"><strong>{pt ? 'Minha contribuição' : 'My contribution'}</strong>{project.role[locale]}</p><ProjectContributors project={project} locale={locale} /><div className="tech-list">{project.stack.map(item => <span key={item}>{item}</span>)}</div><ProjectButtons project={project} locale={locale} /></>
             }))} />
           <p className="catalogue-note">{pt ? 'Hardware e telemetria têm um espaço próprio: ' : 'Hardware and telemetry have their own space: '}<a className="text-action" href="#embarcados">{pt ? 'Lab de Embarcados' : 'Embedded Lab'} ↗</a></p>
         </div>
@@ -99,15 +107,24 @@ export function HomePage({ locale }: { locale: Locale }) {
         <div className="content-shell"><p className="section-index">03 — {pt ? 'TRAJETÓRIA' : 'TIMELINE'}</p><Timeline data={timelineData} heading={pt ? 'Linha do tempo' : 'Career timeline'} description={pt ? 'Da formação às experiências em que assumi mais responsabilidade.' : 'From education to experiences with growing responsibility.'} /></div>
       </section>
 
-      <section className="legacy-section" id="stack" aria-labelledby="stack-title">
+      <CertificatesSection locale={locale} />
+
+      <section className="legacy-section tools-section" id="stack" aria-labelledby="stack-title">
         <div className="content-shell">
-          <div className="split-heading"><div><p className="section-index">04 — STACK</p><h2 className="section-title" id="stack-title">{pt ? 'Ferramentas do dia a dia' : 'Everyday tools'}</h2></div><p className="regular-note">{pt ? 'Tecnologias usadas nos projetos e experiências acima.' : 'Technologies used in the projects and experiences above.'}</p></div>
-          <div className="stack-grid">{stackGroups.map((group, groupIndex) => <article className="stack-card" key={group.en}><header><span style={{ '--dot-hue': `${285 + groupIndex * 55}` } as CSSProperties} />{group[locale]}<small>{String(group.items.length).padStart(2, '0')}</small></header><div>{group.items.map(item => <span className="stack-chip" key={item}>{stackIcons[item] && <img src={`/assets/icons/ic_${stackIcons[item]}.svg`} alt="" loading="lazy" decoding="async" />} {item}</span>)}</div></article>)}</div>
+          <header className="tools-heading">
+            <p className="section-index">05 — STACK</p>
+            <h2 id="stack-title">{pt ? 'Ferramentas do dia a dia' : 'Everyday tools'}</h2>
+            <p className="tools-description">{pt ? 'Tecnologias usadas nos projetos e experiências acima.' : 'Technologies used in the projects and experiences above.'}</p>
+          </header>
+          <div className="tools-list">{stackGroups.map((group, index) => <section className="tools-group" key={group.en} aria-labelledby={`tools-group-${index}`}>
+            <h3 id={`tools-group-${index}`}>{group[locale]}</h3>
+            <ul>{group.items.map(item => <li key={item}>{stackIcons[item] && <img src={`/assets/icons/ic_${stackIcons[item]}.svg`} alt="" width={16} height={16} loading="lazy" decoding="async" />}<span>{item}</span></li>)}</ul>
+          </section>)}</div>
         </div>
       </section>
 
       <section className="legacy-section contact-section" id="contato" aria-labelledby="contact-title">
-        <div className="contact-shell"><p className="section-index">05 — {pt ? 'CONTATO' : 'CONTACT'}</p><h2 className="shine-text" id="contact-title">{pt ? 'Vamos conversar?' : 'Let’s talk.'}</h2><p>{pt ? 'Para oportunidades de estágio, projetos e boas conversas sobre tecnologia.' : 'For internship opportunities, projects and good conversations about technology.'}</p><LiquidButton asChild size="xl" className="email-liquid-button"><a href={`mailto:${site.email}`}>{site.email}</a></LiquidButton><div><a href={site.github} target="_blank" rel="noreferrer">GITHUB</a><a href={site.linkedin} target="_blank" rel="noreferrer">LINKEDIN</a><a href={site.cv} target="_blank" rel="noreferrer">CV · PDF</a></div></div>
+        <div className="contact-shell"><p className="section-index">06 — {pt ? 'CONTATO' : 'CONTACT'}</p><h2 className="shine-text" id="contact-title">{pt ? 'Vamos conversar?' : 'Let’s talk.'}</h2><p>{pt ? 'Para oportunidades de estágio, projetos e boas conversas sobre tecnologia.' : 'For internship opportunities, projects and good conversations about technology.'}</p><LiquidButton asChild size="xl" className="email-liquid-button"><a href={`mailto:${site.email}`}>{site.email}</a></LiquidButton><div><a href={site.github} target="_blank" rel="noreferrer">GITHUB</a><a href={site.linkedin} target="_blank" rel="noreferrer">LINKEDIN</a><a href={site.cv} target="_blank" rel="noreferrer">CV · PDF</a></div></div>
       </section>
     </main>
     <footer className="site-footer"><span>© {new Date().getFullYear()} {site.name}</span><span>REACT · NEXT.JS · NEXTRA · BRASÍLIA</span></footer>

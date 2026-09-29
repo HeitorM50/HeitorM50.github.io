@@ -1,66 +1,19 @@
 import Link from 'next/link'
-import { Boxes, BriefcaseBusiness, Cpu, Mail, Milestone, SunMoon, UserRound } from 'lucide-react'
+import { Moon, Sun } from 'lucide-react'
 import { copy, type Locale } from '@/data/portfolio'
-import { Dock, DockIcon, DockItem, DockLabel } from '@/components/ui/dock'
-import { MetallicLogo } from '@/components/ui/metallic-paint'
 
-type HeaderProps = {
-  locale: Locale
-  alternateHref: string
-}
-
-export function Header({ locale, alternateHref }: HeaderProps) {
+export function Header({ locale, alternateHref }: { locale: Locale; alternateHref: string }) {
   const text = copy[locale]
-  const home = locale === 'pt' ? '/' : '/en/'
-  const portugueseHref = locale === 'en' ? alternateHref : '/'
-  const englishHref = locale === 'pt' ? alternateHref : '/en/'
-  const items = [
-    { label: text.nav.about, href: `${home}#sobre`, icon: UserRound },
-    { label: text.nav.work, href: `${home}#projetos`, icon: BriefcaseBusiness },
-    { label: locale === 'pt' ? 'Embarcados' : 'Embedded systems', href: `${home}#embarcados`, icon: Cpu },
-    { label: text.nav.experience, href: `${home}#exp`, icon: Milestone },
-    { label: 'Stack', href: `${home}#stack`, icon: Boxes },
-    { label: text.nav.contact, href: `${home}#contato`, icon: Mail },
-  ]
-
-  return (
-    <header className="site-header">
-      <nav className="dock-navigation" aria-label="Primary">
-        <Dock label={text.menuLabel} itemSize={36} magnification={64} distance={130}>
-          <div className="dock-brand" role="img" aria-label="Heitor Ricardo">
-            <MetallicLogo />
-          </div>
-
-          <span className="dock-separator" aria-hidden="true" />
-
-          {items.map(({ label, href, icon: Icon }) => (
-            <DockItem key={href}>
-              <DockLabel>{label}</DockLabel>
-              <DockIcon>
-                <a className="dock-action" href={href} aria-label={label}>
-                  <Icon aria-hidden="true" />
-                </a>
-              </DockIcon>
-            </DockItem>
-          ))}
-
-          <span className="dock-separator" aria-hidden="true" />
-
-          <div className="dock-language" aria-label={text.languageLabel}>
-            <Link className={locale === 'pt' ? 'active' : ''} href={portugueseHref} hrefLang="pt-BR" aria-label={locale === 'en' ? text.languageLabel : undefined}>PT</Link>
-            <Link className={locale === 'en' ? 'active' : ''} href={englishHref} hrefLang="en" aria-label={locale === 'pt' ? text.languageLabel : undefined}>EN</Link>
-          </div>
-
-          <DockItem>
-            <DockLabel>{text.themeLabel}</DockLabel>
-            <DockIcon>
-              <button className="dock-action dock-theme" type="button" data-theme-toggle aria-label={text.themeLabel}>
-                <SunMoon aria-hidden="true" />
-              </button>
-            </DockIcon>
-          </DockItem>
-        </Dock>
+  return <header className="site-header">
+    <div className="header-controls">
+      <nav className="header-language" aria-label={locale === 'pt' ? 'Idioma' : 'Language'}>
+        <Link href={locale === 'en' ? alternateHref : '/'} hrefLang="pt-BR" aria-current={locale === 'pt' ? 'page' : undefined} aria-label={locale === 'en' ? text.languageLabel : undefined}>PT</Link>
+        <Link href={locale === 'pt' ? alternateHref : '/en/'} hrefLang="en" aria-current={locale === 'en' ? 'page' : undefined} aria-label={locale === 'pt' ? text.languageLabel : undefined}>EN</Link>
       </nav>
-    </header>
-  )
+      <button className="header-theme" type="button" data-theme-toggle aria-label={text.themeLabel}>
+        <Sun className="theme-sun" size={18} aria-hidden="true" />
+        <Moon className="theme-moon" size={18} aria-hidden="true" />
+      </button>
+    </div>
+  </header>
 }

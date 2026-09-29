@@ -47,11 +47,14 @@ describe('portfolio data', () => {
     for (const image of ['podium', 'review', 'feedback']) expect(existsSync(`public/media/pmi-ibm-${image}.png`)).toBe(true)
   })
 
-  it('identifies Hindsight as a hackathon without changing authorship', () => {
+  it('identifies the Hindsight win without changing team authorship', () => {
     const hindsight = projects.find(project => project.slug === 'hindsight')!
     expect(hindsight.collaboration).toBe('team')
     expect(hindsight.status?.pt).toContain('Hackathon · IBM TechXchange')
     expect(hindsight.status?.en).toContain('Hackathon · IBM TechXchange')
+    expect(hindsight.recognition?.pt).toBe('1º lugar · IBM TechXchange 2026')
+    expect(hindsight.recognition?.en).toBe('1st place · IBM TechXchange 2026')
+    expect(experiences.find(experience => experience.logo === 'IBM')?.metricValue.pt).toBe('1º lugar')
   })
 
   it('assigns every archive project to a visible section and keeps covers available', () => {
