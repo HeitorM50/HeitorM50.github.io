@@ -8,7 +8,7 @@ import { projects } from './portfolio'
 describe('published credentials and credits', () => {
   it('uses valid categories, bilingual titles and existing certificate documents', () => {
     expect(new Set(certificates.map(item => item.id)).size).toBe(certificates.length)
-    expect(certificates).toHaveLength(8)
+    expect(certificates).toHaveLength(12)
     for (const item of certificates) {
       expect(certificateCategories.some(category => category.id === item.category)).toBe(true)
       expect(existsSync(`public/media/organizations/${organizations[item.organizationId].image}`)).toBe(true)

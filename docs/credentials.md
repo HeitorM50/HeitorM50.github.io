@@ -5,6 +5,7 @@
 - Hindsight: os dois e-mails da organização fornecidos pelo proprietário confirmam o **1º lugar da equipe OsBiruBob no IBM TechXchange 2026 Pre-conference Dev Day Hackathon**. A arte oficial está em `images/hindsight-winner.png`; o texto dos e-mails não é publicado. Não há URL verificada da postagem do LinkedIn.
 - PMI Sleep 5: manter o resultado como **avaliação técnica independente da IBM**, posterior ao hackathon, conforme o parecer já publicado no estudo de caso.
 - Anthropic e extensão UnB: currículo e exportação do perfil LinkedIn fornecidos pelo proprietário. Sem datas, horas ou URLs de credenciais verificadas.
+- Extensão UnB 2026 (PyTorch, Código Seguro, Mesa Redonda de Programação Competitiva, XIV Maratona UnB de Programação): certificados DEX/SIGAA emitidos em 15/10/2026, fornecidos pelo proprietário. Datas e cargas horárias são as do documento. Os PDFs não são publicados porque exibem o CPF.
 - IBM Dev Day, PMI-DF e iFood CAMP: PDFs originais de participação em `public/certificates/`. As datas são dos eventos, não datas de emissão. O iFood CAMP não informa o ano; não deduzir pelo nome ou data do arquivo. O original do PMI tem uma repetição no nome do participante e é preservado sem alteração.
 
 ## Equipes

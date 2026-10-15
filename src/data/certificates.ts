@@ -41,5 +41,25 @@ export const certificates: Certificate[] = [
   },
   { id: 'unbaja-extension', category: 'extension', title: { pt: 'Equipe de Competição (UnBaja)', en: 'Competition Team (UnBaja)' }, organizationId: 'unb', issuer: 'UnB' },
   { id: 'unb-courses-showcase', category: 'extension', title: { pt: 'Mostra de Cursos', en: 'Degree Program Showcase' }, organizationId: 'unb', issuer: 'UnB' },
-  { id: 'unb-research-labs', category: 'extension', title: { pt: 'Laboratórios de Pesquisa', en: 'Research Laboratories' }, organizationId: 'unb', issuer: 'UnB' }
+  { id: 'unb-research-labs', category: 'extension', title: { pt: 'Laboratórios de Pesquisa', en: 'Research Laboratories' }, organizationId: 'unb', issuer: 'UnB' },
+  {
+    id: 'unb-pytorch-deep-learning', category: 'extension',
+    title: { pt: 'Introdução ao Aprendizado Profundo com PyTorch', en: 'Introduction to Deep Learning with PyTorch' }, organizationId: 'unb', issuer: 'UnB · FCTE',
+    date: { pt: '20–25 set. 2026', en: '20–25 Sep 2026' }, hours: 8
+  },
+  {
+    id: 'unb-secure-code', category: 'extension',
+    title: { pt: 'Código Seguro: da Ideia à Produção', en: 'Secure Code: From Idea to Production' }, organizationId: 'unb', issuer: 'UnB · FCTE',
+    date: { pt: '22 set. 2026', en: '22 Sep 2026' }, hours: 4
+  },
+  {
+    id: 'unb-competitive-programming-panel', category: 'extension',
+    title: { pt: 'Mesa Redonda de Programação Competitiva', en: 'Competitive Programming Round Table' }, organizationId: 'unb', issuer: 'UnB · Departamento de Ciência da Computação',
+    date: { pt: '24 set. 2026', en: '24 Sep 2026' }, hours: 8
+  },
+  {
+    id: 'unb-programming-marathon-xiv', category: 'extension',
+    title: { pt: 'XIV Maratona UnB de Programação', en: 'XIV UnB Programming Marathon' }, organizationId: 'unb', issuer: 'UnB · Departamento de Ciência da Computação',
+    date: { pt: '25 set. 2026', en: '25 Sep 2026' }, hours: 8
+  }
 ]
