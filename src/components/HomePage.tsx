@@ -6,7 +6,9 @@ import { EmbeddedSection } from './EmbeddedSection'
 import { ProjectMeta } from './ProjectMeta'
 import { ProjectContributors } from './ProjectContributors'
 import { CertificatesSection } from './CertificatesSection'
-import { Trophy, ArrowUpRight } from 'lucide-react'
+import { GithubActivity } from './GithubActivity'
+import { ProjectFolders } from './ProjectFolders'
+import { Trophy, ArrowUpRight, ChevronDown, GalleryHorizontal } from 'lucide-react'
 import { SqueezeCarousel } from '@/components/ui/carousel-squeeze'
 import NeuralBackground from '@/components/ui/flow-field-background'
 import ProfileCard from '@/components/ui/profile-card'
@@ -83,20 +85,28 @@ export function HomePage({ locale }: { locale: Locale }) {
         <div className="content-shell">
           <span id="outros-projetos" className="anchor-alias" aria-hidden="true" />
           <div className="split-heading"><div><p className="section-index">01 — {pt ? 'PROJETOS' : 'PROJECTS'}</p><h2 className="section-title" id="projects-title">{pt ? 'Do problema à entrega.' : 'From problem to delivery.'}</h2></div><p className="regular-note">{pt ? 'Software, dados e pesquisa. Em cada projeto, meu papel e o que construí.' : 'Software, data and research. My role and contribution in every project.'}</p></div>
-          <SqueezeCarousel label={pt ? 'Projetos' : 'Projects'} previousLabel={pt ? 'Projeto anterior' : 'Previous project'} nextLabel={pt ? 'Próximo projeto' : 'Next project'}
-            filterLabel={pt ? 'Filtrar projetos' : 'Filter projects'} defaultFilterId="featured"
-            filters={[
-              { id: 'featured', label: pt ? 'Destaques' : 'Featured', slideIds: catalogue.filter(project => project.featured).map(project => project.slug) },
-              { id: 'all', label: pt ? 'Todos os projetos' : 'All projects', slideIds: catalogue.map(project => project.slug), hash: '#outros-projetos' }
-            ]}
-            slides={catalogue.map(project => ({
-              id: project.slug, title: project.title, description: project.summary[locale],
-              image: project.cover ? `/media/${project.cover}.webp` : undefined,
-              imageWidth: project.coverWidth, imageHeight: project.coverHeight,
-              imageAlt: `${project.title} — ${pt ? 'captura do projeto' : 'project screenshot'}`,
-              background: 'linear-gradient(135deg, var(--solid), color-mix(in oklab, var(--accent) 24%, var(--solid)))',
-              content: <><div className="sq-context">{projectGroups.find(group => group.id === project.category)?.[locale]} <span>/ {project.year}</span></div><ProjectMeta project={project} locale={locale} /><p className="project-contribution"><strong>{pt ? 'Minha contribuição' : 'My contribution'}</strong>{project.role[locale]}</p><ProjectContributors project={project} locale={locale} /><div className="tech-list">{project.stack.map(item => <span key={item}>{item}</span>)}</div><ProjectButtons project={project} locale={locale} /></>
-            }))} />
+          <ProjectFolders locale={locale} />
+          <div className="carousel-drawer" data-carousel-drawer>
+            <LiquidButton type="button" variant="outline" size="lg" className="carousel-toggle" data-carousel-toggle aria-expanded="false" aria-controls="projects-carousel">
+              <GalleryHorizontal aria-hidden="true" /><span data-when="closed">{pt ? `Ver todos em carrossel · ${catalogue.length}` : `Browse all as a carousel · ${catalogue.length}`}</span><span data-when="open">{pt ? 'Recolher carrossel' : 'Collapse carousel'}</span><ChevronDown className="carousel-toggle-chevron" aria-hidden="true" />
+            </LiquidButton>
+            <div className="carousel-drawer-panel" id="projects-carousel">
+              <SqueezeCarousel label={pt ? 'Projetos' : 'Projects'} previousLabel={pt ? 'Projeto anterior' : 'Previous project'} nextLabel={pt ? 'Próximo projeto' : 'Next project'}
+              filterLabel={pt ? 'Filtrar projetos' : 'Filter projects'} defaultFilterId="featured"
+              filters={[
+                { id: 'featured', label: pt ? 'Destaques' : 'Featured', slideIds: catalogue.filter(project => project.featured).map(project => project.slug) },
+                { id: 'all', label: pt ? 'Todos os projetos' : 'All projects', slideIds: catalogue.map(project => project.slug), hash: '#outros-projetos' }
+              ]}
+              slides={catalogue.map(project => ({
+                id: project.slug, title: project.title, description: project.summary[locale],
+                image: project.cover ? `/media/${project.cover}.webp` : undefined,
+                imageWidth: project.coverWidth, imageHeight: project.coverHeight,
+                imageAlt: `${project.title} — ${pt ? 'captura do projeto' : 'project screenshot'}`,
+                background: 'linear-gradient(135deg, var(--solid), color-mix(in oklab, var(--accent) 24%, var(--solid)))',
+                content: <><div className="sq-context">{projectGroups.find(group => group.id === project.category)?.[locale]} <span>/ {project.year}</span></div><ProjectMeta project={project} locale={locale} /><p className="project-contribution"><strong>{pt ? 'Minha contribuição' : 'My contribution'}</strong>{project.role[locale]}</p><ProjectContributors project={project} locale={locale} /><div className="tech-list">{project.stack.map(item => <span key={item}>{item}</span>)}</div><ProjectButtons project={project} locale={locale} /></>
+              }))} />
+            </div>
+          </div>
           <p className="catalogue-note">{pt ? 'Hardware e telemetria têm um espaço próprio: ' : 'Hardware and telemetry have their own space: '}<a className="text-action" href="#embarcados">{pt ? 'Lab de Embarcados' : 'Embedded Lab'} ↗</a></p>
         </div>
       </section>
@@ -120,6 +130,7 @@ export function HomePage({ locale }: { locale: Locale }) {
             <h3 id={`tools-group-${index}`}>{group[locale]}</h3>
             <ul>{group.items.map(item => <li key={item}>{stackIcons[item] && <img src={`/assets/icons/ic_${stackIcons[item]}.svg`} alt="" width={16} height={16} loading="lazy" decoding="async" />}<span>{item}</span></li>)}</ul>
           </section>)}</div>
+          <GithubActivity locale={locale} />
         </div>
       </section>
 

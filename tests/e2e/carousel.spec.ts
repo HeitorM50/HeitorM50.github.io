@@ -32,6 +32,7 @@ test('Lab opens as a full-screen portal and reduced motion skips the transition'
 test('carousels cycle, handle rapid direction changes and preserve project links', async ({ page }) => {
   test.setTimeout(60000)
   await page.goto('/')
+  await page.locator('[data-carousel-toggle]').click()
   const carousel = page.getByRole('region', { name: 'Projetos', exact: true }).and(page.locator('[data-squeeze-carousel]'))
   await expect(carousel).toHaveAttribute('data-sq-ready', 'true')
   await expect(carousel.getByRole('tabpanel', { name: 'Hindsight', exact: true })).toContainText('Hackathon · IBM TechXchange')
@@ -63,6 +64,7 @@ test('carousels cycle, handle rapid direction changes and preserve project links
 test('tabs have roving focus, localized labels and reduced-motion transitions', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' })
   await page.goto('/en/')
+  await page.locator('[data-carousel-toggle]').click()
   const carousel = page.getByRole('region', { name: 'Projects', exact: true }).and(page.locator('[data-squeeze-carousel]'))
   await expect(carousel).toHaveAttribute('data-sq-ready', 'true')
   const active = () => carousel.getByRole('tab', { selected: true })
@@ -83,6 +85,7 @@ test('mobile panels fit at 320px and support a horizontal swipe', async ({ page 
   await page.emulateMedia({ reducedMotion: 'reduce' })
   await page.setViewportSize({ width: 320, height: 720 })
   await page.goto('/')
+  await page.locator('[data-carousel-toggle]').click()
   const carousel = page.locator('[data-squeeze-carousel]').first()
   await expect(carousel).toHaveAttribute('data-sq-ready', 'true')
   await carousel.scrollIntoViewIfNeeded()
@@ -200,5 +203,26 @@ test('refined layout fits both themes, key widths and enlarged text', async ({ p
     // ResizeObserver reflows the fixed-width carousel panels after text scaling.
     await expect.poll(() => page.evaluate(() => document.documentElement.scrollWidth - innerWidth)).toBe(0)
     expect(await page.locator('.lab-portal').evaluate(node => node.scrollWidth - node.clientWidth)).toBe(0)
+  }
+})
+
+test('project carousel starts collapsed behind a toggle and opens from deep links', async ({ page }) => {
+  for (const [path, closed, open] of [['/', /Ver todos em carrossel · 15/, 'Recolher carrossel'], ['/en/', /Browse all as a carousel · 15/, 'Collapse carousel']] as const) {
+    await page.goto(path)
+    const toggle = page.locator('[data-carousel-toggle]')
+    const carousel = page.locator('[data-squeeze-carousel]')
+    await expect(toggle).toHaveAttribute('aria-expanded', 'false')
+    await expect(toggle).toHaveAccessibleName(closed)
+    await expect(carousel).toBeHidden()
+    await toggle.click()
+    await expect(toggle).toHaveAttribute('aria-expanded', 'true')
+    await expect(toggle).toHaveAccessibleName(open)
+    await expect(carousel).toHaveAttribute('data-sq-ready', 'true')
+    await expect(carousel.getByRole('tab', { selected: true })).toBeVisible()
+    await toggle.click()
+    await expect(carousel).toBeHidden()
+    await page.goto(`${path}#outros-projetos`)
+    await expect(carousel).toBeVisible()
+    await expect(carousel).toHaveAttribute('data-sq-filter', 'all')
   }
 })

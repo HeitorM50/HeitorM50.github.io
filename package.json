@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "predev": "node scripts/build-embedded.mjs",
-    "prebuild": "node scripts/build-embedded.mjs",
+    "prebuild": "node scripts/github-contributions.mjs && node scripts/build-embedded.mjs",
+    "data:github": "node scripts/github-contributions.mjs",
     "dev": "next dev --webpack",
     "build": "next build --webpack",
     "postbuild": "node scripts/postbuild.mjs",
@@ -25,7 +26,6 @@
     "class-variance-authority": "^0.7.1",
     "cn": "^0.2.6",
     "framer-motion": "^13.2.0",
-    "gsap": "^3.15.0",
     "lucide-react": "^1.46.0",
     "next": "^16.3.4",
     "nextra": "^4.6.1",

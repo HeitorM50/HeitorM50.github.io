@@ -25,4 +25,4 @@ Para atualizar um avatar, baixar o perfil público, gerar um WebP de 96 × 96 em
 
 O catálogo tipado de `src/data/certificates.ts` alimenta o site e o trecho LaTeX gerado por `node scripts/cv-certificates.mjs`. O trecho é inserido entre `BEGIN PORTFOLIO CERTIFICATES` e `END PORTFOLIO CERTIFICATES` na fonte canônica indicada em `CLAUDE.md`.
 
-Compilar uma cópia temporária da fonte com a linha `\\phone` removida, usando LuaLaTeX duas vezes. Verificar duas páginas, texto extraível, links e ausência do telefone; renderizar e inspecionar ambas as páginas. Só então sincronizar `public/cv.pdf` e `cv.pdf`. Não versionar a fonte privada ou arquivos temporários.
+Compilar uma cópia temporária da fonte com a linha `\\phone` removida, usando LuaLaTeX duas vezes. Verificar duas páginas, texto extraível, links e ausência do telefone; renderizar e inspecionar ambas as páginas. Só então copiar para `public/cv.pdf` (a única cópia; o site é publicado a partir de `public/`). Não versionar a fonte privada ou arquivos temporários.

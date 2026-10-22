@@ -44,7 +44,7 @@ describe('portfolio data', () => {
     for (const locale of ['pt', 'en'] as const) {
       expect(existsSync(`content/${locale === 'pt' ? 'projetos' : 'en/projects'}/pmi-sleep-5.mdx`)).toBe(true)
     }
-    for (const image of ['podium', 'review', 'feedback']) expect(existsSync(`public/media/pmi-ibm-${image}.png`)).toBe(true)
+    for (const image of ['podium', 'review', 'feedback']) for (const extension of ['png', 'webp', 'avif']) expect(existsSync(`public/media/pmi-ibm-${image}.${extension}`)).toBe(true)
   })
 
   it('identifies the Hindsight win without changing team authorship', () => {

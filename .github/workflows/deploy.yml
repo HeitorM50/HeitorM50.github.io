@@ -6,6 +6,9 @@ on:
   pull_request:
     branches: [main]
   workflow_dispatch:
+  # Atualiza diariamente o calendário de contribuições do GitHub exibido na home.
+  schedule:
+    - cron: '17 9 * * *'
 
 permissions:
   contents: read
@@ -30,6 +33,8 @@ jobs:
       - run: npm run lint
       - run: npm test
       - run: npm run build
+        env:
+          CONTRIBUTIONS_TOKEN: ${{ secrets.CONTRIBUTIONS_TOKEN || secrets.GITHUB_TOKEN }}
       - run: npm run check:static
       - run: npx playwright install --with-deps chromium
       - run: npm run test:e2e

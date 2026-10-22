@@ -52,7 +52,7 @@ export function EmbeddedSection({ locale }: { locale: Locale }) {
           {project.links.source && <a className="embedded-source text-action" href={project.links.source} target="_blank" rel="noreferrer">{pt ? 'Código e documentação' : 'Code and documentation'} <ArrowUpRight size={17} aria-hidden="true" /></a>}
         </article>
       })}</div>
-      {benchPhotos.length > 0 && <div className="bench-gallery"><h3>{pt ? 'Na bancada de testes' : 'On the test bench'}</h3><div>{benchPhotos.map(photo => <figure key={photo.name}><Picture name={photo.name} width={photo.width} height={photo.height} alt={photo.alt[locale]} /><figcaption>{photo.caption[locale]}</figcaption></figure>)}</div></div>}
+      {benchPhotos.length > 0 && <div className="bench-gallery"><h3>{pt ? 'Em competição' : 'At competition'}</h3><div>{benchPhotos.map(photo => <figure key={photo.name}><Picture name={photo.name} width={photo.width} height={photo.height} alt={photo.alt[locale]} /><figcaption>{photo.caption[locale]}</figcaption></figure>)}</div></div>}
           </div>
         </div>
       </details>

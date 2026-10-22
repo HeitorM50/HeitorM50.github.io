@@ -10,7 +10,7 @@ test('winner and certificates are available in both languages', async ({ page, r
     await expect(page.locator('.hero-award')).toHaveAttribute('href', casePath)
     const certificates = page.locator('#certificados')
     await expect(certificates.locator('.certificate-group')).toHaveCount(3)
-    await expect(certificates.locator('li')).toHaveCount(8)
+    await expect(certificates.locator('li')).toHaveCount(12)
     await expect(certificates.locator('a')).toHaveCount(3)
     if (home === '/') {
       await page.locator('.hero').screenshot({ path: testInfo.outputPath('hero.png') })
@@ -26,13 +26,15 @@ test('winner and certificates are available in both languages', async ({ page, r
     await page.goto(casePath)
     await expect(page.locator('.case-hero .project-recognition')).toContainText(rank)
     await expect(page.locator('.case-body')).toContainText('OsBiruBob')
-    await expect(page.locator('.award-evidence img')).toBeVisible()
+    await expect(page.locator('.award-evidence img')).toHaveCount(2)
+    for (const image of await page.locator('.award-evidence img').all()) await expect(image).toBeVisible()
     await expect(page.locator('.case-hero .project-contributors a')).toHaveCount(5)
   }
 })
 
 test('team links work in the static export and fit both themes', async ({ page }, testInfo) => {
   await page.goto('/')
+  await page.locator('[data-carousel-toggle]').click()
   const carousel = page.locator('[data-squeeze-carousel]')
   await carousel.getByRole('tab', { name: 'Crianex Hub', exact: true }).click()
   const team = carousel.getByRole('tabpanel').locator('.project-contributors')
@@ -64,7 +66,7 @@ test('credentials and project credits do not depend on JavaScript', async ({ bro
   const context = await browser.newContext({ javaScriptEnabled: false })
   const page = await context.newPage()
   await page.goto('/')
-  await expect(page.locator('#certificados li')).toHaveCount(8)
+  await expect(page.locator('#certificados li')).toHaveCount(12)
   await expect(page.locator('[data-project-slug="hindsight"] .project-contributors a')).toHaveCount(5)
   await expect(page.locator('[data-project-slug="crianex-hub"] .project-contributors')).toBeVisible()
   await context.close()
@@ -77,7 +79,7 @@ test('institutional images remain readable with enlarged text and both themes', 
     await page.evaluate(value => { document.documentElement.dataset.theme = value }, theme)
     const certificates = page.locator('#certificados')
     await certificates.scrollIntoViewIfNeeded()
-    await expect(certificates.locator('.organization-mark img')).toHaveCount(8)
+    await expect(certificates.locator('.organization-mark img')).toHaveCount(12)
     for (const img of await page.locator('.organization-mark img').all()) {
       await img.scrollIntoViewIfNeeded()
       await expect.poll(() => img.evaluate((node: HTMLImageElement) => node.complete && node.naturalWidth > 0)).toBe(true)
@@ -87,6 +89,6 @@ test('institutional images remain readable with enlarged text and both themes', 
   }
   await page.setViewportSize({ width: 320, height: 800 })
   await page.addStyleTag({ content: 'html { font-size: 200% !important; }' })
-  await expect(page.locator('#certificados li')).toHaveCount(8)
+  await expect(page.locator('#certificados li')).toHaveCount(12)
   expect(await page.evaluate(() => document.documentElement.scrollWidth - innerWidth)).toBe(0)
 })

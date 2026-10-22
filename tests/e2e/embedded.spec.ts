@@ -22,7 +22,7 @@ test('curated projects and embedded navigation are bilingual and indexable', asy
     }
     await expect(page.locator('[data-project-slug="pmi-sleep-5"]')).toContainText('Product Model Canvas')
     await expect(page.locator('[data-project-slug="baja-telemetry-api"]')).toContainText(path === '/' ? 'Em desenvolvimento' : 'In development')
-    await expect(page.locator('.bench-gallery')).toHaveCount(0)
+    await expect(page.locator('.bench-gallery')).toHaveCount(1)
     expect(await page.evaluate(() => document.documentElement.scrollWidth - innerWidth)).toBe(0)
   }
 })

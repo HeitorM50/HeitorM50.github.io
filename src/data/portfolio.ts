@@ -334,7 +334,13 @@ export const collaborationLabels = {
 } as const
 
 export type BenchPhoto = { name: string; width: number; height: number; alt: LocalizedText; caption: LocalizedText }
-export const benchPhotos: BenchPhoto[] = []
+export const benchPhotos: BenchPhoto[] = [
+  {
+    name: 'unbaja-prototipo', width: 640, height: 640,
+    alt: { pt: 'Protótipo Baja nº 54 da UnBaja, com pintura azul e logo da UnB, estacionado em frente ao painel da competição Baja SAE Brasil.', en: 'UnBaja’s Baja prototype no. 54, with blue livery and the UnB logo, parked in front of the Baja SAE Brasil competition banner.' },
+    caption: { pt: 'O protótipo nº 54 da UnBaja na competição Baja SAE Brasil.', en: 'UnBaja’s prototype no. 54 at the Baja SAE Brasil competition.' }
+  }
+]
 
 export const experiences: Experience[] = [
   {
@@ -371,7 +377,7 @@ export const experiences: Experience[] = [
     stack: ['C++', 'Godot', 'Chrono', 'Docusaurus']
   },
   {
-    period: { pt: 'AGO 2026', en: 'AUG 2026' },
+    period: { pt: 'SET 2026', en: 'SEP 2026' },
     role: { pt: '1º lugar · Hackathon IBM TechXchange 2026', en: '1st place · IBM TechXchange 2026 Hackathon' },
     logo: 'IBM', organizationId: 'ibm', company: 'IBM TechXchange 2026 · Pre-conference Dev Day Hackathon',
     summary: { pt: 'Com a equipe OsBiruBob, de cinco integrantes, conquistei o 1º lugar com o Hindsight: uma ferramenta que analisa sessões do IBM Bob e identifica desperdício de contexto e custo.', en: 'With the five-person OsBiruBob team, I won 1st place with Hindsight: a tool that analyses IBM Bob sessions and identifies wasted context and cost.' },

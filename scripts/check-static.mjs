@@ -6,18 +6,18 @@ const required = [
   'index.html', 'en/index.html', 'projetos/hindsight/index.html',
   'en/projects/hindsight/index.html', 'unb-prazos/index.html',
   'omarchy-gcal/index.html', 'cv.pdf', '404.html', 'robots.txt', 'sitemap.xml',
-  'media/logo-metal-mask.svg', 'media/logo-metal-depth.png', 'media/logo-metallic.svg',
-  'media/logo-metallic.png', 'vendor/metallic-paint.js', 'vendor/gsap.min.js',
-  'vendor/ScrollTrigger.min.js', 'vendor/SplitText.min.js', 'vendor/profile-card.css',
+  'media/logo-metal-mask.svg', 'media/logo-metallic.png', 'vendor/profile-card.css',
   'vendor/embedded/loader.js', 'vendor/embedded/portfolio-ui.js', 'media/pmi-workspace.webp', 'media/pmi-workspace.avif',
   'media/omapkdex.webp', 'media/omapkdex.avif',
   'projetos/pmi-sleep-5/index.html', 'en/projects/pmi-sleep-5/index.html',
   'media/pmi-ibm-podium.png', 'media/pmi-ibm-review.png', 'media/pmi-ibm-feedback.png',
+  'media/pmi-ibm-podium.webp', 'media/pmi-ibm-review.webp', 'media/pmi-ibm-feedback.webp',
+  'media/pmi-ibm-podium.avif', 'media/pmi-ibm-review.avif', 'media/pmi-ibm-feedback.avif',
   'media/hindsight-winner.webp', 'media/hindsight-winner.avif',
   'certificates/ibm-dev-day-bob-in-action.pdf', 'certificates/hackathon-pmi-df-2026.pdf',
   'certificates/ifood-camp.pdf'
 ]
-const forbidden = ['media/scroll-reveal.mp4', 'media/logo.webp', 'media/logo.avif']
+const forbidden = ['media/scroll-reveal.mp4', 'media/logo.webp', 'media/logo.avif', 'vendor/gsap.min.js', 'vendor/metallic-paint.js', '_next/static/chunks', 'index.txt']
 
 const htmlFiles = []
 function walk(directory) {

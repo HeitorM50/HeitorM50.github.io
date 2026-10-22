@@ -6,6 +6,7 @@ test('PMI team recognition is featured and its bilingual cases preserve the eval
     ['/en/', '/en/projects/pmi-sleep-5/', '1st place · Independent IBM technical evaluation'],
   ]) {
     await page.goto(home)
+    await page.locator('[data-carousel-toggle]').click()
     const carousel = page.locator('[data-squeeze-carousel]')
     await carousel.locator('[data-sq-next]').click()
     await expect(carousel.getByRole('tabpanel')).toHaveAttribute('data-project-slug', 'pmi-sleep-5')
@@ -23,6 +24,7 @@ test('PMI team recognition is featured and its bilingual cases preserve the eval
 
 test('home exposes the recruiter journey', async ({ page }) => {
   await page.goto('/')
+  await page.locator('[data-carousel-toggle]').click()
   await expect(page.locator('html')).toHaveAttribute('lang', 'pt-BR')
   await expect(page.getByRole('heading', { level: 1 })).toContainText('Engenharia de Software')
   await expect(page.getByRole('tabpanel', { name: 'Hindsight', exact: true }).getByRole('link', { name: 'Estudo de caso', exact: true })).toHaveAttribute('href', '/projetos/hindsight/')
