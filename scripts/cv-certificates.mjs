@@ -16,7 +16,8 @@ export function renderCertificatesTex() {
   const groups = certificateCategories.map(category => {
     const entries = certificates.filter(item => item.category === category.id).map(item => {
       const title = escapeTex(item.title.pt)
-      const linkedTitle = item.document ? `\\href{https://heitorm50.github.io${item.document}}{${title}}` : title
+      const link = item.credential ?? (item.document && `https://heitorm50.github.io${item.document}`)
+      const linkedTitle = link ? `\\href{${link}}{${title}}` : title
       const metadata = [item.issuer, item.date?.pt, item.hours && `${item.hours} h`].filter(Boolean).map(escapeTex).join(', ')
       return `${linkedTitle} (${metadata})`
     })

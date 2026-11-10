@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import type { ReactNode } from 'react'
+import '../tokens.css'
 import '../globals.css'
 import { site } from '@/data/portfolio'
 import { staticRuntime } from '@/data/static-runtime'
@@ -16,9 +17,9 @@ export const metadata: Metadata = {
     url: '/', images: [{ url: '/media/hindsight.webp', width: 1400, height: 875, alt: 'Projeto Hindsight' }]
   },
   twitter: { card: 'summary_large_image', title: 'Heitor Ricardo — Engenharia de Software', description: 'Backend, dados e sistemas embarcados.', images: ['/media/hindsight.webp'] },
-  icons: { icon: '/favicon.svg', apple: '/media/logo-metallic.png' }
+  icons: { icon: '/favicon.svg' }
 }
 
 export default function PortugueseLayout({ children }: { children: ReactNode }) {
-  return <html lang="pt-BR" data-theme="dark" suppressHydrationWarning><head><link rel="preload" href="/fonts/space-grotesk-latin.woff2" as="font" type="font/woff2" crossOrigin="anonymous" /><script data-static-runtime dangerouslySetInnerHTML={{ __html: staticRuntime }} /></head><body>{children}</body></html>
+  return <html lang="pt-BR"><head><link rel="preload" href="/fonts/tektur-latin.woff2" as="font" type="font/woff2" crossOrigin="anonymous" /><link rel="preload" href="/fonts/inter-latin.woff2" as="font" type="font/woff2" crossOrigin="anonymous" /><meta name="theme-color" content="#0B0A0F" /><script data-static-runtime dangerouslySetInnerHTML={{ __html: staticRuntime }} /></head><body>{children}</body></html>
 }

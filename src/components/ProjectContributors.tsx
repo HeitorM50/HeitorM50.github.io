@@ -2,17 +2,18 @@
 import { contributors, type Contributor } from '@/data/contributors'
 import type { Locale, Project } from '@/data/portfolio'
 
-export function ProjectContributors({ project, locale }: { project: Project; locale: Locale }) {
+// compact: só os avatares (o nome fica no aria-label e no title), para os cards do trilho.
+export function ProjectContributors({ project, locale, compact = false }: { project: Project; locale: Locale; compact?: boolean }) {
   if (!project.contributors?.length) return null
   const label = project.collaboration === 'solo'
     ? (locale === 'pt' ? 'Autoria' : 'Author')
     : (locale === 'pt' ? 'Equipe' : 'Team')
-  return <div className="project-contributors">
+  return <div className={compact ? 'project-contributors project-contributors--compact' : 'project-contributors'}>
     <p className="contributors-label">{label}</p>
     <ul aria-label={label}>{project.contributors.map(id => {
       const person: Contributor = contributors[id]
       const initials = person.name.split(/\s+/).slice(0, 2).map(part => part[0]).join('')
-      return <li key={id}><a href={`https://github.com/${person.github}`} target="_blank" rel="noreferrer" aria-label={`${person.name} — GitHub`}>
+      return <li key={id}><a href={`https://github.com/${person.github}`} target="_blank" rel="noreferrer" aria-label={`${person.name} — GitHub`} title={compact ? person.name : undefined}>
         <span className="contributor-avatar" aria-hidden="true">
           {person.avatar ? <img src={`/media/contributors/${person.avatar}.webp`} alt="" width={32} height={32} loading="lazy" decoding="async" /> : initials}
         </span>

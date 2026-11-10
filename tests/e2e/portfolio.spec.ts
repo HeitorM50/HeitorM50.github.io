@@ -1,16 +1,27 @@
 import { expect, test } from '@playwright/test'
 
+const sectionOrder = ['inicio', 'destaque', 'perfil', 'projetos', 'stack', 'certificados', 'contato']
+
+test('home keeps its seven sections in order', async ({ page }) => {
+  await page.goto('/')
+  const ids = await page.locator('main section[data-section]').evaluateAll(sections => sections.map(section => section.id))
+  expect(ids).toEqual(sectionOrder)
+  for (const id of sectionOrder) {
+    const labelled = await page.locator(`#${id}`).getAttribute('aria-labelledby')
+    await expect(page.locator(`#${labelled}`)).toHaveCount(1)
+  }
+})
+
 test('PMI team recognition is featured and its bilingual cases preserve the evaluation context', async ({ page }) => {
   for (const [home, casePath, ranking] of [
     ['/', '/projetos/pmi-sleep-5/', '1º lugar · Avaliação técnica independente IBM'],
     ['/en/', '/en/projects/pmi-sleep-5/', '1st place · Independent IBM technical evaluation'],
   ]) {
     await page.goto(home)
-    await page.locator('[data-carousel-toggle]').click()
-    const carousel = page.locator('[data-squeeze-carousel]')
-    await carousel.locator('[data-sq-next]').click()
-    await expect(carousel.getByRole('tabpanel')).toHaveAttribute('data-project-slug', 'pmi-sleep-5')
-    await expect(carousel.getByRole('tabpanel')).toContainText(ranking)
+    const row = page.locator('.result-row[data-project-slug="pmi-sleep-5"]')
+    await expect(row).toContainText(ranking)
+    await expect(row).toHaveAttribute('href', casePath)
+    await expect(page.locator('.project-card[data-project-slug="pmi-sleep-5"]')).toContainText(ranking)
     await page.goto(casePath)
     await expect(page.locator('h1')).toHaveText('PMI Sleep 5 · Krilltech')
     await expect(page.locator('.case-body')).toContainText('Project Canvas')
@@ -24,19 +35,27 @@ test('PMI team recognition is featured and its bilingual cases preserve the eval
 
 test('home exposes the recruiter journey', async ({ page }) => {
   await page.goto('/')
-  await page.locator('[data-carousel-toggle]').click()
   await expect(page.locator('html')).toHaveAttribute('lang', 'pt-BR')
-  await expect(page.getByRole('heading', { level: 1 })).toContainText('Engenharia de Software')
-  await expect(page.getByRole('tabpanel', { name: 'Hindsight', exact: true }).getByRole('link', { name: 'Estudo de caso', exact: true })).toHaveAttribute('href', '/projetos/hindsight/')
-  await expect(page.getByRole('link', { name: /Baixar CV/i })).toHaveAttribute('href', '/cv.pdf')
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('HEITOR RICARDO')
+  await expect(page.locator('#inicio')).toContainText('ENG. SOFTWARE // EMBARCADOS')
+  await expect(page.locator('.project-card[data-project-slug="hindsight"]').getByRole('link', { name: /Estudo de caso/ })).toHaveAttribute('href', '/projetos/hindsight/')
+  await expect(page.locator('#inicio').getByRole('link', { name: /Currículo/ })).toHaveAttribute('href', '/cv.pdf')
+  await expect(page.locator('.project-card')).toHaveCount(5)
+  await expect(page.locator('.archive-card')).toHaveCount(0)
+  await expect(page.locator('.see-all')).toHaveAttribute('href', '/projetos/')
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth)
   expect(overflow).toBe(0)
 })
 
+async function openMenuOnMobile(page: import('@playwright/test').Page) {
+  if (await page.locator('[data-menu-toggle]').isVisible()) await page.locator('[data-menu-toggle]').click()
+}
+
 test('English route and language switch are indexable pages', async ({ page }) => {
   await page.goto('/en/')
+  await openMenuOnMobile(page)
   await expect(page.locator('html')).toHaveAttribute('lang', 'en')
-  await expect(page.getByRole('heading', { level: 1 })).toContainText('Software')
+  await expect(page.locator('#inicio')).toContainText('SOFTWARE ENG. // EMBEDDED')
   await expect(page.getByRole('link', { name: 'Ver versão em português' })).toHaveAttribute('href', '/')
 })
 
@@ -44,151 +63,238 @@ test('case study has content, metadata and reciprocal language link', async ({ p
   await page.goto('/projetos/hindsight/')
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('Hindsight')
   await expect(page.getByRole('heading', { name: 'Resultado' })).toBeVisible()
+  await openMenuOnMobile(page)
   await expect(page.getByRole('link', { name: 'Ver versão em inglês' })).toHaveAttribute('href', '/en/projects/hindsight/')
   await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', 'https://heitorm50.github.io/projetos/hindsight/')
 })
 
-test('theme choice is persisted', async ({ page }) => {
+test('the site has a single dark theme without a toggle', async ({ page }) => {
   await page.goto('/')
-  const initial = await page.locator('html').getAttribute('data-theme')
-  await page.getByRole('button', { name: 'Alternar tema' }).click()
-  const updated = await page.locator('html').getAttribute('data-theme')
-  expect(updated).not.toBe(initial)
-  await page.reload()
-  await expect(page.locator('html')).toHaveAttribute('data-theme', updated || 'light')
+  await expect(page.locator('[data-theme-toggle]')).toHaveCount(0)
+  expect(await page.evaluate(() => getComputedStyle(document.body).backgroundColor)).toBe('rgb(11, 10, 15)')
 })
 
-test('header only exposes discreet language and theme controls', async ({ page }) => {
+test('mobile menu opens full screen, traps focus and closes with Escape', async ({ page }) => {
+  await page.setViewportSize({ width: 375, height: 800 })
   await page.goto('/')
-  const header = page.locator('.site-header')
-  await expect(header.getByRole('link')).toHaveCount(2)
-  await expect(header.getByRole('button')).toHaveCount(1)
-  await expect(header.locator('a[href*="#"]')).toHaveCount(0)
-  await expect(header.locator('[aria-current="page"]')).toHaveText('PT')
-  const controls = await header.locator('.header-controls').boundingBox()
-  const viewport = page.viewportSize()!
-  expect(controls!.x).toBeGreaterThan(viewport.width / 2)
-  for (const control of await header.locator('a, button').all()) {
-    await control.focus()
-    await expect(control).toBeFocused()
-    const box = await control.boundingBox()
-    expect(box!.width).toBeGreaterThanOrEqual(44)
-    expect(box!.height).toBeGreaterThanOrEqual(44)
+  const toggle = page.locator('[data-menu-toggle]')
+  const menu = page.locator('#site-menu')
+  await expect(menu).toBeHidden()
+  await toggle.click()
+  await expect(toggle).toHaveAttribute('aria-expanded', 'true')
+  await expect(menu).toBeVisible()
+  await expect(menu.locator('a').first()).toBeFocused()
+  for (let index = 0; index < 12; index++) {
+    await page.keyboard.press('Tab')
+    expect(await page.evaluate(() => Boolean(document.activeElement?.closest('#site-menu, [data-menu-toggle]')))).toBe(true)
   }
+  await page.keyboard.press('Escape')
+  await expect(toggle).toHaveAttribute('aria-expanded', 'false')
+  await expect(toggle).toBeFocused()
+  await toggle.click()
+  await menu.getByRole('link', { name: /Projetos/ }).click()
+  await expect(menu).toBeHidden()
+  await expect(page).toHaveURL(/#projetos$/)
 })
 
-test('primary calls to action use responsive liquid glass', async ({ page }) => {
+test('HUD and navigation follow the section on screen', async ({ page }) => {
+  test.skip(test.info().project.name === 'mobile', 'The nav is collapsed on mobile')
+  await page.setViewportSize({ width: 1440, height: 900 })
   await page.goto('/')
-  const primary = page.getByRole('link', { name: 'Ver projetos' })
-  const download = page.getByRole('link', { name: /Baixar CV/i })
-
-  await expect(primary).toHaveAttribute('data-slot', 'liquid-button')
-  await expect(primary).toHaveAttribute('data-liquid-ready', 'true')
-  await expect(primary).toHaveCSS('backdrop-filter', /blur\(10px\)/)
-  await expect(download).toHaveAttribute('data-slot', 'liquid-button')
-  await expect(download).toHaveClass(/liquid-glass-button--outline/)
-  await expect(page.locator('#portfolio-liquid-glass')).toHaveCount(0)
-
-  const box = await primary.boundingBox()
-  expect(box).not.toBeNull()
-  await page.mouse.move(box!.x + box!.width * .82, box!.y + box!.height * .28)
-  await expect(primary).toHaveAttribute('data-liquid-active', 'true')
-  await expect(page.locator('#portfolio-liquid-glass')).toHaveCount(1)
-  await expect.poll(() => primary.evaluate((element) => element.style.getPropertyValue('--liquid-x'))).not.toBe('50.00%')
-  await expect.poll(() => primary.evaluate((element) => getComputedStyle(element, '::before').backdropFilter)).toContain('portfolio-liquid-glass')
+  await page.locator('#projetos').evaluate(section => section.scrollIntoView())
+  await expect(page.locator('.header-counter [data-hud-section]')).toHaveText('04')
+  await expect(page.locator('[data-nav-link="projetos"]')).toHaveAttribute('aria-current', 'location')
 })
 
-test('single portrait replaces the project deck and career timeline works', async ({ page }) => {
+test('glyph sprite is valid XML and renders', async ({ page, request }) => {
+  const response = await request.get('/assets/glyphs.svg')
+  expect(response.ok()).toBe(true)
+  expect(await response.text()).not.toMatch(/<!--(?:(?!-->)[\s\S])*--(?!>)/)
   await page.goto('/')
-  await expect(page.locator('[data-deck]')).toHaveCount(0)
-  await expect(page.locator('[data-profile-card]')).toHaveCount(1)
-  await expect(page.locator('.hero [data-profile-card]')).toHaveCount(1)
-
-  const timeline = page.locator('[data-timeline]')
-  const entries = timeline.locator('[data-timeline-entry]')
-  const progress = timeline.locator('[data-timeline-progress]')
-  await timeline.scrollIntoViewIfNeeded()
-  await expect(timeline).toHaveAttribute('data-timeline-ready', 'true')
-  await expect(entries).toHaveCount(5)
-  await expect(timeline).toContainText('1º lugar · Avaliação técnica independente da IBM')
-  await expect(timeline).toContainText('IBM TechXchange 2026')
-
-  const before = await progress.evaluate((element) => getComputedStyle(element).transform)
-  const geometry = await timeline.evaluate((element) => {
-    const rect = element.getBoundingClientRect()
-    return { top: rect.top + window.scrollY, height: rect.height }
-  })
-  await page.evaluate(({ top, height }) => window.scrollTo(0, top + height * .45), geometry)
-  await expect.poll(() => timeline.locator('[data-timeline-active="true"]').count()).toBeGreaterThan(0)
-  await expect.poll(() => progress.evaluate((element) => getComputedStyle(element).transform)).not.toBe(before)
+  const glyph = page.locator('.project-recognition .glyph').first()
+  await glyph.scrollIntoViewIfNeeded()
+  await expect.poll(() => glyph.locator('use').evaluate((use: SVGUseElement) => use.getBBox().width)).toBeGreaterThan(0)
 })
 
-test('flow field renders and keeps reacting while the page scrolls', async ({ page }) => {
+test('contact form posts to Formspree (mocked) and reports the result', async ({ page }) => {
+  const posts: string[] = []
+  // nunca envia de verdade: a rota do Formspree é interceptada
+  await page.route('https://formspree.io/**', route => { posts.push(route.request().postData() ?? ''); return route.fulfill({ status: 200, contentType: 'application/json', body: '{"ok":true}' }) })
   await page.goto('/')
-  const canvas = page.locator('[data-flow-field-background] canvas')
-  await expect(canvas).toBeVisible()
-  await expect.poll(() => canvas.evaluate((element) => (element as HTMLCanvasElement).width)).toBeGreaterThan(0)
-
-  const before = await canvas.evaluate((element) => (element as HTMLCanvasElement).toDataURL())
-  await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight * 0.45))
-  await page.waitForTimeout(350)
-  const after = await canvas.evaluate((element) => (element as HTMLCanvasElement).toDataURL())
-
-  expect(await page.evaluate(() => window.scrollY)).toBeGreaterThan(0)
-  expect(after).not.toBe(before)
+  const form = page.locator('[data-contact-form]')
+  await expect(form).toHaveAttribute('action', 'https://formspree.io/f/xbgorgyw')
+  await expect(form).not.toContainText('[ENDPOINT DO FORM]')
+  await form.scrollIntoViewIfNeeded()
+  await form.locator('button[type="submit"]').click()
+  await expect(form.locator('[data-form-status]')).toHaveText('Confira os campos destacados.')
+  expect(posts).toHaveLength(0)
+  await form.locator('input[name="name"]').fill('Teste')
+  await form.locator('input[name="email"]').fill('teste@example.com')
+  await form.locator('textarea[name="message"]').fill('Olá')
+  await form.locator('button[type="submit"]').click()
+  await expect(form.locator('[data-form-status]')).toHaveText('Mensagem enviada. Obrigado!')
+  expect(posts).toHaveLength(1)
+  expect(posts[0]).toContain('teste@example.com')
+  await expect(form.locator('input[name="name"]')).toHaveValue('')
+  await expect(page.getByRole('link', { name: 'heitorm50@gmail.com' })).toHaveAttribute('href', 'mailto:heitorm50@gmail.com')
 })
 
-test('profile portrait uses fluid holographic depth on pointer devices', async ({ page }) => {
+test('keyboard focus shows the locking reticle', async ({ page }) => {
+  test.skip(test.info().project.name === 'mobile', 'Keyboard focus is a desktop check')
   await page.goto('/')
-  const wrapper = page.locator('[data-profile-card]')
-  const card = wrapper.locator('.pc-card')
-
-  await wrapper.scrollIntoViewIfNeeded()
-  await expect(wrapper).toBeVisible()
-  await expect(wrapper).toHaveCSS('touch-action', 'pan-y')
-  await expect(wrapper).toHaveAttribute('data-profile-ready', 'true')
-  await expect(card.getByRole('img', { name: 'Heitor Ricardo' })).toBeVisible()
-  await expect(card).toContainText('Engenharia de Software · UnB')
-
-  const canTilt = await page.evaluate(() => matchMedia('(hover: hover) and (pointer: fine)').matches)
-  if (!canTilt) return
-
-  const before = await card.evaluate((element) => getComputedStyle(element).transform)
-  const box = await card.boundingBox()
-  expect(box).not.toBeNull()
-  await page.mouse.move(box!.x + box!.width * .94, box!.y + box!.height * .12)
-  await expect(wrapper).toHaveAttribute('data-profile-active', 'true')
-  await expect.poll(async () => Number(await wrapper.getAttribute('data-profile-frame'))).toBeGreaterThan(2)
-  await expect.poll(async () => Math.abs(parseFloat(await wrapper.evaluate((element) => element.style.getPropertyValue('--pc-rotate-y'))))).toBeGreaterThan(14)
-  await expect.poll(async () => Math.abs(parseFloat(await wrapper.evaluate((element) => element.style.getPropertyValue('--pc-rotate-x'))))).toBeGreaterThan(10)
-  const tilted = await card.evaluate((element) => getComputedStyle(element).transform)
-  expect(tilted).not.toBe(before)
-  expect(tilted).toMatch(/^matrix3d/)
-  await expect(wrapper.locator('.pc-shine')).toHaveCSS('opacity', '0.62')
+  await page.keyboard.press('Tab')
+  await expect(page.locator('.skip-link')).toBeFocused()
+  await page.locator('#inicio .btn--primary').focus()
+  await expect.poll(() => page.locator('#inicio .btn--primary').evaluate(element => getComputedStyle(element, '::after').opacity)).toBe('1')
 })
 
-test('header leaves the viewport and projects lead directly to the Lab', async ({ page }) => {
-  await page.goto('/')
-  const header = page.locator('.site-header')
-  await expect(header).toHaveCSS('position', 'relative')
-  await page.evaluate(() => window.scrollTo(0, 700))
-  await expect.poll(() => header.evaluate((element) => element.getBoundingClientRect().bottom)).toBeLessThan(0)
-
-  await expect(page.locator('[data-scroll-video-track]')).toHaveCount(0)
-  await expect(page.locator('.discipline-bridge')).toHaveCount(0)
-  await expect(page.locator('#projetos + #embarcados')).toHaveCount(1)
-})
-
-test('education appears only in the Hero alongside the portrait in both languages', async ({ page }) => {
-  const biographies = [
-    ['/', 'Curso Engenharia de Software na UnB, com conclusão prevista para março de 2029, e Análise e Desenvolvimento de Sistemas no GRAN. Minha formação conecta desenvolvimento de software, pesquisa e trabalho em equipe.'],
-    ['/en/', 'I study Software Engineering at UnB, with graduation expected in March 2029, and Systems Analysis and Development at GRAN. My education connects software development, research and teamwork.'],
-  ]
-  for (const [path, biography] of biographies) {
+test('see all leads to a page listing every project in both languages', async ({ page }) => {
+  for (const [path, title, home] of [['/projetos/', 'Todos os projetos', '/'], ['/en/projects/', 'All projects', '/en/']]) {
     await page.goto(path)
-    await expect(page.locator('.hero#sobre .hero-copy .hero-bio')).toHaveText(biography)
-    await expect(page.getByText(biography, { exact: true })).toHaveCount(1)
-    await expect(page.locator('.hero#sobre .hero-portrait')).toHaveCount(1)
-    await expect(page.locator('.about-section, #about-title, .discipline-bridge')).toHaveCount(0)
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText(title)
+    await expect(page.locator('.archive-card')).toHaveCount(17)
+    await expect(page.locator('.archive-card[data-project-slug="hindsight"]').getByRole('link', { name: /Estudo de caso|Case study/ })).toHaveAttribute('href', home === '/' ? '/projetos/hindsight/' : '/en/projects/hindsight/')
+    expect(await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth)).toBe(0)
   }
+})
+
+test('UnBaja has its own page reached by a button on the home', async ({ page }) => {
+  await page.goto('/')
+  await expect(page.locator('#embarcados')).toHaveCount(0)
+  const link = page.locator('[data-unbaja-link]')
+  await expect(link).toHaveAttribute('href', '/unbaja/')
+  await link.click()
+  await expect(page).toHaveURL(/\/unbaja\/$/)
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Do sensor ao software')
+  await expect(page.locator('[data-project-slug="baja-telemetry-api"]')).toContainText('Em desenvolvimento')
+  await page.goto('/en/unbaja/')
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('From sensor to software')
+})
+
+test('the robotic hand frames the hero card', async ({ page }) => {
+  await page.goto('/')
+  for (const selector of ['.hand--back img', '.hand--front img', '.id-card__photo']) {
+    await expect.poll(() => page.locator(selector).evaluate((img: HTMLImageElement) => img.complete && img.naturalWidth > 0)).toBe(true)
+  }
+  const thumb = await page.locator('.hand--front').boundingBox()
+  const card = await page.locator('.id-card').boundingBox()
+  expect(thumb!.x + thumb!.width).toBeGreaterThan(card!.x)
+})
+
+test('extension certificates show highlights first and expand on demand', async ({ page }) => {
+  await page.goto('/')
+  const group = page.locator('#certificados .certificate-group').filter({ has: page.locator('#certificate-extension') })
+  await expect(group.locator('> ul > li')).toHaveCount(3)
+  const more = group.locator('.certificate-more')
+  await expect(more.locator('li').first()).toBeHidden()
+  await more.locator('summary').click()
+  await expect(more.locator('li')).toHaveCount(4)
+  await expect(more.locator('li').first()).toBeVisible()
+  await expect(page.locator('#certificados .badge .barcode')).toHaveCount(12)
+})
+
+test.describe('scroll scenes', () => {
+  test('desktop pins the rail and turns vertical scroll into horizontal travel', async ({ page }) => {
+    test.skip(test.info().project.name === 'mobile', 'Scenes are desktop-only')
+    await page.setViewportSize({ width: 1440, height: 900 })
+    await page.goto('/')
+    await expect(page.locator('html')).toHaveAttribute('data-scenes', 'on')
+    await expect(page.locator('[data-rail]')).toHaveAttribute('data-pinned', 'true')
+    const spacer = page.locator('#projetos').locator('xpath=..')
+    await expect(spacer).toHaveClass(/pin-spacer/)
+    const { top, height } = await spacer.evaluate((element: HTMLElement) => ({ top: element.getBoundingClientRect().top + scrollY, height: element.offsetHeight }))
+    await page.evaluate(y => scrollTo(0, y), top + height * 0.5)
+    await expect.poll(() => page.locator('[data-rail-track]').evaluate(track => new DOMMatrix(getComputedStyle(track).transform).m41)).toBeLessThan(-500)
+    await expect(page.locator('[data-hud-mode]')).toHaveText('HORIZONTAL')
+    await expect(page.locator('[data-hud-mode]')).toHaveAttribute('data-active', '')
+    expect(Number(await page.locator('[data-rail-index]').textContent())).toBeGreaterThan(1)
+    expect(await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth)).toBe(0)
+  })
+
+  test('keyboard focus moves the pinned rail to the focused card', async ({ page }) => {
+    test.skip(test.info().project.name === 'mobile', 'Scenes are desktop-only')
+    await page.setViewportSize({ width: 1440, height: 900 })
+    await page.goto('/')
+    await expect(page.locator('html')).toHaveAttribute('data-scenes', 'on')
+    const last = page.locator('.see-all')
+    await last.focus()
+    await expect(last).toBeInViewport({ ratio: 0.9 })
+  })
+
+  test('mobile and reduced motion keep native scrolling', async ({ browser }) => {
+    for (const options of [{ viewport: { width: 390, height: 844 }, hasTouch: true, isMobile: true }, { viewport: { width: 1440, height: 900 }, reducedMotion: 'reduce' as const }]) {
+      const context = await browser.newContext(options)
+      const page = await context.newPage()
+      await page.goto('http://127.0.0.1:4173/')
+      await page.waitForTimeout(500)
+      await expect(page.locator('html')).not.toHaveAttribute('data-scenes', 'on')
+      await expect(page.locator('.pin-spacer')).toHaveCount(0)
+      await expect(page.locator('[data-rail]')).toHaveCSS('overflow-x', 'auto')
+      await context.close()
+    }
+  })
+
+  test('section counter rolls like an odometer but keeps its text', async ({ page }) => {
+    test.skip(test.info().project.name === 'mobile', 'The counter is checked on desktop')
+    await page.goto('/')
+    await page.locator('#certificados').evaluate(section => section.scrollIntoView())
+    const counter = page.locator('.header-counter [data-hud-section]')
+    await expect(counter).toHaveText('06')
+    await expect(counter.locator('.odo')).toHaveCount(2)
+    await expect(counter.locator('.odo').nth(1)).toHaveCSS('--d', '6')
+  })
+})
+
+test.describe('hero card rotation', () => {
+  test('desktop: the card turns 360° with the pinned hero and the labels follow the face', async ({ page }) => {
+    test.skip(test.info().project.name === 'mobile', 'Scenes are desktop-only')
+    await page.setViewportSize({ width: 1440, height: 900 })
+    await page.goto('/')
+    await expect(page.locator('html')).toHaveAttribute('data-scenes', 'on')
+    const rig = page.locator('[data-hero-rig]')
+    await expect(rig).toHaveAttribute('data-face', 'front')
+    const height = await page.locator('#inicio').locator('xpath=..').evaluate((element: HTMLElement) => element.offsetHeight)
+    await page.evaluate(y => scrollTo(0, y), height * 0.3)
+    await expect(rig).toHaveAttribute('data-face', 'back')
+    await expect.poll(async () => Number(await rig.locator('[data-rig-angle]').textContent())).toBeGreaterThan(120)
+    await page.evaluate(y => scrollTo(0, y), height * 0.7)
+    await expect(rig).toHaveAttribute('data-face', 'front')
+    await expect(rig.locator('[data-rig-angle]')).toHaveText('000')
+  })
+
+  test('mobile: the card turns with native scroll, without pinning', async ({ browser }) => {
+    const context = await browser.newContext({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true })
+    const page = await context.newPage()
+    await page.goto('http://127.0.0.1:4173/')
+    const rig = page.locator('[data-hero-rig]')
+    await expect(rig).toHaveAttribute('data-face', 'front')
+    await rig.evaluate(element => scrollTo(0, element.getBoundingClientRect().top + scrollY - innerHeight * 0.2))
+    await expect.poll(async () => Number(await rig.locator('[data-rig-angle]').textContent())).toBeGreaterThan(0)
+    await expect(page.locator('.pin-spacer')).toHaveCount(0)
+    await context.close()
+  })
+
+  test('reduced motion keeps the card still and facing front', async ({ browser }) => {
+    const context = await browser.newContext({ viewport: { width: 1440, height: 900 }, reducedMotion: 'reduce' })
+    const page = await context.newPage()
+    await page.goto('http://127.0.0.1:4173/')
+    await page.evaluate(() => scrollTo(0, 600))
+    await page.waitForTimeout(400)
+    const rig = page.locator('[data-hero-rig]')
+    await expect(rig).toHaveAttribute('data-face', 'front')
+    expect(await rig.evaluate(element => element.style.getPropertyValue('--rig-angle'))).toBe('')
+    await context.close()
+  })
+})
+
+test('the top bar hides while scrolling down and returns when scrolling up', async ({ page }) => {
+  await page.goto('/')
+  const header = page.locator('.site-header')
+  await expect(header).toBeInViewport()
+  for (let step = 0; step < 3; step++) { await page.mouse.wheel(0, 300); await page.waitForTimeout(150) }
+  await expect(page.locator('html')).toHaveAttribute('data-header-hidden', '')
+  await expect.poll(async () => (await header.boundingBox())!.y).toBeLessThan(-10)
+  await page.mouse.wheel(0, -200)
+  await expect(page.locator('html')).not.toHaveAttribute('data-header-hidden', '')
+  await expect.poll(async () => (await header.boundingBox())!.y).toBeGreaterThanOrEqual(-1)
 })

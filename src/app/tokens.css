@@ -1,0 +1,289 @@
+/* ==========================================================================
+   HR PORTFÓLIO // DESIGN TOKENS V2
+   Fonte única de verdade para cores, tipografia, espaçamento, forma e
+   movimento. Nenhum valor solto no código: tudo referencia estes tokens.
+   ========================================================================== */
+
+:root {
+  /* ---------- CORES: NEUTROS (base escura, ~70% da tela) ---------- */
+  --void-950: #0B0A0F;   /* fundo da página */
+  --void-900: #141219;   /* painéis e cards */
+  --void-800: #1E1B25;   /* hover de painel */
+  --void-700: #2B2833;   /* bordas e divisórias */
+  --void-500: #4A4652;   /* borda forte, trilhos inativos */
+  --gray-400: #8C8893;   /* metadados e rótulos mono */
+  --gray-200: #B9B5BF;   /* texto corrido sobre fundo escuro */
+
+  /* ---------- 01 ROXO: PRIMÁRIA (~15%) ---------- */
+  --purple-900: #241046; /* fundo de tag, duotone escuro */
+  --purple-700: #4A16A8; /* botão pressionado */
+  --purple-600: #6420D6; /* hover de botão e de bloco */
+  --purple-500: #7C2CF5; /* COR DA MARCA: blocos, botão principal, títulos >= 24px */
+  --purple-400: #A773FF; /* hover de link, logotipo pequeno */
+  --purple-300: #C4A1FF; /* texto roxo em tamanho pequeno, links */
+
+  /* ---------- 02 BRANCO: SECUNDÁRIA (~10%) ---------- */
+  --white: #F4F2FA;      /* texto principal, molduras, barras e seções invertidas */
+
+  /* ---------- 03 AMARELO: TERCIÁRIA (~3%) ---------- */
+  --yellow-900: #2E2A06;
+  --yellow-600: #C9BB12;
+  --yellow-400: #F7E733; /* alerta, anel de foco, P1, selo verificado */
+  --yellow-300: #FBF07A;
+
+  /* ---------- 04 ROSA: QUATERNÁRIA (~2%) ---------- */
+  --pink-900: #3A1028;
+  --pink-700: #B8266A;   /* rosa como TEXTO sobre fundo branco */
+  --pink-400: #FF4FA8;   /* status, sinal ao vivo, glitch (sobre fundo escuro) */
+  --pink-300: #FF8CC6;
+
+  /* ---------- SEMÂNTICAS (somente formulário de contato) ---------- */
+  --success: #3DDC97;
+  --error: #FF5A4F;
+
+  /* ---------- PAPÉIS (use estes nos componentes) ---------- */
+  --bg: var(--void-950);
+  --surface: var(--void-900);
+  --surface-hover: var(--void-800);
+  --border: var(--void-700);
+  --border-strong: var(--void-500);
+  --text: var(--white);
+  --text-body: var(--gray-200);
+  --text-meta: var(--gray-400);
+  --brand: var(--purple-500);
+  --brand-hover: var(--purple-600);
+  --brand-pressed: var(--purple-700);
+  --link: var(--purple-300);
+  --link-hover: var(--purple-400);
+  --signal: var(--yellow-400);
+  --status: var(--pink-400);
+  --focus: var(--yellow-400);
+
+  /* ---------- TIPOGRAFIA ---------- */
+  --font-display: "Tektur", "Arial Narrow", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+  /* Escala fluida: 375px (min) -> 1440px (max). Razão ~1,2 no celular, ~1,333 no desktop. */
+  --fs-hero:   clamp(3rem,     1.944rem + 4.507vw, 6rem);      /* 48 -> 96 */
+  --fs-h2:     clamp(2.063rem, 1.600rem + 1.972vw, 3.375rem);  /* 33 -> 54 */
+  --fs-h3:     clamp(1.438rem, 1.283rem + 0.657vw, 1.875rem);  /* 23 -> 30 */
+  --fs-h4:     clamp(1.188rem, 1.121rem + 0.282vw, 1.375rem);  /* 19 -> 22 */
+  --fs-lead:   clamp(1.125rem, 1.081rem + 0.188vw, 1.25rem);   /* 18 -> 20 */
+  --fs-body:   clamp(1rem,     0.978rem + 0.094vw, 1.063rem);  /* 16 -> 17 */
+  --fs-small:  0.875rem;                                        /* 14 */
+  --fs-button: 0.875rem;                                        /* 14 */
+  --fs-mono:   clamp(0.688rem, 0.666rem + 0.094vw, 0.75rem);   /* 11 -> 12 */
+
+  --lh-hero: 0.95;
+  --lh-h2: 1;
+  --lh-h3: 1.1;
+  --lh-h4: 1.2;
+  --lh-lead: 1.6;
+  --lh-body: 1.7;
+  --lh-small: 1.5;
+  --lh-mono: 1.4;
+
+  --ls-hero: -0.01em;
+  --ls-h4: 0.02em;
+  --ls-button: 0.06em;
+  --ls-mono-label: 0.08em;
+  --ls-mono-tag: 0.04em;
+
+  --measure: 68ch;       /* largura máxima de parágrafo */
+
+  /* ---------- LAYOUT E GRID ---------- */
+  --container: 1280px;
+  --cols: 4;             /* celular */
+  --gutter: 16px;
+  --margin: 20px;
+  --section-gap: 80px;   /* ritmo vertical entre seções no celular */
+
+  /* ---------- ESPAÇAMENTO (base 4) ---------- */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+  --space-10: 128px;
+
+  /* ---------- FORMA: CHANFROS (sem border-radius no site) ---------- */
+  --chamfer-sm: 8px;     /* botões e tags */
+  --chamfer-md: 16px;    /* cards e painéis */
+  --chamfer-lg: 24px;    /* blocos de destaque */
+  --radius: 0;
+  --border-width: 1px;
+
+  /* ---------- MOVIMENTO ---------- */
+  --dur-instant: 80ms;   /* pressionar */
+  --dur-fast: 150ms;     /* hover, foco */
+  --dur-base: 250ms;     /* trocas de estado, menus, mira travando */
+  --dur-slow: 500ms;     /* entradas, varreduras */
+  --dur-scene: 900ms;    /* abertura de seção, contador, sinal se desenhando */
+
+  /* Regra: o que é DIGITAL anda em degraus; o que é FÍSICO anda suave. */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);       /* entradas e hovers */
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);   /* deslocamentos longos, cortina do boot */
+  --ease-step: steps(4, end);                       /* curva-assinatura: glitch, HUD, contadores */
+
+  --stagger: 60ms;       /* atraso entre itens de uma entrada */
+  --stagger-chars: 30ms; /* atraso entre letras de um título */
+  --boot-max: 2500ms;    /* teto da sequência de inicialização */
+}
+
+@media (min-width: 640px) {
+  :root {
+    --cols: 8;
+    --gutter: 20px;
+    --margin: 32px;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --cols: 12;
+    --gutter: 24px;
+    --margin: 64px;
+    --section-gap: 128px;
+  }
+}
+
+/* Reduzir movimento: corta parallax, glitch, decodificação, contadores e loops.
+   O conteúdo aparece direto, com no máximo um fade curto. */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-base: 0ms;
+    --dur-slow: 150ms;
+    --dur-scene: 0ms;
+    --stagger: 0ms;
+    --stagger-chars: 0ms;
+    --boot-max: 0ms;
+  }
+}
+
+/* ---------- UTILITÁRIOS DE CHANFRO ---------- */
+/* Canto superior direito (botões, tags) */
+.chamfer-sm {
+  clip-path: polygon(0 0, calc(100% - var(--chamfer-sm)) 0, 100% var(--chamfer-sm), 100% 100%, 0 100%);
+}
+/* Dois cantos opostos (cards e painéis) */
+.chamfer-md {
+  clip-path: polygon(0 0, calc(100% - var(--chamfer-md)) 0, 100% var(--chamfer-md), 100% 100%, var(--chamfer-md) 100%, 0 calc(100% - var(--chamfer-md)));
+}
+.chamfer-lg {
+  clip-path: polygon(0 0, calc(100% - var(--chamfer-lg)) 0, 100% var(--chamfer-lg), 100% 100%, var(--chamfer-lg) 100%, 0 calc(100% - var(--chamfer-lg)));
+}
+/* Borda que acompanha o chanfro: envolva o conteúdo num wrapper com
+   background: var(--border); padding: 1px; e aplique a mesma classe nos dois. */
+
+/* ---------- FUNDO "CONTRACORRENTE" (design/BACKGROUND_SPEC.md §2) ---------- */
+:root {
+  --layer-grid: #17151E;          /* linhas da grade */
+  --layer-line: #211E29;          /* contornos de células e painéis secundários */
+  --layer-fill-1: #110F17;        /* fragmentos gigantes do monograma */
+  --layer-fill-2: #121018;        /* painel MELT A */
+  --layer-fill-3: #100E15;        /* painel MELT B */
+  --layer-type-solid: #16141C;    /* pilha tipográfica, linha sólida */
+  --layer-type-purple: #1F1236;   /* pilha tipográfica, linha roxa */
+  --layer-purple-mid: #2A1550;    /* células preenchidas, fios de circuito */
+  --layer-purple-line: #3B2470;   /* contornos roxos, colunas de dados */
+  --layer-halftone: rgba(244, 242, 250, 0.16); /* pontos de meio-tom */
+}
+
+/* ==========================================================================
+   TOKENS DE IMPLEMENTAÇÃO
+   Derivados dos tokens acima; criados aqui (e não nos componentes) conforme
+   a regra 0.2 do DESIGN_SPEC.
+   ========================================================================== */
+:root {
+  /* camadas */
+  --z-hud: 40;
+  --z-header: 50;
+  --z-menu: 60;
+  --z-boot: 100;
+
+  /* glitch: só no logo (fim do boot) e na entrada do contato */
+  --dur-glitch: 300ms;
+
+  /* odômetro do contador de seção */
+  --lh-odo: 1.4em;
+
+  /* cabeçalho fixo */
+  --header-h: 64px;
+
+  /* borda do número gigante em contorno */
+  --outline-stroke: 2px;
+  --fs-giant: clamp(8rem, 4rem + 18vw, 22rem);
+  /* teto do título do hero pela largura da tela (texto ampliado em 320px) */
+  --fs-hero-fit: 21vw;
+
+  /* glifos: acento padrão */
+  --glyph-accent: currentColor;
+
+  /* faixas listradas (alerta, pintura de corrida, abas) */
+  --stripe-size: 12px;
+  --stripe-warning: repeating-linear-gradient(-45deg, var(--yellow-400) 0 var(--stripe-size), var(--void-950) var(--stripe-size) calc(var(--stripe-size) * 2));
+  --stripe-brand: repeating-linear-gradient(-45deg, var(--purple-500) 0 6px, transparent 6px 12px);
+  --stripe-pink: repeating-linear-gradient(-45deg, var(--pink-400) 0 4px, transparent 4px 8px);
+  --stripe-white: repeating-linear-gradient(90deg, var(--white) 0 2px, transparent 2px 6px);
+
+  /* código de barras decorativo */
+  --barcode: repeating-linear-gradient(90deg, currentColor 0 1px, transparent 1px 3px, currentColor 3px 6px, transparent 6px 7px, currentColor 7px 8px, transparent 8px 11px);
+
+  /* mira de foco: quatro cantos em L */
+  --mira-arm: 10px;
+  --mira-weight: 2px;
+  --mira-gap: 6px;
+  --mira-gap-open: 14px;
+
+  /* fundo contracorrente: célula da grade e janela de mármore */
+  --bg-cell: 40px;
+  --marble-w: 140px;
+  --marble-h: 200px;
+
+  /* efeitos (fase 7) */
+  --dur-scan: 600ms;
+  --dur-ticker: 14s;
+  --dur-dial: 18s;
+  --dur-matrix: 1.6s;
+  --dur-march: 1.2s;
+  --stripe-march: calc(var(--stripe-size) * 2 * 1.41421);
+
+  /* hero: mão robótica (736×1318) e posições relativas a ela */
+  --hand-ratio: 736 / 1318;
+  --hand-h: min(560px, 150vw);
+  --card-x: 25%;
+  --card-y: 40%;
+  --card-w: 52%;
+  /* canvas da mão 3D: maior que o rig, para o zoom no card não ser cortado */
+  --hand3d-inset: -16% -62% -6%;
+
+  /* eixo de giro do card. O spec pede o eixo na pinça; com a mão aberta, o centro
+     mantém o card sobre a palma (12% = eixo no polegar, testado e descartado). */
+  --card-pivot: 50%;
+  --thumb-x: 10.6%;
+  --thumb-y: 34.45%;
+  --thumb-w: 20.11%;
+
+  /* altura do card com o trilho travado (desktop) */
+  --rail-card-h: calc(100svh - var(--header-h) - var(--space-7));
+
+  /* altura máxima da captura no card de projeto (celular/sem trava) */
+  --cover-max-h: 60svh;
+
+  /* seção "papel" (clara) */
+  --paper: var(--white);
+  --paper-text: var(--void-950);
+  --paper-meta: #55505E;
+}
+
+@media (max-width: 639px) {
+  :root { --hand-h: min(620px, 165vw); --card-x: 18%; --card-w: 64%; --card-y: 38%; }
+}
+@media (min-width: 1024px) {
+  :root { --hand-h: min(86svh, 820px); --marble-w: 180px; --marble-h: 260px; }
+}

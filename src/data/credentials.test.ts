@@ -8,7 +8,8 @@ import { projects } from './portfolio'
 describe('published credentials and credits', () => {
   it('uses valid categories, bilingual titles and existing certificate documents', () => {
     expect(new Set(certificates.map(item => item.id)).size).toBe(certificates.length)
-    expect(certificates).toHaveLength(12)
+    expect(certificates).toHaveLength(14)
+    for (const item of certificates.filter(entry => entry.credential)) expect(item.credential).toMatch(/^https:\/\/www\.credly\.com\/badges\/[0-9a-f-]{36}$/)
     for (const item of certificates) {
       expect(certificateCategories.some(category => category.id === item.category)).toBe(true)
       expect(existsSync(`public/media/organizations/${organizations[item.organizationId].image}`)).toBe(true)

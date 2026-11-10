@@ -14,4 +14,10 @@ test-results/
 playwright-report/
 .lighthouseci/
 *.tsbuildinfo
-public/vendor/embedded/
+public/vendor/scroll/
+
+# especificações e referências locais da repaginação (não vão para o repo)
+design/
+/Y2K Style 02.jpeg
+/_.jpeg
+/ef654bbefc7de8b9e1b456681ae86ad6.jpg

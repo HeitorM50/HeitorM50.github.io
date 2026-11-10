@@ -1,6 +1,7 @@
 import type { OrganizationId } from './organizations'
 
 export const certificateCategories = [
+  { id: 'certifications', label: { pt: 'Certificações profissionais', en: 'Professional certifications' } },
   { id: 'courses', label: { pt: 'Cursos', en: 'Courses' } },
   { id: 'participation', label: { pt: 'Participação em eventos', en: 'Event participation' } },
   { id: 'extension', label: { pt: 'Extensão universitária', en: 'University extension' } }
@@ -15,11 +16,25 @@ export type Certificate = {
   date?: Record<'pt' | 'en', string>
   hours?: number
   document?: string
+  // página pública de verificação (ex.: Credly); só com link fornecido pelo Heitor
+  credential?: string
 }
 
 // Dates describe the event when the certificate does not state an issue date.
 // Missing dates, hours and credential URLs are intentionally left unspecified.
 export const certificates: Certificate[] = [
+  {
+    id: 'ibm-bob-v2-developer', category: 'certifications',
+    title: { pt: 'IBM Certified Bob v2 Developer – Associate', en: 'IBM Certified Bob v2 Developer – Associate' }, organizationId: 'ibm', issuer: 'IBM',
+    date: { pt: 'out. 2026', en: 'Oct 2026' },
+    credential: 'https://www.credly.com/badges/53c438bf-46c1-45fe-a60f-ea814d571657'
+  },
+  {
+    id: 'ibm-ai-v1-associate', category: 'certifications',
+    title: { pt: 'IBM Artificial Intelligence v1 – Associate', en: 'IBM Artificial Intelligence v1 – Associate' }, organizationId: 'ibm', issuer: 'IBM',
+    date: { pt: 'out. 2026', en: 'Oct 2026' },
+    credential: 'https://www.credly.com/badges/e7a5e5f2-6e71-4ee6-9f79-500b8f5bac4b'
+  },
   { id: 'claude-101', category: 'courses', title: { pt: 'Claude 101', en: 'Claude 101' }, organizationId: 'anthropic', issuer: 'Anthropic' },
   { id: 'claude-cowork', category: 'courses', title: { pt: 'Introduction to Claude Cowork', en: 'Introduction to Claude Cowork' }, organizationId: 'anthropic', issuer: 'Anthropic' },
   {

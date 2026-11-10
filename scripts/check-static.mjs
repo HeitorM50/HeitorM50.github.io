@@ -6,8 +6,12 @@ const required = [
   'index.html', 'en/index.html', 'projetos/hindsight/index.html',
   'en/projects/hindsight/index.html', 'unb-prazos/index.html',
   'omarchy-gcal/index.html', 'cv.pdf', '404.html', 'robots.txt', 'sitemap.xml',
-  'media/logo-metal-mask.svg', 'media/logo-metallic.png', 'vendor/profile-card.css',
-  'vendor/embedded/loader.js', 'vendor/embedded/portfolio-ui.js', 'media/pmi-workspace.webp', 'media/pmi-workspace.avif',
+  'projetos/index.html', 'en/projects/index.html', 'unbaja/index.html', 'en/unbaja/index.html',
+  'media/mao-robotica.webp', 'media/mao-robotica.avif', 'media/mao-robotica-polegar.webp', 'media/mao-robotica-polegar.avif',
+  'vendor/scroll/scroll.js', 'vendor/scroll/fx.js', 'media/robotic-hand.glb', 'media/contato-borboleta.webm', 'media/contato-borboleta.mp4', 'media/contato-borboleta.webp',
+  'favicon.svg', 'assets/glyphs.svg', 'assets/icons/ic_python.svg',
+  'fonts/tektur-latin.woff2', 'fonts/inter-latin.woff2', 'fonts/jetbrains-mono-latin.woff2',
+  'media/pmi-workspace.webp', 'media/pmi-workspace.avif',
   'media/omapkdex.webp', 'media/omapkdex.avif',
   'projetos/pmi-sleep-5/index.html', 'en/projects/pmi-sleep-5/index.html',
   'media/pmi-ibm-podium.png', 'media/pmi-ibm-review.png', 'media/pmi-ibm-feedback.png',
@@ -17,7 +21,7 @@ const required = [
   'certificates/ibm-dev-day-bob-in-action.pdf', 'certificates/hackathon-pmi-df-2026.pdf',
   'certificates/ifood-camp.pdf'
 ]
-const forbidden = ['media/scroll-reveal.mp4', 'media/logo.webp', 'media/logo.avif', 'vendor/gsap.min.js', 'vendor/metallic-paint.js', '_next/static/chunks', 'index.txt']
+const forbidden = ['media/scroll-reveal.mp4', 'media/logo.webp', 'media/logo.avif', 'vendor/gsap.min.js', 'vendor/metallic-paint.js', 'vendor/profile-card.css', 'vendor/embedded', 'media/logo-metallic.png', '_next/static/chunks', 'index.txt']
 
 const htmlFiles = []
 function walk(directory) {
