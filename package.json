@@ -16,7 +16,7 @@
     "test:e2e": "playwright test",
     "check:static": "node scripts/check-static.mjs",
     "check": "npm run typecheck && npm run lint && npm run test && npm run build && npm run check:static",
-    "lighthouse": "lhci autorun"
+    "lighthouse": "npx -y @lhci/cli@0.16.0 autorun"
   },
   "dependencies": {
     "gsap": "3.13.0",
@@ -28,7 +28,6 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.7",
-    "@lhci/cli": "0.16.0",
     "@playwright/test": "^1.63.0",
     "@testing-library/jest-dom": "^7.0.1",
     "@testing-library/react": "^16.3.3",
