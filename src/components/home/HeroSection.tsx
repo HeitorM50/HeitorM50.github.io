@@ -28,7 +28,7 @@ export function HeroSection({ locale }: { locale: Locale }) {
             uma camada separada, acima do card, para o card parecer seguro pela mão. */}
         <picture className="hand hand--back">
           <source srcSet="/media/mao-robotica.avif" type="image/avif" />
-          <img src="/media/mao-robotica.webp" alt="" width={736} height={1318} decoding="async" />
+          <img src="/media/mao-robotica.webp" alt="" width={736} height={1318} decoding="async" fetchPriority="high" />
         </picture>
         <div className="id-card" data-id-card>
           <div className="id-card__face id-card__face--front chamfer-md">

@@ -42,13 +42,14 @@ export function ContactSection({ locale }: { locale: Locale }) {
 }
 
 // Traço pessoal: monitor de "sinal" com o vídeo da borboleta, em loop e sem som.
-// Carrega só perto da tela (runtime estático, data-feed); com movimento reduzido fica no pôster.
+// Vídeo e pôster carregam só perto da tela (runtime estático, data-feed), para não
+// disputar banda com o hero. Com movimento reduzido fica só o pôster.
 function SignalFeed({ pt }: { pt: boolean }) {
   return <figure className="signal-feed">
     <div className="image-window__tabs" aria-hidden="true"><span /><span /><span className="mono">FEED // 0XBF-07</span></div>
     <div className="signal-feed__frame">
       <video className="signal-feed__video" data-feed muted loop playsInline preload="none" width={480} height={420}
-        poster="/media/contato-borboleta.webp" aria-label={pt ? 'Animação em loop de uma borboleta luminosa com pontos rastreados' : 'Looping animation of a glowing butterfly with tracked points'}>
+        data-poster="/media/contato-borboleta.webp" aria-label={pt ? 'Animação em loop de uma borboleta luminosa com pontos rastreados' : 'Looping animation of a glowing butterfly with tracked points'}>
         <source data-src="/media/contato-borboleta.webm" type="video/webm" />
         <source data-src="/media/contato-borboleta.mp4" type="video/mp4" />
       </video>

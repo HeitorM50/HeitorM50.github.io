@@ -68,9 +68,11 @@ function initContactForm(){
 }
 function initFeed(){
  var video=document.querySelector('video[data-feed]');if(!video||!('IntersectionObserver' in window))return;
- var still=matchMedia('(prefers-reduced-motion: reduce)').matches;if(still)return;
+ var still=matchMedia('(prefers-reduced-motion: reduce)').matches;
  var loaded=false;
  new IntersectionObserver(function(entries){entries.forEach(function(entry){
+  if(entry.isIntersecting&&!video.poster)video.poster=video.dataset.poster;
+  if(still)return;
   if(entry.isIntersecting){if(!loaded){loaded=true;video.querySelectorAll('source[data-src]').forEach(function(source){source.src=source.dataset.src});video.load()}var playing=video.play();if(playing&&playing.catch)playing.catch(function(){})}
   else if(loaded)video.pause();
  })},{rootMargin:'200px 0px'}).observe(video);
